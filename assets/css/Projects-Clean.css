@@ -150,7 +150,25 @@
   margin: 1px;
   transform-origin: center;
 }
+/* Remove this if doesnt work */
 
+.flex-container {
+  display: flex;
+  justify-content: space-between; /* Adjust this property to control the spacing between items */
+  list-style: none; /* Remove default list styles */
+}
+
+/* For smaller screens (e.g., mobile devices), the list items will stack vertically */
+@media screen and (max-width: 767px) {
+  .flex-container {
+    flex-wrap: wrap;
+  }
+
+  .flex-container li {
+    flex-basis: 10%; /* Adjust this value to control the width of the items on mobile */
+    margin-bottom: 10px; /* Adjust this value to control the spacing between items on mobile */
+  }
+}
 
 .description{
   text-align: center;
