@@ -127,9 +127,31 @@
   position: relative;
   transform: scale(1.6); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   z-index: 1;
-  border: 4px solid white;
+  border: 2px solid white;
   margin: 1px;
+  transform-origin: center;
 }
+@media (max-width: 1000px) {
+  .zoom:hover {
+    position: relative;
+    transform: scale(2.8); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    z-index: 1;
+    border: 1px solid white;
+    margin: 1px;
+    transform-origin: center;
+  }
+}
+
+.zoom-hs:hover {
+  position: relative;
+  transform: scale(1.6); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  z-index: 1;
+  border: 2px solid white;
+  margin: 1px;
+  transform-origin: center;
+}
+
+
 .description{
   text-align: center;
 
@@ -157,6 +179,11 @@
   width: 35px;
   margin-top: -5px;
   margin-left: -20px;
+}
+@media (max-width: 760px) {
+  .logo {
+    margin-left: 19px;
+  }
 }
 .logo-big{
    width: 70px;
