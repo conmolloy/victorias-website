@@ -186,7 +186,7 @@
 }
 .headshot{
   width: 100%;
-  max-width:400px;
+  max-width:550px;
   min-width: 370px;
   margin-top: 25px;
 }
@@ -255,4 +255,12 @@ hr{
 }
 #headshot{
   width: 70%
+}
+
+#about > div:nth-child(3) > div:nth-child(1) > figure {
+  margin-top: 100px;
+}
+
+.certificate {
+  margin-bottom: 20px;
 }
