@@ -3,15 +3,18 @@
 
 <head>
     <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-NXB648G');</script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NXB648G');</script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>My Resume</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
 
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -22,53 +25,96 @@
     <link rel="stylesheet" href="assets/css/Lightbox-Gallery.css">
     <link rel="stylesheet" href="assets/css/Projects-Clean.css">
     <link rel="stylesheet" href="assets/css/Social-Icons.css">
+    <style>
+        #pdf-container {
+            position: relative;
+            background: rgb(0, 0, 0);
+            color: var(--white);
+            padding: 20px;
+        }
+        #download-link {
+            position: absolute;
+            top: 10%;
+            right:5%;
+
+        }
+        #pdf-canvas {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXB648G"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXB648G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
-        <div class="container"><a class="navbar-brand js-scroll-trigger" href="/" style="font-family: Roboto, sans-serif;">Victoria Adler</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" ><i class="fa fa-bars"></i></button>
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/" style="font-family: Roboto, sans-serif;">Victoria Adler</a>
+            <button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button"><i class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link active js-scroll-trigger" href="/" style="background: rgba(255,255,255,0);font-family: Roboto, sans-serif;">Home</a></li>
-                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="resume" style="font-family: Roboto, sans-serif;">Resume</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="resume" style="font-family: Roboto, sans-serif;">CV</a></li>
                     <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="showreel" style="font-family: Roboto, sans-serif;">Showreel</a></li>
                     <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="headshot" style="font-family: Roboto, sans-serif;">Portfolio</a></li>
-
                     <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="gallery" style="font-family: Roboto, sans-serif;">Gallery</a></li>
-
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="reviews" style="font-family: Roboto, sans-serif;">Reviews</a></li>
                     <div class="flex-container">
                         <li class="nav-item nav-link"><a class="nav-link" href="https://www.spotlight.com/0456-8977-3433" ><img class="logo" src="assets/img/logos/spotlight.png"></a></li>
-                        <li class="nav-item nav-link"><a class="nav-link" href="https://www.imdb.com/name/nm8555965/?ref_=nmbio_bio_nm" ><img class="logo" src="assets\img\logos\imdb.png"></a></li>
-                        <li class="nav-item nav-link"><a class="nav-link" href="https://www.instagram.com/victoriaadlers/" ><img class="logo" src="assets/img/logos/instagram.png"></a></li>
-                        <li class="nav-item nav-link"><a class="nav-link" href="https://www.facebook.com/vadler3 " ><img class="logo" src="assets/img/logos/facebook.png"></a></li>
+                        <li class="nav-item nav-link"><a class="nav-link" href="https://www.imdb.com/name/nm8555965/?ref_=nmbio_bio_nm" ><img class="logo" src="assets/img/logos/imdb.png"></a></li>
+                        <li class="nav-item nav-link"><a class="nav-link" href="https://www.instagram.com/vickanadler" ><img class="logo" src="assets/img/logos/instagram.png"></a></li>
+                        <!-- <li class="nav-item nav-link"><a class="nav-link" href="https://www.facebook.com/vadler3 " ><img class="logo" src="assets/img/logos/facebook.png"></a></li> -->
                     </div>
                 </ul>
             </div>
         </div>
     </nav>
- <div class="header-container">
-    <section>
+    <div class="header-container">
         <section class="projects-clean" style="background: rgb(0,0,0);color: var(--white);">
-            <div class="container">
+            <div class="container" id="pdf-container">
                 <div class="row header-new">
                     <div class="intro">
                     </div>
                 </div>
-                <embed src="assets\cv\VICTORIA ADLER CV 2023.pdf" type="application/pdf" width="100%" height="800px" />
-
-
-                <!-- <iframe src="assets\cv\Victoria Adler Resume 2023.pdf" width="100%" height="1000px"></iframe> -->
-             </div>
+                <a id="download-link" class="btn btn-dark" href="assets/cv/VICTORIA ADLER CV 2025.pdf" download>Download PDF</a>
+                <canvas id="pdf-canvas"></canvas>
+            </div>
         </section>
-    </section>
- </div>
+    </div>
 
+    <script>
+        var url = 'assets/cv/VICTORIA ADLER CV 2024.pdf';
 
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
 
+        var loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function(pdf) {
+            pdf.getPage(1).then(function(page) {
+                var scale = 1.5;
+                var viewport = page.getViewport({scale: scale});
+
+                var canvas = document.getElementById('pdf-canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+                renderTask.promise.then(function() {
+                    console.log('Page rendered');
+                });
+            });
+        }, function(reason) {
+            console.error(reason);
+        });
+    </script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
