@@ -38,4 +38,6 @@ jobs:
             --exclude='.github/' \
             --exclude='.claude/' \
             --exclude='.vscode/' \
+            --exclude='*.md' \
+            --exclude='tools/' \
             ./ "$USER@$HOST:$REMOTE_PATH/"

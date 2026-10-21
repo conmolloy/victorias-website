@@ -10,3 +10,6 @@ assets/audio/solo/
 
 # Over GitHub's 100 MB file limit - upload via FTP until it's compressed
 assets/showreel/Showreel.mp4
+
+# Full-size originals of images converted to WebP (local backup only)
+_originals/
