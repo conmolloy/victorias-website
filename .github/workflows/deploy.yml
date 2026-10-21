@@ -1,0 +1,41 @@
+name: Deploy to Cloudways
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # allows a manual run from the Actions tab
+
+# never run two deploys at once
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.CLOUDWAYS_HOST }}
+      USER: ${{ secrets.CLOUDWAYS_USER }}
+      REMOTE_PATH: ${{ secrets.CLOUDWAYS_PATH }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        env:
+          SSH_KEY: ${{ secrets.CLOUDWAYS_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+
+      # No --delete: images, audio and video are gitignored and live only on
+      # the server, so files missing from the repo must be left alone.
+      - name: Upload site
+        run: |
+          rsync -avz \
+            --exclude='.git*' \
+            --exclude='.github/' \
+            --exclude='.claude/' \
+            --exclude='.vscode/' \
+            ./ "$USER@$HOST:$REMOTE_PATH/"

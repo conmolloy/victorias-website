@@ -1,4 +1,12 @@
-assets/audio
-assets/img
-assets/showreel
-assets/video
+.claude/
+
+# Media not referenced by any page (kept locally, not deployed)
+assets/video/OLD.mp4
+assets/audio/audio section/
+assets/audio/choir/
+assets/audio/lie to me/
+assets/audio/she used to be mine/
+assets/audio/solo/
+
+# Over GitHub's 100 MB file limit - upload via FTP until it's compressed
+assets/showreel/Showreel.mp4
