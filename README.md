@@ -78,7 +78,19 @@ Images are served as WebP. To add new ones:
    ```
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
-3. Commit and push.
+3. **Gallery photos only** (`<img class="img-fluid zoom">` in `gallery.html`):
+   make the smaller versions so phones/laptops don't download the 2000px
+   file for a small thumbnail. This writes `-400w`, `-800w` and `-1200w`
+   `.webp` files next to each new photo and adds `srcset`/`sizes`:
+
+   ```bash
+   uv run --with pillow python tools/make_thumbnails.py --apply
+   ```
+
+   Run it after step 2 (it uses the full-quality original in `_originals/`).
+   If you later replace a gallery photo with a new file, delete its
+   `srcset`/`sizes`/`width`/`height` attributes first so it's regenerated.
+4. Commit and push.
 
 Add `loading="lazy"` to `<img>` tags that aren't visible at the top of the
 page.

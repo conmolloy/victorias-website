@@ -22,6 +22,12 @@ git; the deploy never deletes files on the server.
       rules home/reviews depended on live in `assets/css/site-base.css` (5 KB
       vs 180 KB). Verified pixel-identical (full-page screenshots, desktop +
       phone, all 6 pages) and same behaviour (menu, scrolling, CV viewer).
+- [x] **Gallery thumbnails** – 400/800/1200px versions of every gallery photo
+      + `srcset`/`sizes` (sized for the hover zoom, so zoomed photos are as
+      sharp as before) + `width`/`height`. Whole-gallery image download:
+      12.6 MB → 3.2 MB (desktop, mobile) / 5.8 MB (Retina laptop, 3x phone).
+      Gallery LCP 25.7 → 9.8 s, weight 10.9 → 4.3 MB (median of 5 runs).
+      Tool: `tools/make_thumbnails.py`.
 
 ## Speed test (Lighthouse, simulated mobile, 2026-10-22)
 | Page | Weight before → after | Main content shown (LCP) before → after |
@@ -49,8 +55,11 @@ Scores stayed ~55–72: first paint was held up by framework CSS/JS, not media.
 Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
 
 ## Next
-- [ ] **Gallery thumbnails** – gallery shows ~300px thumbnails but downloads
-      2000px images (8.8 MB); generate small versions + `srcset`.
+- [ ] **Gallery video embeds** – 6 Vimeo + 1 YouTube players load ~1.2 MB of
+      third-party JS up front even if nobody presses play; now the gallery's
+      biggest cost and why its LCP varies between ~9 s and ~23 s. Quick fix:
+      `loading="lazy"` on the iframes; better: click-to-load preview image.
+- [ ] **Headshots page** – same thumbnail treatment (`srcset`) could apply.
 - [ ] **Cache headers** – 128 static files are served without long-lived
       caching; add expiry headers so repeat visits are instant.
 - [ ] **4. Astro + TypeScript** – shared nav/footer components instead of
