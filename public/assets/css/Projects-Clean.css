@@ -37,6 +37,13 @@
   margin: 0 auto;
 }
 
+/* "Certificates" is wider than the column on the smallest phones */
+@media (max-width: 359px) {
+  .projects-clean .intro h1 {
+    font-size: 2rem;
+  }
+}
+
 .projects-clean .intro p {
   margin-bottom: 0;
 }
@@ -193,7 +200,9 @@
   margin-top: 25px;
 }
 .video-containers {
-  min-width: 400px;
+  /* 400px makes the two videos stack once they'd be narrower than that;
+     capped at the row's width so they still fit on phones under 430px */
+  min-width: min(400px, 100%);
 }
 .logo {
   width: 35px;
@@ -227,6 +236,13 @@ audio {
 @media (max-width: 1000px) {
   audio {
     margin-left: 15%;
+  }
+}
+/* below 390px the 300px player no longer fits after that margin */
+@media (max-width: 389px) {
+  audio {
+    margin-left: 0;
+    width: 100%;
   }
 }
 .button-list li {

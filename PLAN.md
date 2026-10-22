@@ -148,11 +148,19 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
 
 ## Next
 
-- [ ] **Gallery is too wide on phones** (found by the new phone tests,
+- [x] **Gallery is too wide on phones** (found by the new phone tests,
       also on the live site before the Astro port): the video blocks make the
       page 430px wide on a 390px phone, so it scrolls sideways and the menu
-      button is partly off-screen. Fix, then remove the `test.fail(...)` line
-      in `tests/e2e/site.spec.ts`.
+      button is partly off-screen. Cause: the 400px `min-width` on
+      `.video-containers`, now `min(400px, 100%)` (videos still stack on
+      tablets).
+      Below 390px the audio players (300px + 15% margin) and the
+      "Certificates" heading were also too wide; they now fit the column.
+      Gallery fits at 320–430px; desktop screenshots of every page and phone
+      screenshots of the other pages unchanged. `test.fail(...)` removed.
+- [ ] **Home (320–385px) and reviews (320px) are too wide on the smallest
+      phones**: `.headshot { min-width: 370px }` on home, a `.col-md` on
+      reviews. Not covered by the 390px phone tests.
 - [x] **Accessibility**: `alt` text for all 114 photos/logos (show and
       company for gallery photos, photographer and year for headshots,
       site name for the profile logos, what each certificate is), labels
