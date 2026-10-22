@@ -1,0 +1,12 @@
+{
+  "name": "trim-css",
+  "private": true,
+  "description": "Removes CSS rules the site's pages never use (see trim-css.js)",
+  "scripts": {
+    "trim": "node trim-css.js"
+  },
+  "dependencies": {
+    "postcss": "8.4.49",
+    "puppeteer-core": "23.11.1"
+  }
+}

@@ -6,10 +6,15 @@ reviews. Plain static HTML/CSS/JS – no build step, no PHP.
 Each page loads the same small stack:
 
 - **Bootstrap 4.6** with the Start Bootstrap *Grayscale* theme
-  (`assets/bootstrap/`) – layout, navbar, mobile menu
+  (`assets/bootstrap/`) – layout, navbar, mobile menu. Pages load a
+  **trimmed** `bootstrap.min.css` (11 KB, only the rules the site uses);
+  the complete theme is `bootstrap.full.min.css` – see
+  [Trimmed CSS](#trimmed-css-bootstrap-and-icons).
 - **jQuery 3.5** (needed by Bootstrap 4's JS) + `assets/js/grayscale.js`
   (smooth scrolling, navbar shrink on scroll) – loaded at the end of `<body>`
-- **Font Awesome 4.7** icons (`assets/fonts/font-awesome.min.css`)
+- **Font Awesome 4.7** icons, also trimmed: `assets/fonts/font-awesome.min.css`
+  + `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
+  envelope, arrow-down)
 - **Fonts, self-hosted** (no Google Fonts requests): Lora + Cabin via
   `assets/css/fonts.css` on every page, Roboto (`font-roboto.css`) on all
   pages except home, Outfit (`font-outfit.css`) on home. Files are in
@@ -117,6 +122,39 @@ ffmpeg -i input.mov -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -c:a aac 
 
 For a muted background video use `-crf 28 -an` instead (no audio track).
 Keep files well under 100 MB.
+
+## Trimmed CSS (Bootstrap and icons)
+
+Every page has to download its CSS before it can show anything, so the
+Bootstrap theme and Font Awesome are trimmed to the rules the pages use
+(159 KB → 11 KB and 30 KB → 1 KB). `tools/trim-css` opens each page in
+Chrome – phone/tablet/desktop, scrolled, with the mobile menu open – and keeps
+every rule that matches something.
+
+| Pages load (trimmed, generated) | Source (complete, edit this) |
+|---|---|
+| `assets/bootstrap/css/bootstrap.min.css` | `assets/bootstrap/css/bootstrap.full.min.css` |
+| `assets/fonts/font-awesome.min.css` | `assets/fonts/font-awesome.full.min.css` |
+| `assets/fonts/fontawesome-subset.woff2` | `assets/fonts/fontawesome-webfont.woff2` |
+
+**Added a Bootstrap component, a new page, or a new icon** (e.g.
+`<i class="fa fa-star">`) and it looks unstyled or the icon is blank?
+Re-generate the trimmed files (needs Node.js and Chrome):
+
+```bash
+cd tools/trim-css && npm install && npm run trim
+```
+
+and, for icons, then from the repo root:
+
+```bash
+uv run --with fonttools --with brotli python tools/subset_icons.py
+```
+
+New pages need adding to the `PAGES` list in `tools/trim-css/trim-css.js`.
+Quick fallback without the tools: point the page's `<link>` at
+`bootstrap.full.min.css` / `font-awesome.full.min.css` (slower, but
+complete – icons still need the subset re-run or the full font).
 
 ## Adding a Vimeo/YouTube video to the gallery
 

@@ -55,6 +55,15 @@ git; the deploy never deletes files on the server.
       Gallery first-row photos on a throttled phone: done at ~3.5 s instead
       of ~21 s, heading LCP unchanged. (Also making gallery row 2 eager
       hurt Lighthouse's simulated LCP 5.0 → 6.6 s, so row 2 stays lazy.)
+- [x] **Trimmed CSS + icon font** – `tools/trim-css` keeps only the Bootstrap
+      theme / Font Awesome rules the pages use (checked in every state:
+      phone/tablet/desktop, scrolled, menu open): 159 → 11 KB and 30 → 1 KB;
+      icon font cut to the 4 icons used (75 → 1 KB, `tools/subset_icons.py`).
+      Full versions kept as `*.full.min.css`. Pixel-identical (12 full pages
+      + 29 interactive-state screenshots). Fixed two syntax errors in the
+      theme file that browsers were already ignoring. Lighthouse (median of
+      3): home 66 → 85, gallery 75 → 81, headshots 71 → 84, CV 72 → 88,
+      reviews 72 → 92, showreel 77 → 92; first paint roughly halved.
 
 ## Speed test (Lighthouse, simulated mobile, 2026-10-22)
 | Page | Weight before → after | Main content shown (LCP) before → after |
@@ -82,13 +91,12 @@ Scores stayed ~55–72: first paint was held up by framework CSS/JS, not media.
 Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
 
 ## Next
-- [ ] **Font Awesome** – 77 KB font + 31 KB CSS for 5 icons; replace with
-      inline SVGs.
 - [ ] **Home navbar font** – asks for Roboto but home never loads it, so it
       shows in Arial unlike every other page. Decide which is intended.
-- [ ] **Render-blocking theme CSS** – the gallery heading (its LCP) waits on
-      `bootstrap.min.css` (163 KB, 29 KB gzipped on the live server); inline the critical CSS
-      or trim unused Bootstrap/theme rules (~180 KB unused per Lighthouse).
+- [ ] **"Read Review" buttons go blank on hover** (home + reviews) – existing
+      bug since before these changes: Bootstrap's `.btn:hover` turns the text
+      #212529 on the buttons' #212121 background. One-line fix, e.g.
+      `.btn.grey:hover { color: #fff; }` – changes the look, so needs a yes.
 - [ ] **Cache headers** – 128 static files are served without long-lived
       caching; add expiry headers so repeat visits are instant.
 - [ ] **4. Astro + TypeScript** – shared nav/footer components instead of
