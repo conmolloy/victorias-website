@@ -2,11 +2,23 @@
   "name": "victoria-adler-website",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.23.4"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "lint": "eslint . && stylelint \"**/*.{css,astro}\"",
+    "lint:fix": "eslint . --fix && stylelint \"**/*.{css,astro}\" --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "vitest run tests/unit",
+    "test:watch": "vitest tests/unit",
+    "test:dist": "vitest run tests/dist",
+    "test:e2e": "playwright test",
+    "verify": "npm run format:check && npm run lint && npm test && npm run build && npm run test:dist && npm run test:e2e"
   },
   "dependencies": {
     "astro": "7.4.2"
