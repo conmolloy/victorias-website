@@ -1,0 +1,16 @@
+# Check out text files with LF everywhere (also on Windows). The ?v= hash on
+# CSS/JS links is computed from file bytes, so CRLF checkouts used to produce
+# different hashes locally than on the server.
+* text=auto eol=lf
+
+# never touch binaries
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff2 binary
+*.mp3 binary
+*.mp4 binary
+*.ogg binary
+*.pdf binary
