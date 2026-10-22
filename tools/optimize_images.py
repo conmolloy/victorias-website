@@ -23,7 +23,7 @@ QUALITY = 80
 PAGES = ["index.html", "gallery.html", "headshot.html", "resume.html",
          "reviews.html", "showreel.html"]
 PAGES = [p for p in PAGES if os.path.exists(os.path.join(ROOT, p))]
-REF = re.compile(r"assets[\\/][^\"'()<>&\n]*?\.(?:jpe?g|png)", re.I)
+REF = re.compile(r"assets[\\/][^\"'<>&\n]*?\.(?:jpe?g|png)", re.I)
 
 
 def exact_case(rel):
