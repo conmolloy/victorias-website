@@ -34,6 +34,17 @@ git; the deploy never deletes files on the server.
       Same size and position as before, nothing moves on click. Gallery
       (median of 5): score 65 → 71, first paint 3.5 → 2.6 s, JS 1.9 → 0.5 MB,
       weight 4.3 → 2.5 MB, requests 203 → 81. Tool: `tools/video_facades.py`.
+- [x] **Self-hosted fonts** – Lora, Cabin, Roboto, Outfit now served from
+      `assets/fonts/` (same files Google served, latin + latin-ext only,
+      `font-display: swap`, first-screen fonts preloaded) instead of a
+      render-blocking chain through Google (theme `@import` → Google CSS →
+      font files). Google Fonts requests per page 5–8 → 0. Pixel-identical.
+      Each page keeps exactly the fonts it had (home navbar still falls back
+      to Arial – it asks for Roboto but home never loaded it).
+      Faster first paint exposed a layout shift on headshots (photos had no
+      dimensions) → added width/height: headshots CLS 0.051 → 0.
+      Median of 3: gallery 71 → 80 (LCP 9.2 → 4.8 s), reviews LCP 6.2 → 4.5 s,
+      showreel 74 → 78, home/headshots ≈ same.
 
 ## Speed test (Lighthouse, simulated mobile, 2026-10-22)
 | Page | Weight before → after | Main content shown (LCP) before → after |
@@ -61,14 +72,15 @@ Scores stayed ~55–72: first paint was held up by framework CSS/JS, not media.
 Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
 
 ## Next
-- [ ] **Fonts / render-blocking CSS** – the gallery's LCP is now the first
-      heading's *text* (~9 s simulated mobile), waiting on CSS + web fonts
-      (Google Fonts CSS is render-blocking; theme loads several families).
-      Self-host the fonts actually used, `font-display: swap`, preload.
+- [ ] **Font Awesome** – 77 KB font + 31 KB CSS for 5 icons; replace with
+      inline SVGs.
+- [ ] **Home navbar font** – asks for Roboto but home never loads it, so it
+      shows in Arial unlike every other page. Decide which is intended.
 - [ ] **First-screen photos are lazy** – on the gallery the photos visible
       on load have `loading="lazy"` (the "skip the first image" rule hit a
       commented-out one); make the first row eager.
-- [ ] **Headshots page** – same thumbnail treatment (`srcset`) could apply.
+- [ ] **Headshots page** – same thumbnail treatment (`srcset`) could apply;
+      its LCP (~8.7 s) is the first 1600×2000 headshot.
 - [ ] **Cache headers** – 128 static files are served without long-lived
       caching; add expiry headers so repeat visits are instant.
 - [ ] **4. Astro + TypeScript** – shared nav/footer components instead of

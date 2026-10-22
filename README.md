@@ -10,6 +10,13 @@ Each page loads the same small stack:
 - **jQuery 3.5** (needed by Bootstrap 4's JS) + `assets/js/grayscale.js`
   (smooth scrolling, navbar shrink on scroll) – loaded at the end of `<body>`
 - **Font Awesome 4.7** icons (`assets/fonts/font-awesome.min.css`)
+- **Fonts, self-hosted** (no Google Fonts requests): Lora + Cabin via
+  `assets/css/fonts.css` on every page, Roboto (`font-roboto.css`) on all
+  pages except home, Outfit (`font-outfit.css`) on home. Files are in
+  `assets/fonts/` (latin + latin-ext subsets, `font-display: swap`). Each
+  page `<link rel="preload">`s the fonts its first screen uses. To add a
+  font, download it from Google Fonts (or google-webfonts-helper) as woff2
+  rather than linking `fonts.googleapis.com`.
 - `assets/css/Projects-Clean.css` – the site's own styles
 - `assets/css/site-base.css` – **home and reviews only**: the base typography,
   buttons and header-video layout those two pages were designed with

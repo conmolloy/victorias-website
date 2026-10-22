@@ -358,3 +358,9 @@ hr{
   outline: 3px solid #fff;
   outline-offset: -3px;
 }
+
+/* Headshots have width/height attributes so their space is reserved while
+   loading; keep the aspect ratio when CSS sets the width (.w-100). */
+img.zoom-hs {
+  height: auto;
+}
