@@ -217,10 +217,50 @@
 .logo-big {
   width: 70px;
 }
+/* Gallery section links (Acting, Dance, ...): outlined buttons in the
+   navbar's style - 2 per row on phones, 3 on tablets, 6 on desktop */
+.gallery-nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 0 auto 10px;
+}
+@media (min-width: 768px) {
+  .gallery-nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  .gallery-nav {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
 .galbtn {
+  display: block;
+  padding: 10px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.galbtn:hover,
+.galbtn:focus-visible {
   background-color: white;
-  width: 120px;
-  margin-bottom: 10px;
+  border-color: white;
+  color: black;
+  text-decoration: none;
+}
+.galbtn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
 }
 .dance {
   width: 338px;
@@ -253,10 +293,11 @@ audio {
   color: white;
   font-size: 60px;
 }
+/* dividers between gallery productions: a subtle line on the black page */
 hr {
-  color: white;
-  background-color: white;
-  height: 1px;
+  height: 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 .helper {
   margin-top: 30px;
