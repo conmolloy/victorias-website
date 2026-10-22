@@ -3,71 +3,87 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-    title="My Resume"
-    lang="en"
-    favicon={false}
-    preloads={["roboto-400-latin.woff2", "lora-latin.woff2"]}
+  title="My Resume"
+  lang="en"
+  favicon={false}
+  preloads={["roboto-400-latin.woff2", "lora-latin.woff2"]}
 >
-    <script is:inline slot="head-scripts" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <style is:inline slot="head">
-        #pdf-container {
-            position: relative;
-            background: rgb(0, 0, 0);
-            color: var(--white);
-            padding: 20px;
-        }
-        #download-link {
-            position: absolute;
-            top: 10%;
-            right:5%;
+  <script
+    is:inline
+    slot="head-scripts"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"
+  ></script>
+  <style is:inline slot="head">
+    #pdf-container {
+      position: relative;
+      background: rgb(0, 0, 0);
+      color: var(--white);
+      padding: 20px;
+    }
+    #download-link {
+      position: absolute;
+      top: 10%;
+      right: 5%;
+    }
+    #pdf-canvas {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+  <div class="header-container">
+    <section
+      class="projects-clean"
+      style="background: rgb(0,0,0);color: var(--white);"
+    >
+      <div class="container" id="pdf-container">
+        <div class="row header-new">
+          <div class="intro"></div>
+        </div>
+        <a
+          id="download-link"
+          class="btn btn-dark"
+          href="assets/cv/VICTORIA ADLER CV 2025.pdf"
+          download
+        >
+          Download PDF
+        </a>
+        <canvas id="pdf-canvas"></canvas>
+      </div>
+    </section>
+  </div>
 
-        }
-        #pdf-canvas {
-            width: 100%;
-            height: auto;
-        }
-    </style>
-    <div class="header-container">
-        <section class="projects-clean" style="background: rgb(0,0,0);color: var(--white);">
-            <div class="container" id="pdf-container">
-                <div class="row header-new">
-                    <div class="intro">
-                    </div>
-                </div>
-                <a id="download-link" class="btn btn-dark" href="assets/cv/VICTORIA ADLER CV 2025.pdf" download>Download PDF</a>
-                <canvas id="pdf-canvas"></canvas>
-            </div>
-        </section>
-    </div>
+  <script is:inline>
+    var url = "assets/cv/VICTORIA ADLER CV 2025.pdf";
 
-    <script is:inline>
-        var url = 'assets/cv/VICTORIA ADLER CV 2025.pdf';
+    var pdfjsLib = window["pdfjs-dist/build/pdf"];
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
 
-        var pdfjsLib = window['pdfjs-dist/build/pdf'];
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+    var loadingTask = pdfjsLib.getDocument(url);
+    loadingTask.promise.then(
+      function (pdf) {
+        pdf.getPage(1).then(function (page) {
+          var scale = 1.5;
+          var viewport = page.getViewport({ scale: scale });
 
-        var loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
-            pdf.getPage(1).then(function(page) {
-                var scale = 1.5;
-                var viewport = page.getViewport({scale: scale});
+          var canvas = document.getElementById("pdf-canvas");
+          var context = canvas.getContext("2d");
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
 
-                var canvas = document.getElementById('pdf-canvas');
-                var context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                var renderTask = page.render(renderContext);
-                renderTask.promise.then(function() {
-                    console.log('Page rendered');
-                });
-            });
-        }, function(reason) {
-            console.error(reason);
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport,
+          };
+          var renderTask = page.render(renderContext);
+          renderTask.promise.then(function () {
+            console.log("Page rendered");
+          });
         });
-    </script>
+      },
+      function (reason) {
+        console.error(reason);
+      },
+    );
+  </script>
 </BaseLayout>

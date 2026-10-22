@@ -17,7 +17,10 @@ export function v(path: string): string {
   let hash = versions.get(path);
   if (hash === undefined) {
     const file = join(process.cwd(), "public", path);
-    hash = createHash("md5").update(readFileSync(file)).digest("hex").slice(0, 8);
+    hash = createHash("md5")
+      .update(readFileSync(file))
+      .digest("hex")
+      .slice(0, 8);
     versions.set(path, hash);
   }
   return `${path}?v=${hash}`;

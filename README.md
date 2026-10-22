@@ -7,7 +7,7 @@ plain static HTML/CSS/JS – no PHP, no server-side code. The build output
 
 Each page loads the same small stack:
 
-- **Bootstrap 4.6** with the Start Bootstrap *Grayscale* theme
+- **Bootstrap 4.6** with the Start Bootstrap _Grayscale_ theme
   (`public/assets/bootstrap/`) – layout, navbar, mobile menu. Pages load a
   **trimmed** `bootstrap.min.css` (11 KB, only the rules the site uses);
   the complete theme is `bootstrap.full.min.css` – see
@@ -15,8 +15,8 @@ Each page loads the same small stack:
 - **jQuery 3.5** (needed by Bootstrap 4's JS) + `assets/js/grayscale.js`
   (smooth scrolling, navbar shrink on scroll) – loaded at the end of `<body>`
 - **Font Awesome 4.7** icons, also trimmed: `assets/fonts/font-awesome.min.css`
-  + `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
-  envelope, arrow-down)
+  - `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
+    envelope, arrow-down)
 - **Fonts, self-hosted** (no Google Fonts requests): Lora + Cabin via
   `assets/css/fonts.css` and Roboto (`font-roboto.css`) on every page, Outfit
   (`font-outfit.css`) on home. Files are in `public/assets/fonts/` (latin +
@@ -25,7 +25,7 @@ Each page loads the same small stack:
   font, download it from Google Fonts (or google-webfonts-helper) as woff2
   rather than linking `fonts.googleapis.com`.
 - **Google Tag Manager** (`GTM-NXB648G` – Google Analytics `G-WXKX3EMGL2` +
-  Google Ads tags) is loaded *after* the page: on the first
+  Google Ads tags) is loaded _after_ the page: on the first
   scroll/tap/click/key, 3 s after load, or when the tab is switched away.
   It used to block the page for ~350 ms on every visit. Trade-off: a visitor
   who leaves within ~3 s without touching the page isn't counted. The
@@ -38,24 +38,24 @@ Each page loads the same small stack:
 
 ## Where things live
 
-| Path | What |
-|---|---|
-| `src/pages/*.astro` | one file per page → `dist/<name>.html` |
-| `src/layouts/BaseLayout.astro` | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts |
-| `src/components/Navbar.astro` | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top) |
-| `src/components/Contact.astro` | "Contact Me" section on the home page |
-| `src/lib/asset.ts` | `v()` – adds the `?v=<hash>` to local CSS/JS links |
-| `public/` | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
-| `tools/` | maintenance scripts (not deployed) |
+| Path                           | What                                                                                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/pages/*.astro`            | one file per page → `dist/<name>.html`                                                                                                     |
+| `src/layouts/BaseLayout.astro` | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
+| `src/components/Navbar.astro`  | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
+| `src/components/Contact.astro` | "Contact Me" section on the home page                                                                                                      |
+| `src/lib/asset.ts`             | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
+| `public/`                      | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
+| `tools/`                       | maintenance scripts (not deployed)                                                                                                         |
 
-| Page | File | Shows |
-|---|---|---|
-| `/` (`index.html`) | `src/pages/index.astro` | Home – header video, about, reviews, contact |
-| `/headshot` | `src/pages/headshot.astro` | Headshots |
-| `/gallery` | `src/pages/gallery.astro` | Production photos, audio clips and voicereels |
-| `/showreel` | `src/pages/showreel.astro` | Showreel video |
-| `/resume` | `src/pages/resume.astro` | CV (PDF shown with PDF.js) |
-| `/reviews` | `src/pages/reviews.astro` | Reviews |
+| Page               | File                       | Shows                                         |
+| ------------------ | -------------------------- | --------------------------------------------- |
+| `/` (`index.html`) | `src/pages/index.astro`    | Home – header video, about, reviews, contact  |
+| `/headshot`        | `src/pages/headshot.astro` | Headshots                                     |
+| `/gallery`         | `src/pages/gallery.astro`  | Production photos, audio clips and voicereels |
+| `/showreel`        | `src/pages/showreel.astro` | Showreel video                                |
+| `/resume`          | `src/pages/resume.astro`   | CV (PDF shown with PDF.js)                    |
+| `/reviews`         | `src/pages/reviews.astro`  | Reviews                                       |
 
 Per-page differences are props on `BaseLayout`: `title`, `lang`, `favicon`,
 `preloads` (font files), `outfit` / `siteBase` (extra stylesheets),
@@ -150,6 +150,7 @@ Images are served as WebP. To add new ones:
    ```
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
+
 3. **Gallery and headshot photos** (`<img class="... zoom">` in
    `src/pages/gallery.astro`, `<img class="... zoom-hs">` in
    `src/pages/headshot.astro`): make the smaller versions so phones/laptops
@@ -164,6 +165,7 @@ Images are served as WebP. To add new ones:
    Run it after step 2 (it uses the full-quality original in `_originals/`).
    If you later replace a gallery photo with a new file, delete its
    `srcset`/`sizes`/`width`/`height` attributes first so it's regenerated.
+
 4. Commit and push.
 
 Add `loading="lazy"` to `<img>` tags that **aren't** visible at the top of
@@ -192,11 +194,11 @@ Bootstrap theme and Font Awesome are trimmed to the rules the pages use
 (`dist/*.html`) in Chrome – phone/tablet/desktop, scrolled, with the mobile
 menu open – and keeps every rule that matches something.
 
-| Pages load (trimmed, generated) | Source (complete, edit this) |
-|---|---|
+| Pages load (trimmed, generated)                 | Source (complete, edit this)                         |
+| ----------------------------------------------- | ---------------------------------------------------- |
 | `public/assets/bootstrap/css/bootstrap.min.css` | `public/assets/bootstrap/css/bootstrap.full.min.css` |
-| `public/assets/fonts/font-awesome.min.css` | `public/assets/fonts/font-awesome.full.min.css` |
-| `public/assets/fonts/fontawesome-subset.woff2` | `public/assets/fonts/fontawesome-webfont.woff2` |
+| `public/assets/fonts/font-awesome.min.css`      | `public/assets/fonts/font-awesome.full.min.css`      |
+| `public/assets/fonts/fontawesome-subset.woff2`  | `public/assets/fonts/fontawesome-webfont.woff2`      |
 
 **Added a Bootstrap component, a new page, or a new icon** (e.g.
 `<i class="fa fa-star">`) and it looks unstyled or the icon is blank?

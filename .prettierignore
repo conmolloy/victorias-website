@@ -1,0 +1,17 @@
+# build output and dependencies
+dist/
+.astro/
+node_modules/
+package-lock.json
+
+# served exactly as-is (vendor files, generated trimmed CSS, site CSS/JS whose
+# bytes set the ?v= cache-busting hash)
+public/
+
+# generated reports
+perf/
+playwright-report/
+test-results/
+
+# must stay byte-for-byte as Google supplies it (plus our deferred loading)
+src/components/GoogleTagManager.astro
