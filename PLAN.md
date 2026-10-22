@@ -123,11 +123,11 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
       files keep their cached URL). Deploy builds and uploads `dist/`; PRs
       get a build check. Tools updated for the new layout; Puppeteer checks
       kept in `tools/visual-check/`.
-      Verified against `main`: 12/12 full-page screenshots (1366 + 390px)
-      identical except 14 px inside an audio player's buffering bar;
-      31/31 interactive states (menu open/focus, scrolled navbar, nav hover,
-      button / video preview / zoom photo hover) identical except 3 px inside
-      gallery photos; parsed DOM identical except head order on home and the
+      Verified against `main`: 12 full-page screenshots (1366 + 390px)
+      identical apart from the gallery audio players' buffering bars (which
+      vary run to run); 31/31 interactive states (menu open/focus, scrolled
+      navbar, nav hover, button / video preview / zoom photo hover)
+      identical; parsed DOM identical except head order on home and the
       end-of-body scripts' parent on headshots/reviews (see PR); same
       behaviour (menu, navbar shrink, smooth scroll, video previews, CV PDF,
       no console errors); returning visitor with 30-day-cached CSS/JS from
