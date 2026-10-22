@@ -92,16 +92,14 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
 
 - [x] **"Read Review" buttons** no longer go blank on hover (text stays
       white; Bootstrap's `.btn:hover` made it dark grey on the dark button).
+- [x] **Varnish turned off** (Cloudways → Application Settings) – it cached
+      the HTML at `/` and `/gallery` etc. and deploys didn't purge it, so
+      visitors got stale pages (`/` had lost its fonts). Checked: no
+      `x-cache` headers, `/` identical to `/index.html`, fonts load.
 - [x] **Home navbar** now uses Roboto like every other page (was falling back
       to Arial). Before/after: `perf/2026-10-22/navbar-and-hover-fix.png`.
 
 ## Next
-- [ ] **Varnish** – Cloudways' Varnish cached the HTML at `/` and the
-      extension-less nav URLs (`/gallery`, …) and deploys don't purge it, so
-      visitors got stale pages (on 2026-10-22 `/` lost its fonts because of
-      it). Decision: turn Varnish **off** for this app in Cloudways →
-      Application Settings. Then confirm `curl -sI https://victoriaadler.co.uk/`
-      has no `x-cache: HIT`.
 - [ ] **Google Tag Manager** – now the biggest cost on the live site: 343 KB
       of JS blocking the main thread ~350 ms on every page (live scores
       62–68 vs 81–92 locally without it). Could load it after the page has
