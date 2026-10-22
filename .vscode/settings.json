@@ -1,3 +1,10 @@
 {
-    "liveServer.settings.port": 5501
+  // Prettier for everything, including .astro (it respects .prettierignore,
+  // which keeps the Google Tag Manager snippet untouched)
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "prettier.documentSelectors": ["**/*.astro"],
+  "eslint.validate": ["javascript", "typescript", "astro"],
+  "stylelint.validate": ["css", "astro"],
+  "files.eol": "\n"
 }

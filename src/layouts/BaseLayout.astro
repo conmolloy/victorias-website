@@ -7,6 +7,7 @@
  * Local CSS/JS links go through v() so they carry a content-hash ?v=
  * (browsers cache CSS/JS for 30 days).
  */
+import GoogleTagManager from "../components/GoogleTagManager.astro";
 import Navbar from "../components/Navbar.astro";
 import { v } from "../lib/asset";
 
@@ -43,47 +44,53 @@ const {
 ---
 
 <html lang={lang}>
-
-<head>
-    <!-- Google Tag Manager (loaded after the page has finished loading, so it
-         doesn't slow the page down: on the first scroll/tap/click/key, or 3 s
-         after load, or when the tab is switched away – whichever comes first) -->
-        <script is:inline>(function(w,d,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var done=false,ev=['scroll','pointerdown','keydown','touchstart'];
-        function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load)});d.removeEventListener('visibilitychange',load);
-        var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;
-        d.head.appendChild(j);}
-        ev.forEach(function(e){w.addEventListener(e,load,{passive:true})});d.addEventListener('visibilitychange',load);
-        if(d.readyState==='complete')setTimeout(load,3000);else w.addEventListener('load',function(){setTimeout(load,3000)});
-        })(window,document,'dataLayer','GTM-NXB648G');</script>
-    <!-- End Google Tag Manager -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    {favicon && <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />}
+  <head>
+    <GoogleTagManager />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    {favicon && (
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    )}
     <title>{title}</title>
     <slot name="head-scripts" />
-    {preloads.map((font) => <link rel="preload" href={`assets/fonts/${font}`} as="font" type="font/woff2" crossorigin>)}
-    <link rel="stylesheet" href={v("assets/css/fonts.css")}>
-    <link rel="stylesheet" href={v("assets/bootstrap/css/bootstrap.min.css")}>
-    {outfit && <link rel="stylesheet" href={v("assets/css/font-outfit.css")}>}
-    <link rel="stylesheet" href={v("assets/css/font-roboto.css")}>
-    <link rel="stylesheet" href={v("assets/fonts/font-awesome.min.css")}>
-    <link rel="stylesheet" href={v("assets/css/Projects-Clean.css")}>
-    {siteBase && <link rel="stylesheet" href={v("assets/css/site-base.css")}>}
+    {preloads.map((font) => (
+      <link
+        rel="preload"
+        href={`assets/fonts/${font}`}
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+    ))}
+    <link rel="stylesheet" href={v("assets/css/fonts.css")} />
+    <link rel="stylesheet" href={v("assets/bootstrap/css/bootstrap.min.css")} />
+    {outfit && <link rel="stylesheet" href={v("assets/css/font-outfit.css")} />}
+    <link rel="stylesheet" href={v("assets/css/font-roboto.css")} />
+    <link rel="stylesheet" href={v("assets/fonts/font-awesome.min.css")} />
+    <link rel="stylesheet" href={v("assets/css/Projects-Clean.css")} />
+    {siteBase && <link rel="stylesheet" href={v("assets/css/site-base.css")} />}
     <slot name="head" />
-</head>
+  </head>
 
-<body id={bodyId} style={bodyStyle}>
+  <body id={bodyId} style={bodyStyle}>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXB648G"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NXB648G"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
     <Navbar brandHref={brandHref} />
-<slot />
+    <slot />
     <script is:inline src={v("assets/js/jquery.min.js")}></script>
     <script is:inline src={v("assets/bootstrap/js/bootstrap.min.js")}></script>
     <script is:inline src={v("assets/js/grayscale.js")}></script>
     <slot name="scripts" />
-</body>
-
+  </body>
 </html>

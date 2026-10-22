@@ -1,0 +1,15 @@
+# build output and dependencies
+dist/
+.astro/
+node_modules/
+package-lock.json
+
+# third-party and generated files, served exactly as shipped
+public/assets/bootstrap/
+public/assets/fonts/
+public/assets/js/*.min.js
+
+# generated reports
+perf/
+playwright-report/
+test-results/

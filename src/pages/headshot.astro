@@ -3,300 +3,440 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-    title="Portfolio"
-    preloads={["cabin-700-latin.woff2", "roboto-400-latin.woff2"]}
+  title="Portfolio"
+  preloads={["cabin-700-latin.woff2", "roboto-400-latin.woff2"]}
 >
-   <div class="header-container">
-            <section class="projects-clean" style="background: rgb(255,255,255);color: black;">
-                <div class="container">
-                    <div class="row header-new">
-                        <div class="intro">
-                        </div>
-                    </div>
-                </div>
-            </section>
-    </div>
-
-    <div class="container">
-
-      <h1 class="text-center">2024</h1>
-    
-  
-      <div class="row">
-        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-            <img fetchpriority="high"
-              src="assets/img/headshot 2024/q3/victoria-7646-3.webp" srcset="assets/img/headshot%202024/q3/victoria-7646-3-400w.webp 400w, assets/img/headshot%202024/q3/victoria-7646-3-800w.webp 800w, assets/img/headshot%202024/q3/victoria-7646-3-1200w.webp 1200w, assets/img/headshot%202024/q3/victoria-7646-3.webp 1600w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-              class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1600" height="2000"
-            />
-          </div>
-          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-            <img decoding="async"
-              src="assets/img/headshot 2024/q3/victoria-7753-3.webp" srcset="assets/img/headshot%202024/q3/victoria-7753-3-400w.webp 400w, assets/img/headshot%202024/q3/victoria-7753-3-800w.webp 800w, assets/img/headshot%202024/q3/victoria-7753-3-1200w.webp 1200w, assets/img/headshot%202024/q3/victoria-7753-3.webp 1600w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-              class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1600" height="2000"
-            />
-          </div>
-          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-            <img decoding="async"
-              src="assets/img/headshot 2024/q3/victoria-7939-3.webp" srcset="assets/img/headshot%202024/q3/victoria-7939-3-400w.webp 400w, assets/img/headshot%202024/q3/victoria-7939-3-800w.webp 800w, assets/img/headshot%202024/q3/victoria-7939-3-1200w.webp 1200w, assets/img/headshot%202024/q3/victoria-7939-3.webp 1600w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-              class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1600" height="2000"
-            />
-        </div>
-
+  <div class="header-container">
+    <section
+      class="projects-clean"
+      style="background: rgb(255,255,255);color: black;"
+    >
+      <div class="container">
+        <div class="row header-new">
+          <div class="intro"></div>
         </div>
       </div>
-    
-  
-    <div class="container text-center"> 
-      <br>
-      <h6>Photography by Michael Shelford</h6>
-      <br><br>
+    </section>
+  </div>
+
+  <div class="container">
+    <h1 class="text-center">2024</h1>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <img
+          fetchpriority="high"
+          src="assets/img/headshot 2024/q3/victoria-7646-3.webp"
+          srcset="assets/img/headshot%202024/q3/victoria-7646-3-400w.webp 400w, assets/img/headshot%202024/q3/victoria-7646-3-800w.webp 800w, assets/img/headshot%202024/q3/victoria-7646-3-1200w.webp 1200w, assets/img/headshot%202024/q3/victoria-7646-3.webp 1600w"
+          sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1600"
+          height="2000"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <img
+          decoding="async"
+          src="assets/img/headshot 2024/q3/victoria-7753-3.webp"
+          srcset="assets/img/headshot%202024/q3/victoria-7753-3-400w.webp 400w, assets/img/headshot%202024/q3/victoria-7753-3-800w.webp 800w, assets/img/headshot%202024/q3/victoria-7753-3-1200w.webp 1200w, assets/img/headshot%202024/q3/victoria-7753-3.webp 1600w"
+          sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1600"
+          height="2000"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <img
+          decoding="async"
+          src="assets/img/headshot 2024/q3/victoria-7939-3.webp"
+          srcset="assets/img/headshot%202024/q3/victoria-7939-3-400w.webp 400w, assets/img/headshot%202024/q3/victoria-7939-3-800w.webp 800w, assets/img/headshot%202024/q3/victoria-7939-3-1200w.webp 1200w, assets/img/headshot%202024/q3/victoria-7939-3.webp 1600w"
+          sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1600"
+          height="2000"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center">
+    <br />
+    <h6>Photography by Michael Shelford</h6>
+    <br />
+    <br />
+  </div>
+
+  <div class="container">
+    <!-- <h1 class="text-center">Q2 2024</h1> -->
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/D80A1721-Edit-2.webp"
+          srcset="assets/img/headshot%202024/q2/D80A1721-Edit-2-400w.webp 400w, assets/img/headshot%202024/q2/D80A1721-Edit-2-800w.webp 800w, assets/img/headshot%202024/q2/D80A1721-Edit-2-1200w.webp 1200w, assets/img/headshot%202024/q2/D80A1721-Edit-2.webp 1333w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1333"
+          height="2000"
+        />
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/Victoria Adler-142-Edit.webp"
+          srcset="assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit.webp 1333w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1333"
+          height="2000"
+        />
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/Victoria Adler-038-Edit.webp"
+          srcset="assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit.webp 1595w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1595"
+          height="2000"
+        />
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/Victoria Adler-161-Edit.webp"
+          srcset="assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit.webp 1600w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1600"
+          height="2000"
+        />
+      </div>
+
+      <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/Victoria Adler-169-Edit.webp"
+          srcset="assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit.webp 1600w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1600"
+          height="2000"
+        />
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/Victoria Adler-114-Edit.webp"
+          srcset="assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit.webp 1333w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1333"
+          height="2000"
+        />
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/D80A1937-Edit.webp"
+          srcset="assets/img/headshot%202024/q2/D80A1937-Edit-400w.webp 400w, assets/img/headshot%202024/q2/D80A1937-Edit-800w.webp 800w, assets/img/headshot%202024/q2/D80A1937-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/D80A1937-Edit.webp 1526w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1526"
+          height="2000"
+        />
+        <img
+          loading="lazy"
+          decoding="async"
+          src="assets/img/headshot 2024/q2/D80A1697.webp"
+          srcset="assets/img/headshot%202024/q2/D80A1697-400w.webp 400w, assets/img/headshot%202024/q2/D80A1697-800w.webp 800w, assets/img/headshot%202024/q2/D80A1697-1200w.webp 1200w, assets/img/headshot%202024/q2/D80A1697.webp 1333w"
+          sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+          class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+          width="1333"
+          height="2000"
+        />
+      </div>
     </div>
 
-
-    <div class="container">
-
-      <!-- <h1 class="text-center">Q2 2024</h1> -->
-    
-  
-      <div class="row">
-        <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q2/D80A1721-Edit-2.webp" srcset="assets/img/headshot%202024/q2/D80A1721-Edit-2-400w.webp 400w, assets/img/headshot%202024/q2/D80A1721-Edit-2-800w.webp 800w, assets/img/headshot%202024/q2/D80A1721-Edit-2-1200w.webp 1200w, assets/img/headshot%202024/q2/D80A1721-Edit-2.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          />
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q2/Victoria Adler-142-Edit.webp" srcset="assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-142-Edit.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshot 2024/q2/Victoria Adler-038-Edit.webp" srcset="assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-038-Edit.webp 1595w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1595" height="2000"
-          />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshot 2024/q2/Victoria Adler-161-Edit.webp" srcset="assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-161-Edit.webp 1600w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1600" height="2000"
-          />
-
-        </div>
-  
-        <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-  
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q2/Victoria Adler-169-Edit.webp" srcset="assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-169-Edit.webp 1600w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1600" height="2000"
-          />
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q2/Victoria Adler-114-Edit.webp" srcset="assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit-400w.webp 400w, assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit-800w.webp 800w, assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/Victoria%20Adler-114-Edit.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshot 2024/q2/D80A1937-Edit.webp" srcset="assets/img/headshot%202024/q2/D80A1937-Edit-400w.webp 400w, assets/img/headshot%202024/q2/D80A1937-Edit-800w.webp 800w, assets/img/headshot%202024/q2/D80A1937-Edit-1200w.webp 1200w, assets/img/headshot%202024/q2/D80A1937-Edit.webp 1526w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1526" height="2000"
-          />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshot 2024/q2/D80A1697.webp" srcset="assets/img/headshot%202024/q2/D80A1697-400w.webp 400w, assets/img/headshot%202024/q2/D80A1697-800w.webp 800w, assets/img/headshot%202024/q2/D80A1697-1200w.webp 1200w, assets/img/headshot%202024/q2/D80A1697.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          />
-        </div>
-      </div>
-    
-  
-    <div class="container text-center"> 
-      <br>
+    <div class="container text-center">
+      <br />
       <h6>Photography by Framed Duck Studio</h6>
-      <br><br>
+      <br />
+      <br />
     </div>
-    
+
     <div class="container">
-  
       <div class="row">
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-03.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-03-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-03-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-03-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-03.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-03.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-03-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-03-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-03-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-03.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
-  
         </div>
-  
+
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-  
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-06.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-06-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-06-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-06-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-06.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-06.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-06-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-06-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-06-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-06.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
         </div>
       </div>
       <div class="row">
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-09.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-09-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-09-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-09-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-09.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-09.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-09-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-09-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-09-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-09.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
-  
         </div>
-  
+
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-  
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-08.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-08-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-08-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-08-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-08.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-08.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-08-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-08-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-08-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-08.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-04.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-04-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-04-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-04-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-04.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
-          />
-  
-        </div>
-  
-        <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-  
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-05.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-05-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-05-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-05-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-05.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-04.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-04-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-04-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-04-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-04.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
         </div>
+
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-  
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-07.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-07-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-07-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-07-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-07.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-05.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-05-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-05-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-05-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-05.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
         </div>
         <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
-  
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshot 2024/q1/victoria-adler-01.webp" srcset="assets/img/headshot%202024/q1/victoria-adler-01-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-01-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-01-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-01.webp 1333w" sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-07.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-07-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-07-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-07-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-07.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
+          />
+        </div>
+        <div class="col-lg-6 col-md-12 mb-6 mb-lg-0">
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshot 2024/q1/victoria-adler-01.webp"
+            srcset="assets/img/headshot%202024/q1/victoria-adler-01-400w.webp 400w, assets/img/headshot%202024/q1/victoria-adler-01-800w.webp 800w, assets/img/headshot%202024/q1/victoria-adler-01-1200w.webp 1200w, assets/img/headshot%202024/q1/victoria-adler-01.webp 1333w"
+            sizes="(min-width: 1200px) 864px, (min-width: 992px) 720px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
         </div>
       </div>
-     
     </div>
-  
-    <div class="container text-center"> 
-      <br>
+
+    <div class="container text-center">
+      <br />
       <h6>Photography by DAVID YIU</h6>
-      <br><br>
+      <br />
+      <br />
     </div>
 
-
-
     <div class="container">
-          <h1 class="text-center">2023</h1>
+      <h1 class="text-center">2023</h1>
     </div>
 
     <div class="container">
       <!-- Gallery -->
       <div class="row">
         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color.webp" srcset="assets/img/headshots-2023/Color-400w.webp 400w, assets/img/headshots-2023/Color-800w.webp 800w, assets/img/headshots-2023/Color-1200w.webp 1200w, assets/img/headshots-2023/Color.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color.webp"
+            srcset="assets/img/headshots-2023/Color-400w.webp 400w, assets/img/headshots-2023/Color-800w.webp 800w, assets/img/headshots-2023/Color-1200w.webp 1200w, assets/img/headshots-2023/Color.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
 
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-18.webp" srcset="assets/img/headshots-2023/Color-18-400w.webp 400w, assets/img/headshots-2023/Color-18-800w.webp 800w, assets/img/headshots-2023/Color-18-1200w.webp 1200w, assets/img/headshots-2023/Color-18.webp 2000w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="2000" height="1334"
-            
-          />
-        </div>
-
-        <div class="col-lg-4 mb-4 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-14.webp" srcset="assets/img/headshots-2023/Color-14-400w.webp 400w, assets/img/headshots-2023/Color-14-800w.webp 800w, assets/img/headshots-2023/Color-14-1200w.webp 1200w, assets/img/headshots-2023/Color-14.webp 2000w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="2000" height="1334"
-            
-          />
-
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-13.webp" srcset="assets/img/headshots-2023/Color-13-400w.webp 400w, assets/img/headshots-2023/Color-13-800w.webp 800w, assets/img/headshots-2023/Color-13-1200w.webp 1200w, assets/img/headshots-2023/Color-13.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-18.webp"
+            srcset="assets/img/headshots-2023/Color-18-400w.webp 400w, assets/img/headshots-2023/Color-18-800w.webp 800w, assets/img/headshots-2023/Color-18-1200w.webp 1200w, assets/img/headshots-2023/Color-18.webp 2000w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="2000"
+            height="1334"
           />
         </div>
 
         <div class="col-lg-4 mb-4 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-4.webp" srcset="assets/img/headshots-2023/Color-4-400w.webp 400w, assets/img/headshots-2023/Color-4-800w.webp 800w, assets/img/headshots-2023/Color-4-1200w.webp 1200w, assets/img/headshots-2023/Color-4.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-14.webp"
+            srcset="assets/img/headshots-2023/Color-14-400w.webp 400w, assets/img/headshots-2023/Color-14-800w.webp 800w, assets/img/headshots-2023/Color-14-1200w.webp 1200w, assets/img/headshots-2023/Color-14.webp 2000w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="2000"
+            height="1334"
           />
 
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-15.webp" srcset="assets/img/headshots-2023/Color-15-400w.webp 400w, assets/img/headshots-2023/Color-15-800w.webp 800w, assets/img/headshots-2023/Color-15-1200w.webp 1200w, assets/img/headshots-2023/Color-15.webp 2000w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="2000" height="1334"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-13.webp"
+            srcset="assets/img/headshots-2023/Color-13-400w.webp 400w, assets/img/headshots-2023/Color-13-800w.webp 800w, assets/img/headshots-2023/Color-13-1200w.webp 1200w, assets/img/headshots-2023/Color-13.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
+          />
+        </div>
+
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-4.webp"
+            srcset="assets/img/headshots-2023/Color-4-400w.webp 400w, assets/img/headshots-2023/Color-4-800w.webp 800w, assets/img/headshots-2023/Color-4-1200w.webp 1200w, assets/img/headshots-2023/Color-4.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
+          />
+
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-15.webp"
+            srcset="assets/img/headshots-2023/Color-15-400w.webp 400w, assets/img/headshots-2023/Color-15-800w.webp 800w, assets/img/headshots-2023/Color-15-1200w.webp 1200w, assets/img/headshots-2023/Color-15.webp 2000w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="2000"
+            height="1334"
           />
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-5.webp" srcset="assets/img/headshots-2023/Color-5-400w.webp 400w, assets/img/headshots-2023/Color-5-800w.webp 800w, assets/img/headshots-2023/Color-5-1200w.webp 1200w, assets/img/headshots-2023/Color-5.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-5.webp"
+            srcset="assets/img/headshots-2023/Color-5-400w.webp 400w, assets/img/headshots-2023/Color-5-800w.webp 800w, assets/img/headshots-2023/Color-5-1200w.webp 1200w, assets/img/headshots-2023/Color-5.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshots-2023/100A9815.webp" srcset="assets/img/headshots-2023/100A9815-400w.webp 400w, assets/img/headshots-2023/100A9815-800w.webp 800w, assets/img/headshots-2023/100A9815-1200w.webp 1200w, assets/img/headshots-2023/100A9815.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          
-        />
-
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/100A9815.webp"
+            srcset="assets/img/headshots-2023/100A9815-400w.webp 400w, assets/img/headshots-2023/100A9815-800w.webp 800w, assets/img/headshots-2023/100A9815-1200w.webp 1200w, assets/img/headshots-2023/100A9815.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
+          />
         </div>
 
         <div class="col-lg-4 mb-4 mb-lg-0">
-
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-20.webp" srcset="assets/img/headshots-2023/Color-20-400w.webp 400w, assets/img/headshots-2023/Color-20-800w.webp 800w, assets/img/headshots-2023/Color-20-1200w.webp 1200w, assets/img/headshots-2023/Color-20.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-20.webp"
+            srcset="assets/img/headshots-2023/Color-20-400w.webp 400w, assets/img/headshots-2023/Color-20-800w.webp 800w, assets/img/headshots-2023/Color-20-1200w.webp 1200w, assets/img/headshots-2023/Color-20.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshots-2023/100A9506.webp" srcset="assets/img/headshots-2023/100A9506-400w.webp 400w, assets/img/headshots-2023/100A9506-800w.webp 800w, assets/img/headshots-2023/100A9506-1200w.webp 1200w, assets/img/headshots-2023/100A9506.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          
-        />
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/100A9506.webp"
+            srcset="assets/img/headshots-2023/100A9506-400w.webp 400w, assets/img/headshots-2023/100A9506-800w.webp 800w, assets/img/headshots-2023/100A9506-1200w.webp 1200w, assets/img/headshots-2023/100A9506.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
+          />
         </div>
 
         <div class="col-lg-4 mb-4 mb-lg-0">
-          <img loading="lazy" decoding="async"
-            src="assets/img/headshots-2023/Color-9.webp" srcset="assets/img/headshots-2023/Color-9-400w.webp 400w, assets/img/headshots-2023/Color-9-800w.webp 800w, assets/img/headshots-2023/Color-9-1200w.webp 1200w, assets/img/headshots-2023/Color-9.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-            class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-            
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/Color-9.webp"
+            srcset="assets/img/headshots-2023/Color-9-400w.webp 400w, assets/img/headshots-2023/Color-9-800w.webp 800w, assets/img/headshots-2023/Color-9-1200w.webp 1200w, assets/img/headshots-2023/Color-9.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
           />
-          <img loading="lazy" decoding="async"
-          src="assets/img/headshots-2023/100A9331.webp" srcset="assets/img/headshots-2023/100A9331-400w.webp 400w, assets/img/headshots-2023/100A9331-800w.webp 800w, assets/img/headshots-2023/100A9331-1200w.webp 1200w, assets/img/headshots-2023/100A9331.webp 1333w" sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
-          class="w-100 shadow-1-strong rounded mb-4 zoom-hs" width="1333" height="2000"
-          
-        />
-
+          <img
+            loading="lazy"
+            decoding="async"
+            src="assets/img/headshots-2023/100A9331.webp"
+            srcset="assets/img/headshots-2023/100A9331-400w.webp 400w, assets/img/headshots-2023/100A9331-800w.webp 800w, assets/img/headshots-2023/100A9331-1200w.webp 1200w, assets/img/headshots-2023/100A9331.webp 1333w"
+            sizes="(min-width: 1200px) 560px, (min-width: 992px) 464px, (min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)"
+            class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+            width="1333"
+            height="2000"
+          />
         </div>
       </div>
-    
+    </div>
 
+    <div class="container text-center">
+      <h6>Photography by Point Of You</h6>
+    </div>
 
-  </div>
-
-  <div class="container text-center"> 
-    <h6>Photography by Point Of You</h6>
-  </div>
-
-  <!-- <div class="container">
+    <!-- <div class="container">
     <h1 class="text-center">2022</h1>
   
 
@@ -453,11 +593,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h6>Photography by David Yiu</h6>
       <br><br>
     </div> -->
-
-
-
-
-
-
-</div>
+  </div>
 </BaseLayout>

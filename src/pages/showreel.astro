@@ -3,24 +3,28 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-    title="Showreel"
-    lang="en"
-    favicon={false}
-    preloads={["roboto-400-latin.woff2"]}
+  title="Showreel"
+  lang="en"
+  favicon={false}
+  preloads={["roboto-400-latin.woff2"]}
 >
-<div class="container">
-    <section class="projects-clean" style="background: rgb(255,255,255);color: black;">
-    <div class="row header-new">
+  <div class="container">
+    <section
+      class="projects-clean"
+      style="background: rgb(255,255,255);color: black;"
+    >
+      <div class="row header-new">
         <div class="intro">
-       
-        <video class="showreel" controls preload="metadata" poster="assets/showreel/poster.webp">
-            <source src="assets/showreel/Showreel.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
+          <video
+            class="showreel"
+            controls
+            preload="metadata"
+            poster="assets/showreel/poster.webp"
+          >
+            <source src="assets/showreel/Showreel.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
     </section>
-</div>
-
-
-
+  </div>
 </BaseLayout>

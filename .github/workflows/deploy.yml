@@ -32,7 +32,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
@@ -48,6 +48,11 @@ jobs:
       # (see tools/cache_bust.py) and fixes any link added without v().
       - name: Version CSS/JS links
         run: python3 tools/cache_bust.py dist
+
+      # last safety net before going live: no missing files / wrong-case
+      # names / stale ?v= hashes (the full checks run in ci.yml on every PR)
+      - name: Test the built site
+        run: npm test && npm run test:dist
 
       # Uploads the built site (dist/) only. No --delete: some media lives only
       # on the server, so files missing from the build must be left alone.

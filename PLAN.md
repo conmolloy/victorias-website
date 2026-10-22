@@ -5,6 +5,7 @@ rsync `dist/` to Cloudways (`.github/workflows/deploy.yml`). Unused media listed
 git; the deploy never deletes files on the server.
 
 ## Done
+
 - [x] GitHub Actions deploy to Cloudways (replaces FTP uploads)
 - [x] Unused audio/video excluded from the repo
 - [x] **1. Images** – all referenced images converted to WebP (max 2000px,
@@ -22,8 +23,7 @@ git; the deploy never deletes files on the server.
       rules home/reviews depended on live in `assets/css/site-base.css` (5 KB
       vs 180 KB). Verified pixel-identical (full-page screenshots, desktop +
       phone, all 6 pages) and same behaviour (menu, scrolling, CV viewer).
-- [x] **Gallery thumbnails** – 400/800/1200px versions of every gallery photo
-      + `srcset`/`sizes` (sized for the hover zoom, so zoomed photos are as
+- [x] **Gallery thumbnails** – 400/800/1200px versions of every gallery photo + `srcset`/`sizes` (sized for the hover zoom, so zoomed photos are as
       sharp as before) + `width`/`height`. Whole-gallery image download:
       12.6 MB → 3.2 MB (desktop, mobile) / 5.8 MB (Retina laptop, 3x phone).
       Gallery LCP 25.7 → 9.8 s, weight 10.9 → 4.3 MB (median of 5 runs).
@@ -59,19 +59,19 @@ git; the deploy never deletes files on the server.
       theme / Font Awesome rules the pages use (checked in every state:
       phone/tablet/desktop, scrolled, menu open): 159 → 11 KB and 30 → 1 KB;
       icon font cut to the 4 icons used (75 → 1 KB, `tools/subset_icons.py`).
-      Full versions kept as `*.full.min.css`. Pixel-identical (12 full pages
-      + 29 interactive-state screenshots). Fixed two syntax errors in the
+      Full versions kept as `*.full.min.css`. Pixel-identical (12 full pages + 29 interactive-state screenshots). Fixed two syntax errors in the
       theme file that browsers were already ignoring. Lighthouse (median of
       3): home 66 → 85, gallery 75 → 81, headshots 71 → 84, CV 72 → 88,
       reviews 72 → 92, showreel 77 → 92; first paint roughly halved.
 
 ## Speed test (Lighthouse, simulated mobile, 2026-10-22)
-| Page | Weight before → after | Main content shown (LCP) before → after |
-|---|---|---|
-| Home | 39.2 → 5.0 MB | 14.7 → 12.5 s |
-| Gallery | 46.3 → 11.1 MB | 38.0 → 25.5 s |
-| Headshots | 31.1 → 5.6 MB | 66.6 → 15.9 s |
-| Showreel | 113.3 → 1.1 MB | 19.2 → 5.4 s |
+
+| Page      | Weight before → after | Main content shown (LCP) before → after |
+| --------- | --------------------- | --------------------------------------- |
+| Home      | 39.2 → 5.0 MB         | 14.7 → 12.5 s                           |
+| Gallery   | 46.3 → 11.1 MB        | 38.0 → 25.5 s                           |
+| Headshots | 31.1 → 5.6 MB         | 66.6 → 15.9 s                           |
+| Showreel  | 113.3 → 1.1 MB        | 19.2 → 5.4 s                            |
 
 Raw numbers for all four versions + the live Lighthouse HTML reports are in
 [`perf/2026-10-22/`](perf/2026-10-22/).
@@ -79,16 +79,17 @@ Raw numbers for all four versions + the live Lighthouse HTML reports are in
 Scores stayed ~55–72: first paint was held up by framework CSS/JS, not media.
 
 ### After step 3 (Bootstrap only)
-| Page | Score | First paint (FCP) | Main content (LCP) | Requests |
-|---|---|---|---|---|
-| Home | 60 → 67 | 6.0 → 4.1 s | 9.6 → 6.8 s | 44 → 35 |
-| Gallery | 60 → 64 | 5.0 → 3.3 s | 25.5 → 25.7 s | 210 → 202 |
-| Headshots | 64 → 69 | 4.2 → 3.0 s | 9.5 → 8.5 s | 65 → 60 |
-| Showreel | 72 → 74 | 3.5 → 2.9 s | 5.4 → 5.5 s | 45 → 36 |
-| Reviews | 66 → 72 | 4.1 → 2.9 s | 7.3 → 6.3 s | 33 → 32 |
+
+| Page      | Score   | First paint (FCP) | Main content (LCP) | Requests  |
+| --------- | ------- | ----------------- | ------------------ | --------- |
+| Home      | 60 → 67 | 6.0 → 4.1 s       | 9.6 → 6.8 s        | 44 → 35   |
+| Gallery   | 60 → 64 | 5.0 → 3.3 s       | 25.5 → 25.7 s      | 210 → 202 |
+| Headshots | 64 → 69 | 4.2 → 3.0 s       | 9.5 → 8.5 s        | 65 → 60   |
+| Showreel  | 72 → 74 | 3.5 → 2.9 s       | 5.4 → 5.5 s        | 45 → 36   |
+| Reviews   | 66 → 72 | 4.1 → 2.9 s       | 7.3 → 6.3 s        | 33 → 32   |
 
 ([`perf/2026-10-22/bootstrap-only.json`](perf/2026-10-22/bootstrap-only.json).)
-Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
+Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
 
 - [x] **"Read Review" buttons** no longer go blank on hover (text stays
       white; Bootstrap's `.btn:hover` made it dark grey on the dark button).
@@ -117,8 +118,7 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
       scripts) + `Navbar` + `Contact` components instead of copy-pasted
       HTML; per-page differences (title, lang, favicon, font preloads,
       Outfit/site-base CSS, brand link, body id/style, CV page's PDF.js) are
-      props/slots. Assets moved to `public/` (same URLs), `build.format:
-      'file'` keeps `gallery.html` etc., `?v=` hashes now come from the build
+      props/slots. Assets moved to `public/` (same URLs), `build.format: 'file'` keeps `gallery.html` etc., `?v=` hashes now come from the build
       (`src/lib/asset.ts`, same hash as `tools/cache_bust.py`, so unchanged
       files keep their cached URL). Deploy builds and uploads `dist/`; PRs
       get a build check. Tools updated for the new layout; Puppeteer checks
@@ -133,7 +133,36 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
       no console errors); returning visitor with 30-day-cached CSS/JS from
       the old site sees the same pixels; trimmed CSS regenerates identically.
 
+- [x] **Dev tooling** (as recommended in the Astro docs) – Prettier with
+      the Astro plugin (repo formatted; pages render identically: 12
+      full-page screenshots + 31 interactive states vs the live build), ESLint
+      (JS/TS, Astro, accessibility) + Stylelint, Vitest unit tests with
+      Astro's Container API, build-output tests (missing files, wrong-case
+      names, stale `?v=` hashes), Playwright end-to-end tests in Chrome
+      (desktop + phone). `npm run verify` runs everything; GitHub Actions
+      runs it on every PR (`ci.yml`) and the deploy runs the fast tests
+      before uploading. Also: `.gitattributes` (LF everywhere, so local `?v=`
+      hashes match the server's), `.editorconfig`, `.nvmrc`, VS Code
+      recommended extensions + format on save, Dependabot, fixed 4 harmless
+      CSS mistakes Stylelint found and 10 audio paths written with `\`.
+
 ## Next
+
+- [ ] **Gallery is too wide on phones** (found by the new phone tests,
+      also on the live site before the Astro port): the video blocks make the
+      page 430px wide on a 390px phone, so it scrolls sideways and the menu
+      button is partly off-screen. Fix, then remove the `test.fail(...)` line
+      in `tests/e2e/site.spec.ts`.
+- [ ] **Accessibility**: `alt` text for the 114 photos/logos without one
+      (production + role for gallery photos, e.g. "Victoria Adler as Macduff
+      in Macbeth"), a title for the showreel/videos, captions where
+      practical; then make the jsx-a11y lint rules errors again
+      (`eslint.config.js`).
+- [ ] Python tools (`tools/*.py`) have no linter/tests yet – add Ruff if
+      they grow.
+- [ ] `npm audit`: 6 "high" warnings, all one advisory in `braces` (used only
+      by Stylelint's file matching, dev-only, never shipped); no fixed
+      version yet – Dependabot will pick it up.
 - [ ] **Astro phase 2** (each needs its own visual check):
   - Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
     `video-facade.js` as TypeScript `<script>`s
@@ -148,10 +177,11 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
     showreel lack them; reviews/gallery/headshots lack `lang`)
 
 ## Housekeeping
+
 - [x] Removed unused images, CSS/JS, `favicon - Copy.ico` and `david-site/`
       from the repo (still on the server – deploy never deletes; remove by SFTP)
 - [x] README + `tools/optimize_images.py` for converting new photos
 - [ ] `public/assets/cv/VICTORIA ADLER CV 2024.pdf` is the old CV (the CV page shows
       the 2025 one) – remove once no one has the old link
-- [ ] Use `/` instead of `\` in remaining asset paths
+- [x] Use `/` instead of `\` in remaining asset paths
 - [ ] Nav links use `href="resume"` etc. (no `.html`) – relies on server config

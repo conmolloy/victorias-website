@@ -7,7 +7,7 @@ plain static HTML/CSS/JS – no PHP, no server-side code. The build output
 
 Each page loads the same small stack:
 
-- **Bootstrap 4.6** with the Start Bootstrap *Grayscale* theme
+- **Bootstrap 4.6** with the Start Bootstrap _Grayscale_ theme
   (`public/assets/bootstrap/`) – layout, navbar, mobile menu. Pages load a
   **trimmed** `bootstrap.min.css` (11 KB, only the rules the site uses);
   the complete theme is `bootstrap.full.min.css` – see
@@ -15,8 +15,8 @@ Each page loads the same small stack:
 - **jQuery 3.5** (needed by Bootstrap 4's JS) + `assets/js/grayscale.js`
   (smooth scrolling, navbar shrink on scroll) – loaded at the end of `<body>`
 - **Font Awesome 4.7** icons, also trimmed: `assets/fonts/font-awesome.min.css`
-  + `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
-  envelope, arrow-down)
+  - `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
+    envelope, arrow-down)
 - **Fonts, self-hosted** (no Google Fonts requests): Lora + Cabin via
   `assets/css/fonts.css` and Roboto (`font-roboto.css`) on every page, Outfit
   (`font-outfit.css`) on home. Files are in `public/assets/fonts/` (latin +
@@ -25,12 +25,13 @@ Each page loads the same small stack:
   font, download it from Google Fonts (or google-webfonts-helper) as woff2
   rather than linking `fonts.googleapis.com`.
 - **Google Tag Manager** (`GTM-NXB648G` – Google Analytics `G-WXKX3EMGL2` +
-  Google Ads tags) is loaded *after* the page: on the first
+  Google Ads tags) is loaded _after_ the page: on the first
   scroll/tap/click/key, 3 s after load, or when the tab is switched away.
   It used to block the page for ~350 ms on every visit. Trade-off: a visitor
   who leaves within ~3 s without touching the page isn't counted. The
-  snippet is at the top of `<head>` in `src/layouts/BaseLayout.astro`;
-  change `3000` to adjust.
+  snippet is `src/components/GoogleTagManager.astro`; change `3000` to adjust
+  (then update the hash in `tests/unit/layout.test.ts`, which guards against
+  accidental edits).
 - `assets/css/Projects-Clean.css` – the site's own styles
 - `assets/css/site-base.css` – **home and reviews only**: the base typography,
   buttons and header-video layout those two pages were designed with
@@ -38,24 +39,26 @@ Each page loads the same small stack:
 
 ## Where things live
 
-| Path | What |
-|---|---|
-| `src/pages/*.astro` | one file per page → `dist/<name>.html` |
-| `src/layouts/BaseLayout.astro` | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts |
-| `src/components/Navbar.astro` | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top) |
-| `src/components/Contact.astro` | "Contact Me" section on the home page |
-| `src/lib/asset.ts` | `v()` – adds the `?v=<hash>` to local CSS/JS links |
-| `public/` | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
-| `tools/` | maintenance scripts (not deployed) |
+| Path                                    | What                                                                                                                                       |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/pages/*.astro`                     | one file per page → `dist/<name>.html`                                                                                                     |
+| `src/layouts/BaseLayout.astro`          | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
+| `src/components/Navbar.astro`           | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
+| `src/components/Contact.astro`          | "Contact Me" section on the home page                                                                                                      |
+| `src/components/GoogleTagManager.astro` | the deferred Google Tag Manager snippet                                                                                                    |
+| `src/lib/asset.ts`                      | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
+| `public/`                               | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
+| `tests/`                                | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                           |
+| `tools/`                                | maintenance scripts (not deployed)                                                                                                         |
 
-| Page | File | Shows |
-|---|---|---|
-| `/` (`index.html`) | `src/pages/index.astro` | Home – header video, about, reviews, contact |
-| `/headshot` | `src/pages/headshot.astro` | Headshots |
-| `/gallery` | `src/pages/gallery.astro` | Production photos, audio clips and voicereels |
-| `/showreel` | `src/pages/showreel.astro` | Showreel video |
-| `/resume` | `src/pages/resume.astro` | CV (PDF shown with PDF.js) |
-| `/reviews` | `src/pages/reviews.astro` | Reviews |
+| Page               | File                       | Shows                                         |
+| ------------------ | -------------------------- | --------------------------------------------- |
+| `/` (`index.html`) | `src/pages/index.astro`    | Home – header video, about, reviews, contact  |
+| `/headshot`        | `src/pages/headshot.astro` | Headshots                                     |
+| `/gallery`         | `src/pages/gallery.astro`  | Production photos, audio clips and voicereels |
+| `/showreel`        | `src/pages/showreel.astro` | Showreel video                                |
+| `/resume`          | `src/pages/resume.astro`   | CV (PDF shown with PDF.js)                    |
+| `/reviews`         | `src/pages/reviews.astro`  | Reviews                                       |
 
 Per-page differences are props on `BaseLayout`: `title`, `lang`, `favicon`,
 `preloads` (font files), `outfit` / `siteBase` (extra stylesheets),
@@ -80,7 +83,9 @@ Pages are mostly plain HTML, but:
 
 ## Working on it locally
 
-Needs Node.js 22.23+ (24 recommended).
+Needs Node.js 24 (`.nvmrc`; 22.23+ works). Open the folder in VS Code and
+install the recommended extensions it suggests (Astro, Prettier, ESLint,
+Stylelint, Vitest, Playwright) – files are then formatted on save.
 
 ```bash
 npm install
@@ -103,6 +108,39 @@ npm run preview
 
 (or `python -m http.server 8000 --directory dist`).
 
+## Checks and tests
+
+Every pull request runs all of these in GitHub Actions
+([`ci.yml`](.github/workflows/ci.yml)); a PR should be green before merging.
+To run the lot locally (as CI does):
+
+```bash
+npm run verify
+```
+
+| Command                                   | What it does                                                                                                                                                                                                                                      |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run format` / `npm run format:check` | [Prettier](https://prettier.io) (with the Astro plugin) formats / checks every file, except vendor files in `public/` (`.prettierignore`)                                                                                                         |
+| `npm run lint` / `npm run lint:fix`       | [ESLint](https://eslint.org) (JS/TS, Astro components, accessibility) and [Stylelint](https://stylelint.io) (CSS)                                                                                                                                 |
+| `npm run check`                           | `astro check`: TypeScript and Astro type errors (also part of `npm run build`)                                                                                                                                                                    |
+| `npm test` (`npm run test:watch`)         | unit tests ([Vitest](https://vitest.dev)): `v()`, and the layout/navbar rendered with Astro's Container API                                                                                                                                       |
+| `npm run test:dist`                       | after a build: every file a page uses exists in `dist/` with the exact upper/lower case, every CSS/JS link has the right `?v=`, every nav link has a page                                                                                         |
+| `npm run test:e2e`                        | after a build: [Playwright](https://playwright.dev) opens the built site in Chrome at desktop and phone width – no errors, menu, navbar shrink, nav links, gallery scrolling and video previews, CV PDF, Google Tag Manager waits for the visitor |
+
+Notes:
+
+- The accessibility linter currently reports 124 **warnings** on the existing
+  pages (photos without `alt` text, audio/video without captions). They
+  don't fail the checks yet; please don't add new ones (see PLAN.md).
+- Playwright uses your installed Google Chrome. If it says Chrome isn't
+  found, install Chrome, or run `npx playwright install chromium` and remove
+  `channel: "chrome"` from `playwright.config.ts`.
+- `git blame` hides the big formatting commits if you run once:
+  `git config blame.ignoreRevsFile .git-blame-ignore-revs`
+- [Dependabot](.github/dependabot.yml) opens one pull request a month with
+  dependency updates; merge it when CI is green.
+- For pixel-by-pixel comparisons with the live site, see `tools/visual-check/`.
+
 > The live server runs Linux, so file names are **case-sensitive**:
 > `photo.JPG` and `photo.jpg` are different files there, even though Windows
 > treats them as the same. Make sure paths in the pages match the file exactly.
@@ -116,11 +154,12 @@ npm run preview
 Pushing to `main` deploys automatically. GitHub Actions
 ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) installs
 Node, runs `npm ci` and `npm run build`, re-checks the CSS/JS versions in
-the built HTML (`tools/cache_bust.py dist`) and copies `dist/` to Cloudways
-over SSH with `rsync`. Progress shows under the repo's **Actions** tab, and
-there's a **Run workflow** button to redeploy manually. Pull requests get a
-build-only check ([`build.yml`](.github/workflows/build.yml)) – nothing is
-uploaded.
+the built HTML (`tools/cache_bust.py dist`), runs the unit and build-output
+tests, and copies `dist/` to Cloudways over SSH with `rsync` (a failing test
+stops the upload). Progress shows under the repo's **Actions** tab, and
+there's a **Run workflow** button to redeploy manually. The full checks run on
+every pull request ([`ci.yml`](.github/workflows/ci.yml)) – nothing is
+uploaded from there.
 
 It uses four repository secrets (Settings → Secrets and variables → Actions):
 `CLOUDWAYS_HOST`, `CLOUDWAYS_USER`, `CLOUDWAYS_PATH` (`public_html`) and
@@ -150,6 +189,7 @@ Images are served as WebP. To add new ones:
    ```
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
+
 3. **Gallery and headshot photos** (`<img class="... zoom">` in
    `src/pages/gallery.astro`, `<img class="... zoom-hs">` in
    `src/pages/headshot.astro`): make the smaller versions so phones/laptops
@@ -164,6 +204,7 @@ Images are served as WebP. To add new ones:
    Run it after step 2 (it uses the full-quality original in `_originals/`).
    If you later replace a gallery photo with a new file, delete its
    `srcset`/`sizes`/`width`/`height` attributes first so it's regenerated.
+
 4. Commit and push.
 
 Add `loading="lazy"` to `<img>` tags that **aren't** visible at the top of
@@ -192,11 +233,11 @@ Bootstrap theme and Font Awesome are trimmed to the rules the pages use
 (`dist/*.html`) in Chrome – phone/tablet/desktop, scrolled, with the mobile
 menu open – and keeps every rule that matches something.
 
-| Pages load (trimmed, generated) | Source (complete, edit this) |
-|---|---|
+| Pages load (trimmed, generated)                 | Source (complete, edit this)                         |
+| ----------------------------------------------- | ---------------------------------------------------- |
 | `public/assets/bootstrap/css/bootstrap.min.css` | `public/assets/bootstrap/css/bootstrap.full.min.css` |
-| `public/assets/fonts/font-awesome.min.css` | `public/assets/fonts/font-awesome.full.min.css` |
-| `public/assets/fonts/fontawesome-subset.woff2` | `public/assets/fonts/fontawesome-webfont.woff2` |
+| `public/assets/fonts/font-awesome.min.css`      | `public/assets/fonts/font-awesome.full.min.css`      |
+| `public/assets/fonts/fontawesome-subset.woff2`  | `public/assets/fonts/fontawesome-webfont.woff2`      |
 
 **Added a Bootstrap component, a new page, or a new icon** (e.g.
 `<i class="fa fa-star">`) and it looks unstyled or the icon is blank?

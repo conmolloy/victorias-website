@@ -2,8 +2,8 @@
 
 # Astro
 node_modules/
-dist/
-.astro/
+/dist/
+/.astro/
 
 # Media not referenced by any page (kept locally, not deployed)
 public/assets/video/OLD.mp4
@@ -15,3 +15,8 @@ public/assets/audio/solo/
 
 # Full-size originals of converted images and videos (local backup only)
 _originals/
+
+# test output
+playwright-report/
+test-results/
+blob-report/
