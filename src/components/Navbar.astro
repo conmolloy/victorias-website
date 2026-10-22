@@ -24,17 +24,20 @@ const pages = [
 const profiles = [
   {
     href: "https://www.spotlight.com/0456-8977-3433",
+    name: "Spotlight",
     logo: "assets/img/logos/spotlight.png",
   },
   {
     href: "https://www.imdb.com/name/nm8555965/?ref_=nmbio_bio_nm",
+    name: "IMDb",
     logo: "assets/img/logos/imdb.webp",
   },
   {
     href: "https://www.instagram.com/vickanadler",
+    name: "Instagram",
     logo: "assets/img/logos/instagram.webp",
   },
-  // { href: "https://www.facebook.com/vadler3", logo: "assets/img/logos/facebook.webp" },
+  // { href: "https://www.facebook.com/vadler3", name: "Facebook", logo: "assets/img/logos/facebook.webp" },
 ];
 ---
 
@@ -52,6 +55,7 @@ const profiles = [
       class="navbar-toggler navbar-toggler-right"
       data-target="#navbarResponsive"
       type="button"
+      aria-label="Menu"
     >
       <i class="fa fa-bars"></i>
     </button>
@@ -78,10 +82,10 @@ const profiles = [
           </li>
         ))}
         <div class="flex-container">
-          {profiles.map(({ href, logo }) => (
+          {profiles.map(({ href, name, logo }) => (
             <li class="nav-item nav-link">
               <a class="nav-link" href={href}>
-                <img class="logo" src={logo} />
+                <img class="logo" src={logo} alt={name} />
               </a>
             </li>
           ))}
