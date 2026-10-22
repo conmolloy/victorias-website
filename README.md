@@ -29,8 +29,9 @@ Each page loads the same small stack:
   scroll/tap/click/key, 3 s after load, or when the tab is switched away.
   It used to block the page for ~350 ms on every visit. Trade-off: a visitor
   who leaves within ~3 s without touching the page isn't counted. The
-  snippet is at the top of `<head>` in `src/layouts/BaseLayout.astro`;
-  change `3000` to adjust.
+  snippet is `src/components/GoogleTagManager.astro`; change `3000` to adjust
+  (then update the hash in `tests/unit/layout.test.ts`, which guards against
+  accidental edits).
 - `assets/css/Projects-Clean.css` – the site's own styles
 - `assets/css/site-base.css` – **home and reviews only**: the base typography,
   buttons and header-video layout those two pages were designed with
@@ -38,15 +39,17 @@ Each page loads the same small stack:
 
 ## Where things live
 
-| Path                           | What                                                                                                                                       |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `src/pages/*.astro`            | one file per page → `dist/<name>.html`                                                                                                     |
-| `src/layouts/BaseLayout.astro` | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
-| `src/components/Navbar.astro`  | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
-| `src/components/Contact.astro` | "Contact Me" section on the home page                                                                                                      |
-| `src/lib/asset.ts`             | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
-| `public/`                      | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
-| `tools/`                       | maintenance scripts (not deployed)                                                                                                         |
+| Path                                    | What                                                                                                                                       |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/pages/*.astro`                     | one file per page → `dist/<name>.html`                                                                                                     |
+| `src/layouts/BaseLayout.astro`          | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
+| `src/components/Navbar.astro`           | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
+| `src/components/Contact.astro`          | "Contact Me" section on the home page                                                                                                      |
+| `src/components/GoogleTagManager.astro` | the deferred Google Tag Manager snippet                                                                                                    |
+| `src/lib/asset.ts`                      | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
+| `public/`                               | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
+| `tests/`                                | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                           |
+| `tools/`                                | maintenance scripts (not deployed)                                                                                                         |
 
 | Page               | File                       | Shows                                         |
 | ------------------ | -------------------------- | --------------------------------------------- |
@@ -80,7 +83,9 @@ Pages are mostly plain HTML, but:
 
 ## Working on it locally
 
-Needs Node.js 22.23+ (24 recommended).
+Needs Node.js 24 (`.nvmrc`; 22.23+ works). Open the folder in VS Code and
+install the recommended extensions it suggests (Astro, Prettier, ESLint,
+Stylelint, Vitest, Playwright) – files are then formatted on save.
 
 ```bash
 npm install
@@ -103,6 +108,39 @@ npm run preview
 
 (or `python -m http.server 8000 --directory dist`).
 
+## Checks and tests
+
+Every pull request runs all of these in GitHub Actions
+([`ci.yml`](.github/workflows/ci.yml)); a PR should be green before merging.
+To run the lot locally (as CI does):
+
+```bash
+npm run verify
+```
+
+| Command                                   | What it does                                                                                                                                                                                                                                      |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run format` / `npm run format:check` | [Prettier](https://prettier.io) (with the Astro plugin) formats / checks every file, except vendor files in `public/` (`.prettierignore`)                                                                                                         |
+| `npm run lint` / `npm run lint:fix`       | [ESLint](https://eslint.org) (JS/TS, Astro components, accessibility) and [Stylelint](https://stylelint.io) (CSS)                                                                                                                                 |
+| `npm run check`                           | `astro check`: TypeScript and Astro type errors (also part of `npm run build`)                                                                                                                                                                    |
+| `npm test` (`npm run test:watch`)         | unit tests ([Vitest](https://vitest.dev)): `v()`, and the layout/navbar rendered with Astro's Container API                                                                                                                                       |
+| `npm run test:dist`                       | after a build: every file a page uses exists in `dist/` with the exact upper/lower case, every CSS/JS link has the right `?v=`, every nav link has a page                                                                                         |
+| `npm run test:e2e`                        | after a build: [Playwright](https://playwright.dev) opens the built site in Chrome at desktop and phone width – no errors, menu, navbar shrink, nav links, gallery scrolling and video previews, CV PDF, Google Tag Manager waits for the visitor |
+
+Notes:
+
+- The accessibility linter currently reports 124 **warnings** on the existing
+  pages (photos without `alt` text, audio/video without captions). They
+  don't fail the checks yet; please don't add new ones (see PLAN.md).
+- Playwright uses your installed Google Chrome. If it says Chrome isn't
+  found, install Chrome, or run `npx playwright install chromium` and remove
+  `channel: "chrome"` from `playwright.config.ts`.
+- `git blame` hides the big formatting commits if you run once:
+  `git config blame.ignoreRevsFile .git-blame-ignore-revs`
+- [Dependabot](.github/dependabot.yml) opens one pull request a month with
+  dependency updates; merge it when CI is green.
+- For pixel-by-pixel comparisons with the live site, see `tools/visual-check/`.
+
 > The live server runs Linux, so file names are **case-sensitive**:
 > `photo.JPG` and `photo.jpg` are different files there, even though Windows
 > treats them as the same. Make sure paths in the pages match the file exactly.
@@ -116,11 +154,12 @@ npm run preview
 Pushing to `main` deploys automatically. GitHub Actions
 ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) installs
 Node, runs `npm ci` and `npm run build`, re-checks the CSS/JS versions in
-the built HTML (`tools/cache_bust.py dist`) and copies `dist/` to Cloudways
-over SSH with `rsync`. Progress shows under the repo's **Actions** tab, and
-there's a **Run workflow** button to redeploy manually. Pull requests get a
-build-only check ([`build.yml`](.github/workflows/build.yml)) – nothing is
-uploaded.
+the built HTML (`tools/cache_bust.py dist`), runs the unit and build-output
+tests, and copies `dist/` to Cloudways over SSH with `rsync` (a failing test
+stops the upload). Progress shows under the repo's **Actions** tab, and
+there's a **Run workflow** button to redeploy manually. The full checks run on
+every pull request ([`ci.yml`](.github/workflows/ci.yml)) – nothing is
+uploaded from there.
 
 It uses four repository secrets (Settings → Secrets and variables → Actions):
 `CLOUDWAYS_HOST`, `CLOUDWAYS_USER`, `CLOUDWAYS_PATH` (`public_html`) and

@@ -1,0 +1,7 @@
+# Formatting-only commits, hidden from `git blame` (GitHub does this
+# automatically; locally run: git config blame.ignoreRevsFile .git-blame-ignore-revs)
+
+# Add Prettier (prettier-plugin-astro) and format the repo
+02c750bd0f95b32beb4e1a8f46e31d290327e77a
+# Format the GTM snippet and the site's own CSS/JS with Prettier
+5bd4db4fdb873c6811427566b013fceca4cec652

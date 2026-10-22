@@ -1,0 +1,27 @@
+# Monthly pull requests to keep dependencies up to date (grouped, so it's
+# one PR per folder rather than one per package). CI checks each one.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      dependencies:
+        patterns: ["*"]
+
+  - package-ecosystem: npm
+    directories: [/tools/trim-css, /tools/visual-check]
+    schedule:
+      interval: monthly
+    groups:
+      tools:
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]

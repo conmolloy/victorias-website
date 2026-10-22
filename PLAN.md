@@ -118,8 +118,7 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       scripts) + `Navbar` + `Contact` components instead of copy-pasted
       HTML; per-page differences (title, lang, favicon, font preloads,
       Outfit/site-base CSS, brand link, body id/style, CV page's PDF.js) are
-      props/slots. Assets moved to `public/` (same URLs), `build.format:
-    'file'` keeps `gallery.html` etc., `?v=` hashes now come from the build
+      props/slots. Assets moved to `public/` (same URLs), `build.format: 'file'` keeps `gallery.html` etc., `?v=` hashes now come from the build
       (`src/lib/asset.ts`, same hash as `tools/cache_bust.py`, so unchanged
       files keep their cached URL). Deploy builds and uploads `dist/`; PRs
       get a build check. Tools updated for the new layout; Puppeteer checks
@@ -134,8 +133,36 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       no console errors); returning visitor with 30-day-cached CSS/JS from
       the old site sees the same pixels; trimmed CSS regenerates identically.
 
+- [x] **Dev tooling** (as recommended in the Astro docs) – Prettier with
+      the Astro plugin (repo formatted; pages render identically: 12
+      full-page screenshots + 31 interactive states vs the live build), ESLint
+      (JS/TS, Astro, accessibility) + Stylelint, Vitest unit tests with
+      Astro's Container API, build-output tests (missing files, wrong-case
+      names, stale `?v=` hashes), Playwright end-to-end tests in Chrome
+      (desktop + phone). `npm run verify` runs everything; GitHub Actions
+      runs it on every PR (`ci.yml`) and the deploy runs the fast tests
+      before uploading. Also: `.gitattributes` (LF everywhere, so local `?v=`
+      hashes match the server's), `.editorconfig`, `.nvmrc`, VS Code
+      recommended extensions + format on save, Dependabot, fixed 4 harmless
+      CSS mistakes Stylelint found and 10 audio paths written with `\`.
+
 ## Next
 
+- [ ] **Gallery is too wide on phones** (found by the new phone tests,
+      also on the live site before the Astro port): the video blocks make the
+      page 430px wide on a 390px phone, so it scrolls sideways and the menu
+      button is partly off-screen. Fix, then remove the `test.fail(...)` line
+      in `tests/e2e/site.spec.ts`.
+- [ ] **Accessibility**: `alt` text for the 114 photos/logos without one
+      (production + role for gallery photos, e.g. "Victoria Adler as Macduff
+      in Macbeth"), a title for the showreel/videos, captions where
+      practical; then make the jsx-a11y lint rules errors again
+      (`eslint.config.js`).
+- [ ] Python tools (`tools/*.py`) have no linter/tests yet – add Ruff if
+      they grow.
+- [ ] `npm audit`: 6 "high" warnings, all one advisory in `braces` (used only
+      by Stylelint's file matching, dev-only, never shipped); no fixed
+      version yet – Dependabot will pick it up.
 - [ ] **Astro phase 2** (each needs its own visual check):
   - Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
     `video-facade.js` as TypeScript `<script>`s
@@ -156,5 +183,5 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
 - [x] README + `tools/optimize_images.py` for converting new photos
 - [ ] `public/assets/cv/VICTORIA ADLER CV 2024.pdf` is the old CV (the CV page shows
       the 2025 one) – remove once no one has the old link
-- [ ] Use `/` instead of `\` in remaining asset paths
+- [x] Use `/` instead of `\` in remaining asset paths
 - [ ] Nav links use `href="resume"` etc. (no `.html`) – relies on server config
