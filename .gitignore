@@ -2,8 +2,8 @@
 
 # Astro
 node_modules/
-dist/
-.astro/
+/dist/
+/.astro/
 
 # Media not referenced by any page (kept locally, not deployed)
 public/assets/video/OLD.mp4
