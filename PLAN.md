@@ -45,6 +45,16 @@ git; the deploy never deletes files on the server.
       dimensions) → added width/height: headshots CLS 0.051 → 0.
       Median of 3: gallery 71 → 80 (LCP 9.2 → 4.8 s), reviews LCP 6.2 → 4.5 s,
       showreel 74 → 78, home/headshots ≈ same.
+- [x] **Headshot thumbnails** – 400/800/1200px versions + `srcset` (sized for
+      the 1.6x hover zoom on desktop, normal size on phones where photos are
+      full width). Whole-page download 4.6 MB → 2.5 MB desktop, 1.6 MB
+      Lighthouse mobile, 3.2 MB 3x phone; same sharpness. Headshots LCP
+      8.7 → 5.9 s (all 3 runs).
+- [x] **First-screen photos** – the top headshot row and the first gallery
+      row no longer lazy-load; first headshot has `fetchpriority="high"`.
+      Gallery first-row photos on a throttled phone: done at ~3.5 s instead
+      of ~21 s, heading LCP unchanged. (Also making gallery row 2 eager
+      hurt Lighthouse's simulated LCP 5.0 → 6.6 s, so row 2 stays lazy.)
 
 ## Speed test (Lighthouse, simulated mobile, 2026-10-22)
 | Page | Weight before → after | Main content shown (LCP) before → after |
@@ -76,11 +86,9 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
       inline SVGs.
 - [ ] **Home navbar font** – asks for Roboto but home never loads it, so it
       shows in Arial unlike every other page. Decide which is intended.
-- [ ] **First-screen photos are lazy** – on the gallery the photos visible
-      on load have `loading="lazy"` (the "skip the first image" rule hit a
-      commented-out one); make the first row eager.
-- [ ] **Headshots page** – same thumbnail treatment (`srcset`) could apply;
-      its LCP (~8.7 s) is the first 1600×2000 headshot.
+- [ ] **Render-blocking theme CSS** – the gallery heading (its LCP) waits on
+      `bootstrap.min.css` (163 KB, 29 KB gzipped on the live server); inline the critical CSS
+      or trim unused Bootstrap/theme rules (~180 KB unused per Lighthouse).
 - [ ] **Cache headers** – 128 static files are served without long-lived
       caching; add expiry headers so repeat visits are instant.
 - [ ] **4. Astro + TypeScript** – shared nav/footer components instead of

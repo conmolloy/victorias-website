@@ -85,9 +85,10 @@ Images are served as WebP. To add new ones:
    ```
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
-3. **Gallery photos only** (`<img class="img-fluid zoom">` in `gallery.html`):
-   make the smaller versions so phones/laptops don't download the 2000px
-   file for a small thumbnail. This writes `-400w`, `-800w` and `-1200w`
+3. **Gallery and headshot photos** (`<img class="... zoom">` in
+   `gallery.html`, `<img class="... zoom-hs">` in `headshot.html`): make the
+   smaller versions so phones/laptops don't download the 2000px file for a
+   smaller photo. This writes `-400w`, `-800w` and `-1200w`
    `.webp` files next to each new photo and adds `srcset`/`sizes`:
 
    ```bash
@@ -99,8 +100,10 @@ Images are served as WebP. To add new ones:
    `srcset`/`sizes`/`width`/`height` attributes first so it's regenerated.
 4. Commit and push.
 
-Add `loading="lazy"` to `<img>` tags that aren't visible at the top of the
-page.
+Add `loading="lazy"` to `<img>` tags that **aren't** visible at the top of
+the page – but not to photos on the first screen, or they'll appear late.
+The page's most important first-screen photo can also get
+`fetchpriority="high"` (e.g. the first headshot).
 
 ## Adding or replacing videos
 
