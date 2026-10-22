@@ -156,3 +156,10 @@ video.responsive-video {
 .grey.darken-2 {
   background-color: #616161 !important;
 }
+
+/* Bootstrap's .btn:hover sets dark text (#212529), which made the label
+   vanish on these dark grey buttons – keep it white. */
+.btn.grey:hover,
+.btn.grey:focus {
+  color: #fff;
+}
