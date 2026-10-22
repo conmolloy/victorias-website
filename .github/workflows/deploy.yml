@@ -29,6 +29,11 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
 
+      # Browsers keep CSS/JS for 30 days: version every link by its content so
+      # returning visitors get changed files (see tools/cache_bust.py)
+      - name: Version CSS/JS links
+        run: python3 tools/cache_bust.py
+
       # No --delete: images, audio and video are gitignored and live only on
       # the server, so files missing from the repo must be left alone.
       - name: Upload site
