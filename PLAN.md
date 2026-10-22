@@ -99,11 +99,20 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
 - [x] **Home navbar** now uses Roboto like every other page (was falling back
       to Arial). Before/after: `perf/2026-10-22/navbar-and-hover-fix.png`.
 
+- [x] **Google Tag Manager deferred** – loads on first scroll/tap/click/key,
+      3 s after load, or when the tab is hidden. Verified on the live site
+      that GA4 page_view and the Ads/remarketing tags still fire (and are
+      flushed if the visitor leaves); only visits that leave within ~3 s
+      without interacting aren't counted. LIVE Lighthouse (median of 3):
+      home 72 → 93, gallery 69 → 82, headshots 73 → 94, CV 65 → 80,
+      reviews 78 → 99, showreel 73 → 96.
+- [x] **Cache-busting** – browsers keep CSS/JS for 30 days, so returning
+      visitors combined old cached `Projects-Clean.css` with new HTML: gallery
+      videos collapsed and headshots stretched (2026-10-22). Every local
+      CSS/JS link now carries `?v=<content hash>` (`tools/cache_bust.py`),
+      and the deploy workflow runs it automatically before uploading.
+
 ## Next
-- [ ] **Google Tag Manager** – now the biggest cost on the live site: 343 KB
-      of JS blocking the main thread ~350 ms on every page (live scores
-      62–68 vs 81–92 locally without it). Could load it after the page has
-      finished loading; needs a yes (slightly later analytics/ads tracking).
 - [ ] **4. Astro + TypeScript** – shared nav/footer components instead of
       copy-pasted HTML, built in the deploy workflow before the rsync. Good
       moment to move to Bootstrap 5 (drops jQuery) and make home/reviews use
