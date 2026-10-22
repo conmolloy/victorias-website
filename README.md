@@ -108,6 +108,24 @@ ffmpeg -i input.mov -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -c:a aac 
 For a muted background video use `-crf 28 -an` instead (no audio track).
 Keep files well under 100 MB.
 
+## Adding a Vimeo/YouTube video to the gallery
+
+The gallery shows each video as a thumbnail with a play button; the real
+player only loads when it's clicked (`assets/js/video-facade.js`), which
+saves ~1 MB of player scripts per visit. To add one:
+
+1. Copy the normal embed code from Vimeo/YouTube (Share → Embed) and paste
+   it into `gallery.html` where you want it, inside a
+   `<div class="col s12 m6 l6 video-containers">` like the others.
+2. Convert it to a click-to-load preview (downloads the thumbnail into
+   `assets/img/video-thumbs/`):
+
+   ```bash
+   uv run --with pillow python tools/video_facades.py --apply
+   ```
+
+3. Commit and push.
+
 ## Plans
 
 See [PLAN.md](PLAN.md).

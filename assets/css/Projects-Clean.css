@@ -311,3 +311,50 @@ hr{
 .review {
   margin-top: 10px;
 }
+
+/* Click-to-load video embeds (gallery) – see assets/js/video-facade.js */
+.video-facade {
+  position: relative;
+  /* laid out like the <iframe> it replaces, so nothing moves when it's swapped */
+  display: inline-block;
+  vertical-align: baseline;
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+}
+.video-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.video-facade-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 68px;
+  height: 48px;
+  margin: -24px 0 0 -34px;
+  border-radius: 12px;
+  background: rgba(33, 33, 33, 0.8);
+  transition: background-color .2s, transform .2s;
+}
+.video-facade-play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -6px;
+  border-style: solid;
+  border-width: 10px 0 10px 17px;
+  border-color: transparent transparent transparent #fff;
+}
+.video-facade:hover .video-facade-play,
+.video-facade:focus-visible .video-facade-play {
+  background: #212121;
+  transform: scale(1.1);
+}
+.video-facade:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}

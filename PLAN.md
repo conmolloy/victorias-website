@@ -28,6 +28,12 @@ git; the deploy never deletes files on the server.
       12.6 MB → 3.2 MB (desktop, mobile) / 5.8 MB (Retina laptop, 3x phone).
       Gallery LCP 25.7 → 9.8 s, weight 10.9 → 4.3 MB (median of 5 runs).
       Tool: `tools/make_thumbnails.py`.
+- [x] **Gallery video embeds** – the 7 Vimeo/YouTube players are now
+      click-to-load previews (local thumbnail + play button; the player loads
+      and autoplays on click, and the link opens the video if JS is off).
+      Same size and position as before, nothing moves on click. Gallery
+      (median of 5): score 65 → 71, first paint 3.5 → 2.6 s, JS 1.9 → 0.5 MB,
+      weight 4.3 → 2.5 MB, requests 203 → 81. Tool: `tools/video_facades.py`.
 
 ## Speed test (Lighthouse, simulated mobile, 2026-10-22)
 | Page | Weight before → after | Main content shown (LCP) before → after |
@@ -55,10 +61,13 @@ Scores stayed ~55–72: first paint was held up by framework CSS/JS, not media.
 Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
 
 ## Next
-- [ ] **Gallery video embeds** – 6 Vimeo + 1 YouTube players load ~1.2 MB of
-      third-party JS up front even if nobody presses play; now the gallery's
-      biggest cost and why its LCP varies between ~9 s and ~23 s. Quick fix:
-      `loading="lazy"` on the iframes; better: click-to-load preview image.
+- [ ] **Fonts / render-blocking CSS** – the gallery's LCP is now the first
+      heading's *text* (~9 s simulated mobile), waiting on CSS + web fonts
+      (Google Fonts CSS is render-blocking; theme loads several families).
+      Self-host the fonts actually used, `font-display: swap`, preload.
+- [ ] **First-screen photos are lazy** – on the gallery the photos visible
+      on load have `loading="lazy"` (the "skip the first image" rule hit a
+      commented-out one); make the first row eager.
 - [ ] **Headshots page** – same thumbnail treatment (`srcset`) could apply.
 - [ ] **Cache headers** – 128 static files are served without long-lived
       caching; add expiry headers so repeat visits are instant.
