@@ -4,14 +4,12 @@ dist/
 node_modules/
 package-lock.json
 
-# served exactly as-is (vendor files, generated trimmed CSS, site CSS/JS whose
-# bytes set the ?v= cache-busting hash)
-public/
+# third-party and generated files, served exactly as shipped
+public/assets/bootstrap/
+public/assets/fonts/
+public/assets/js/*.min.js
 
 # generated reports
 perf/
 playwright-report/
 test-results/
-
-# must stay byte-for-byte as Google supplies it (plus our deferred loading)
-src/components/GoogleTagManager.astro
