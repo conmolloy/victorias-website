@@ -80,10 +80,6 @@ for (const name of PAGES) {
     isMobile,
   }) => {
     test.skip(!isMobile, "phone width only");
-    // Known bug (since before the Astro port): the gallery's video blocks are
-    // 40px too wide on phones, so the page scrolls sideways and the menu
-    // button is partly off-screen. See PLAN.md. Remove this line once fixed.
-    test.fail(name === "gallery", "gallery is 430px wide on a 390px phone");
     await page.goto(`/${name}.html`);
     await page.waitForLoadState("load");
     const { scroll, client } = await page.evaluate(() => ({
