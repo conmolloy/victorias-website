@@ -40,4 +40,5 @@ jobs:
             --exclude='.vscode/' \
             --exclude='*.md' \
             --exclude='tools/' \
+            --exclude='perf/' \
             ./ "$USER@$HOST:$REMOTE_PATH/"

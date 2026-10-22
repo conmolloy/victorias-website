@@ -1,0 +1,137 @@
+{
+ "date": "2026-10-22",
+ "tool": "Lighthouse 12.2.1, mobile, simulated throttling, single run, local",
+ "versions": {
+  "pre": "bac4706 (Bootstrap + Materialize, duplicate libraries)",
+  "bs": "Bootstrap-only (step 3)"
+ },
+ "units": {
+  "lcp": "ms",
+  "fcp": "ms",
+  "si": "ms",
+  "tbt": "ms",
+  "bytes": "bytes"
+ },
+ "pages": {
+  "index": {
+   "pre": {
+    "fcp": 5974.90795,
+    "lcp": 9565.531750000002,
+    "tbt": 92.5,
+    "cls": 0,
+    "si": 5974.90795,
+    "bytes": 7117799,
+    "score": 60,
+    "requests": 44,
+    "webp_savings_left": 0
+   },
+   "bs": {
+    "fcp": 4060.99265,
+    "lcp": 6760.99265,
+    "tbt": 90,
+    "cls": 0,
+    "si": 4060.99265,
+    "bytes": 5068192,
+    "score": 67,
+    "requests": 35,
+    "webp_savings_left": 0
+   }
+  },
+  "gallery": {
+   "pre": {
+    "fcp": 4974.049083303507,
+    "lcp": 25518.53094446708,
+    "tbt": 164,
+    "cls": 0.052335175004476105,
+    "si": 4974.049083303507,
+    "bytes": 11060992,
+    "score": 60,
+    "requests": 210,
+    "webp_savings_left": 0
+   },
+   "bs": {
+    "fcp": 3326.464287330752,
+    "lcp": 25671.86209762202,
+    "tbt": 203,
+    "cls": 0.052335175004476105,
+    "si": 3594.8013589354705,
+    "bytes": 10942870,
+    "score": 64,
+    "requests": 202,
+    "webp_savings_left": 0
+   }
+  },
+  "headshot": {
+   "pre": {
+    "fcp": 4211.993725,
+    "lcp": 9542.3109,
+    "tbt": 81,
+    "cls": 0.05103280680437424,
+    "si": 4211.993725,
+    "bytes": 5587329,
+    "score": 64,
+    "requests": 65,
+    "webp_savings_left": 0
+   },
+   "bs": {
+    "fcp": 3021.3467500000006,
+    "lcp": 8482.44375,
+    "tbt": 83,
+    "cls": 0.05103280680437424,
+    "si": 3021.3467500000006,
+    "bytes": 5529649,
+    "score": 69,
+    "requests": 60,
+    "webp_savings_left": 0
+   }
+  },
+  "showreel": {
+   "pre": {
+    "fcp": 3488.9426,
+    "lcp": 5363.942599999999,
+    "tbt": 88.5,
+    "cls": 0,
+    "si": 3488.9426,
+    "bytes": 1132090,
+    "score": 72,
+    "requests": 45,
+    "webp_savings_left": 0
+   },
+   "bs": {
+    "fcp": 2879.05835,
+    "lcp": 5499.4241,
+    "tbt": 108.5,
+    "cls": 0,
+    "si": 2879.05835,
+    "bytes": 977611,
+    "score": 74,
+    "requests": 36,
+    "webp_savings_left": 0
+   }
+  },
+  "reviews": {
+   "pre": {
+    "fcp": 4083.8722500000003,
+    "lcp": 7287.4977499999995,
+    "tbt": 82,
+    "cls": 0,
+    "si": 4083.8722500000003,
+    "bytes": 1180040,
+    "score": 66,
+    "requests": 33,
+    "webp_savings_left": 0
+   },
+   "bs": {
+    "fcp": 2876.5871500000003,
+    "lcp": 6259.364450000001,
+    "tbt": 89,
+    "cls": 0,
+    "si": 2876.5871500000003,
+    "bytes": 1004826,
+    "score": 72,
+    "requests": 32,
+    "webp_savings_left": 0
+   }
+  }
+ }
+}

@@ -308,3 +308,6 @@ hr{
     transform: translateY(-15px);
   }
 }
+.review {
+  margin-top: 10px;
+}

@@ -1,0 +1,203 @@
+{
+ "date": "2026-10-22",
+ "tool": "Lighthouse 12.2.1, mobile, simulated throttling, single run",
+ "versions": {
+  "before": "faf5886 original (local)",
+  "webp": "2a9b496 images to WebP (local)",
+  "after": "bac4706 + H.264 videos + missed images (local)",
+  "live": "https://victoriaadler.co.uk at bac4706"
+ },
+ "units": {
+  "lcp": "ms",
+  "fcp": "ms",
+  "si": "ms",
+  "tbt": "ms",
+  "bytes": "bytes"
+ },
+ "pages": {
+  "index": {
+   "before": {
+    "fcp": 6620.576564999999,
+    "lcp": 14662.862149999999,
+    "tbt": 173,
+    "cls": 0,
+    "si": 7599.696523654945,
+    "bytes": 39235383,
+    "score": 55,
+    "requests": 46,
+    "webp_savings_left": 351534.30000000005
+   },
+   "webp": {
+    "fcp": 6772.9867399999985,
+    "lcp": 12561.532750000002,
+    "tbt": 155,
+    "cls": 0,
+    "si": 7137.305659138197,
+    "bytes": 38696659,
+    "score": 56,
+    "requests": 45,
+    "webp_savings_left": 0
+   },
+   "after": {
+    "fcp": 6471.592100000001,
+    "lcp": 12518.189749999998,
+    "tbt": 169,
+    "cls": 0,
+    "si": 7107.718705915626,
+    "bytes": 5020640,
+    "score": 56,
+    "requests": 44,
+    "webp_savings_left": 0
+   },
+   "live": {
+    "fcp": 3607.782,
+    "lcp": 7636.03,
+    "tbt": 183,
+    "cls": 0,
+    "si": 6303.46031797734,
+    "bytes": 4683570,
+    "score": 60,
+    "requests": 44,
+    "webp_savings_left": 0
+   }
+  },
+  "gallery": {
+   "before": {
+    "fcp": 12064.31525,
+    "lcp": 38017.22595,
+    "tbt": 121.5,
+    "cls": 0.0003877021975252392,
+    "si": 12064.31525,
+    "bytes": 46343102,
+    "score": 54,
+    "requests": 233,
+    "webp_savings_left": 15690289.599999998
+   },
+   "webp": {
+    "fcp": 12099.30199387301,
+    "lcp": 59651.82993158662,
+    "tbt": 218,
+    "cls": 0.04946048502074547,
+    "si": 12099.30199387301,
+    "bytes": 15187869,
+    "score": 51,
+    "requests": 210,
+    "webp_savings_left": 2021532.3499999999
+   },
+   "after": {
+    "fcp": 5745.757849999998,
+    "lcp": 25463.885024999996,
+    "tbt": 180,
+    "cls": 0.026028412065836216,
+    "si": 5745.757849999998,
+    "bytes": 11125295,
+    "score": 58,
+    "requests": 211,
+    "webp_savings_left": 0
+   },
+   "live": {
+    "fcp": 10527.427,
+    "lcp": 33176.066000000006,
+    "tbt": 162,
+    "cls": 0.05192756778116046,
+    "si": 10527.427,
+    "bytes": 11706890,
+    "score": 53,
+    "requests": 219,
+    "webp_savings_left": 0
+   }
+  },
+  "headshot": {
+   "before": {
+    "fcp": 5484.2324,
+    "lcp": 66614.2668,
+    "tbt": 156,
+    "cls": 0,
+    "si": 5484.2324,
+    "bytes": 31132199,
+    "score": 59,
+    "requests": 65,
+    "webp_savings_left": 8247687.399999999
+   },
+   "webp": {
+    "fcp": 5509.438399999999,
+    "lcp": 15457.094399999998,
+    "tbt": 74,
+    "cls": 0.05103280680437424,
+    "si": 5509.438399999999,
+    "bytes": 5587028,
+    "score": 60,
+    "requests": 65,
+    "webp_savings_left": 0
+   },
+   "after": {
+    "fcp": 5573.0886,
+    "lcp": 15885.95135,
+    "tbt": 74,
+    "cls": 0.05103280680437424,
+    "si": 5573.0886,
+    "bytes": 5587318,
+    "score": 60,
+    "requests": 65,
+    "webp_savings_left": 0
+   },
+   "live": {
+    "fcp": 3351.375,
+    "lcp": 8518.225,
+    "tbt": 185,
+    "cls": 0.04860267314702309,
+    "si": 6541.708870000055,
+    "bytes": 5246152,
+    "score": 60,
+    "requests": 65,
+    "webp_savings_left": 0
+   }
+  },
+  "showreel": {
+   "before": {
+    "fcp": 4558.4800000000005,
+    "lcp": 19213.087499999998,
+    "tbt": 198,
+    "cls": 0,
+    "si": 4558.4800000000005,
+    "bytes": 113277657,
+    "score": 61,
+    "requests": 46,
+    "webp_savings_left": 0
+   },
+   "webp": {
+    "fcp": 3478.01145,
+    "lcp": 5428.011450000001,
+    "tbt": 118.00000000000091,
+    "cls": 0,
+    "si": 3478.01145,
+    "bytes": 110806867,
+    "score": 71,
+    "requests": 46,
+    "webp_savings_left": 0
+   },
+   "after": {
+    "fcp": 3464.8148999999994,
+    "lcp": 5414.814899999999,
+    "tbt": 90.50000000000045,
+    "cls": 0,
+    "si": 3464.8148999999994,
+    "bytes": 1131564,
+    "score": 72,
+    "requests": 45,
+    "webp_savings_left": 0
+   },
+   "live": {
+    "fcp": 3594.3549999999996,
+    "lcp": 8328.5775,
+    "tbt": 160,
+    "cls": 0,
+    "si": 5252.78137519649,
+    "bytes": 1329824,
+    "score": 63,
+    "requests": 49,
+    "webp_savings_left": 0
+   }
+  }
+ }
+}

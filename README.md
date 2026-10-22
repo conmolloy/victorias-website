@@ -1,8 +1,19 @@
 # Victoria Adler – actor website
 
 Portfolio site for Victoria Adler: headshots, gallery, showreel, CV and
-reviews. Plain static HTML/CSS/JS (Bootstrap + Materialize + jQuery) – no build
-step, no PHP.
+reviews. Plain static HTML/CSS/JS – no build step, no PHP.
+
+Each page loads the same small stack:
+
+- **Bootstrap 4.6** with the Start Bootstrap *Grayscale* theme
+  (`assets/bootstrap/`) – layout, navbar, mobile menu
+- **jQuery 3.5** (needed by Bootstrap 4's JS) + `assets/js/grayscale.js`
+  (smooth scrolling, navbar shrink on scroll) – loaded at the end of `<body>`
+- **Font Awesome 4.7** icons (`assets/fonts/font-awesome.min.css`)
+- `assets/css/Projects-Clean.css` – the site's own styles
+- `assets/css/site-base.css` – **home and reviews only**: the base typography,
+  buttons and header-video layout those two pages were designed with
+  (originally from Materialize, which has been removed)
 
 ## Pages
 
