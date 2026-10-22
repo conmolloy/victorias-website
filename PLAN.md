@@ -153,11 +153,16 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       page 430px wide on a 390px phone, so it scrolls sideways and the menu
       button is partly off-screen. Fix, then remove the `test.fail(...)` line
       in `tests/e2e/site.spec.ts`.
-- [ ] **Accessibility**: `alt` text for the 114 photos/logos without one
-      (production + role for gallery photos, e.g. "Victoria Adler as Macduff
-      in Macbeth"), a title for the showreel/videos, captions where
-      practical; then make the jsx-a11y lint rules errors again
-      (`eslint.config.js`).
+- [x] **Accessibility**: `alt` text for all 114 photos/logos (show and
+      company for gallery photos, photographer and year for headshots,
+      site name for the profile logos, what each certificate is), labels
+      for the menu button and the phone/email icons, a title for the GTM
+      iframe (video previews already pass theirs on to the player). The
+      songs, voice reels and showreel have no captions: the eslint rule is
+      off for those 7 elements, with a comment. The jsx-a11y lint rules
+      are errors again (`eslint.config.js`).
+- [ ] Captions/transcripts for the showreel and the two voice reels
+      (a WebVTT file for the video, a text transcript next to the audio).
 - [ ] Python tools (`tools/*.py`) have no linter/tests yet – add Ruff if
       they grow.
 - [ ] `npm audit`: 6 "high" warnings, all one advisory in `braces` (used only

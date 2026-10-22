@@ -129,9 +129,11 @@ npm run verify
 
 Notes:
 
-- The accessibility linter currently reports 124 **warnings** on the existing
-  pages (photos without `alt` text, audio/video without captions). They
-  don't fail the checks yet; please don't add new ones (see PLAN.md).
+- The accessibility linter fails the checks on a photo without `alt` text
+  (describe it, or `alt=""` if it's only decoration), a link or button
+  with no text, or audio/video without captions. Recordings that can't
+  have captions (songs, the reels, until there's a transcript) turn the
+  caption rule off for that one element, with a comment saying why.
 - Playwright uses your installed Google Chrome. If it says Chrome isn't
   found, install Chrome, or run `npx playwright install chromium` and remove
   `channel: "chrome"` from `playwright.config.ts`.

@@ -24,20 +24,6 @@ export default defineConfig([
   astro.configs["flat/recommended"],
   astro.configs["flat/jsx-a11y-recommended"],
   {
-    // Accessibility gaps in the existing pages (images without alt text,
-    // audio/video without captions) are reported as warnings until they're
-    // fixed (see PLAN.md); new code should not add more.
-    files: ["**/*.astro"],
-    rules: Object.fromEntries(
-      Object.entries(astro.configs["flat/jsx-a11y-recommended"].at(-1).rules)
-        .filter(
-          ([rule, level]) =>
-            rule.startsWith("astro/jsx-a11y/") && level !== "off",
-        )
-        .map(([rule]) => [rule, "warn"]),
-    ),
-  },
-  {
     // <script is:inline> blocks are shipped exactly as written (classic
     // browser scripts, e.g. the Google Tag Manager snippet), so ES5 style is fine
     files: [
