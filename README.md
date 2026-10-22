@@ -48,9 +48,8 @@ Notes:
 - The deploy **never deletes** files on the server. Removing a file from the
   repo leaves the old copy on Cloudways; delete it over SFTP if needed.
 - `*.md`, `tools/`, `.github/` and other dev files are not uploaded.
-- Some media is not in git and only exists on the server, so it has to be
-  uploaded by SFTP – currently `assets/showreel/Showreel.mp4` (over GitHub's
-  100 MB file limit). See [`.gitignore`](.gitignore).
+- GitHub rejects files over 100 MB, so keep videos compressed (see below).
+  Unused media listed in [`.gitignore`](.gitignore) isn't in the repo.
 
 ## Adding photos
 
@@ -72,6 +71,19 @@ Images are served as WebP. To add new ones:
 
 Add `loading="lazy"` to `<img>` tags that aren't visible at the top of the
 page.
+
+## Adding or replacing videos
+
+Export as **H.264** MP4, not HEVC/H.265 – HEVC doesn't play in Firefox or in
+Chrome on many PCs. In HandBrake, the "Fast 1080p30" preset works; or with
+ffmpeg:
+
+```bash
+ffmpeg -i input.mov -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart output.mp4
+```
+
+For a muted background video use `-crf 28 -an` instead (no audio track).
+Keep files well under 100 MB.
 
 ## Plans
 

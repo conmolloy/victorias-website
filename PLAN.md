@@ -11,11 +11,12 @@ media) only exist on the server and must be uploaded by FTP.
       quality 80): 92 MB → 16.5 MB. `loading="lazy"` on below-the-fold images.
       Fixed 3 headshots that 404'd on the server due to `.jpg`/`.JPG` case.
       Full-size originals kept locally in `_originals/` (not committed).
+- [x] **2. Videos** – both were HEVC (didn't play in Firefox / many Chrome
+      setups). Re-encoded to H.264 1080p: header 35 → 7.9 MB (audio track
+      dropped, it's muted), showreel 105 → 47 MB, now in git. Showreel only
+      downloads when played (`preload="metadata"`).
 
 ## Next
-- [ ] **2. Videos** – compress `12-2024-header-1920.mp4` (36 MB, homepage
-      background) and `Showreel.mp4` (105 MB; needs < 100 MB to go in git),
-      or host the showreel on YouTube/Vimeo.
 - [ ] **3. One CSS framework** – pages load Bootstrap *and* Materialize (plus
       jQuery); standardise on one.
 - [ ] **4. Astro + TypeScript** – shared nav/footer components instead of
