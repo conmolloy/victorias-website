@@ -22,6 +22,12 @@ Each page loads the same small stack:
   page `<link rel="preload">`s the fonts its first screen uses. To add a
   font, download it from Google Fonts (or google-webfonts-helper) as woff2
   rather than linking `fonts.googleapis.com`.
+- **Google Tag Manager** (`GTM-NXB648G` – Google Analytics `G-WXKX3EMGL2` +
+  Google Ads tags) is loaded *after* the page: on the first
+  scroll/tap/click/key, 3 s after load, or when the tab is switched away.
+  It used to block the page for ~350 ms on every visit. Trade-off: a visitor
+  who leaves within ~3 s without touching the page isn't counted. The
+  snippet is at the top of each page's `<head>`; change `3000` to adjust.
 - `assets/css/Projects-Clean.css` – the site's own styles
 - `assets/css/site-base.css` – **home and reviews only**: the base typography,
   buttons and header-video layout those two pages were designed with
