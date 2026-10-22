@@ -6,8 +6,8 @@ video's thumbnail and a play button; assets/js/video-facade.js swaps in the
 real player (autoplaying) when it's clicked. Without JavaScript the link
 simply opens the video on Vimeo/YouTube.
 
-To add a video: paste the normal embed code from Vimeo/YouTube into the page,
-then run this. Commented-out embeds are left alone; safe to re-run.
+To add a video: paste the normal embed code from Vimeo/YouTube into
+src/pages/gallery.astro, then run this. Commented-out embeds are left alone; safe to re-run.
 
 usage (from the repo root):
     uv run --with pillow python tools/video_facades.py            # dry run
@@ -26,10 +26,10 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPLY = "--apply" in sys.argv
-PAGES = ["gallery.html"]
+PAGES = ["../src/pages/gallery.astro"]  # relative to public/
 THUMB_DIR = "assets/img/video-thumbs"
 THUMB_WIDTH = 960
-os.chdir(ROOT)
+os.chdir(os.path.join(ROOT, "public"))  # thumbnails go to public/assets/...
 
 IFRAME = re.compile(r"<iframe\b[^>]*>\s*</iframe>", re.I)
 COMMENT = re.compile(r"<!--.*?-->", re.S)
@@ -84,7 +84,8 @@ def facade(tag):
             im = im.resize((THUMB_WIDTH, round(im.height * THUMB_WIDTH / im.width)), Image.LANCZOS)
         im.save(thumb, "WEBP", quality=80, method=6)
     w, h = Image.open(thumb).size if os.path.exists(thumb) else (1280, 720)
-    e = lambda s: html.escape(s, quote=True)
+    # (braces too: Astro would read {...} in the page as an expression)
+    e = lambda s: html.escape(s, quote=True).replace("{", "&#123;").replace("}", "&#125;")
     return (f'<a class="video-facade" href="{e(watch)}" data-embed="{e(embed)}" data-allow="{e(allow)}" '
             f'data-height="{e(height)}" style="height: {e(height)}px" aria-label="Play video: {e(title)}">'
             f'<img src="{thumb}" alt="{e(title)}" loading="lazy" decoding="async" width="{w}" height="{h}">'

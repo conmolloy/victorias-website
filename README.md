@@ -1,12 +1,14 @@
 # Victoria Adler – actor website
 
 Portfolio site for Victoria Adler: headshots, gallery, showreel, CV and
-reviews. Plain static HTML/CSS/JS – no build step, no PHP.
+reviews. Built with [Astro](https://astro.build) (TypeScript, strict) into
+plain static HTML/CSS/JS – no PHP, no server-side code. The build output
+(`dist/`) is what gets uploaded.
 
 Each page loads the same small stack:
 
 - **Bootstrap 4.6** with the Start Bootstrap *Grayscale* theme
-  (`assets/bootstrap/`) – layout, navbar, mobile menu. Pages load a
+  (`public/assets/bootstrap/`) – layout, navbar, mobile menu. Pages load a
   **trimmed** `bootstrap.min.css` (11 KB, only the rules the site uses);
   the complete theme is `bootstrap.full.min.css` – see
   [Trimmed CSS](#trimmed-css-bootstrap-and-icons).
@@ -16,10 +18,10 @@ Each page loads the same small stack:
   + `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
   envelope, arrow-down)
 - **Fonts, self-hosted** (no Google Fonts requests): Lora + Cabin via
-  `assets/css/fonts.css` on every page, Roboto (`font-roboto.css`) on all
-  pages except home, Outfit (`font-outfit.css`) on home. Files are in
-  `assets/fonts/` (latin + latin-ext subsets, `font-display: swap`). Each
-  page `<link rel="preload">`s the fonts its first screen uses. To add a
+  `assets/css/fonts.css` and Roboto (`font-roboto.css`) on every page, Outfit
+  (`font-outfit.css`) on home. Files are in `public/assets/fonts/` (latin +
+  latin-ext subsets, `font-display: swap`). Each page `<link rel="preload">`s
+  the fonts its first screen uses (the `preloads` prop, see below). To add a
   font, download it from Google Fonts (or google-webfonts-helper) as woff2
   rather than linking `fonts.googleapis.com`.
 - **Google Tag Manager** (`GTM-NXB648G` – Google Analytics `G-WXKX3EMGL2` +
@@ -27,46 +29,98 @@ Each page loads the same small stack:
   scroll/tap/click/key, 3 s after load, or when the tab is switched away.
   It used to block the page for ~350 ms on every visit. Trade-off: a visitor
   who leaves within ~3 s without touching the page isn't counted. The
-  snippet is at the top of each page's `<head>`; change `3000` to adjust.
+  snippet is at the top of `<head>` in `src/layouts/BaseLayout.astro`;
+  change `3000` to adjust.
 - `assets/css/Projects-Clean.css` – the site's own styles
 - `assets/css/site-base.css` – **home and reviews only**: the base typography,
   buttons and header-video layout those two pages were designed with
   (originally from Materialize, which has been removed)
 
-## Pages
+## Where things live
 
-| File | Page |
+| Path | What |
 |---|---|
-| `index.html` | Home – header video, about, current shows, contact |
-| `headshot.html` | Headshots |
-| `gallery.html` | Production photos, audio clips and voicereels |
-| `showreel.html` | Showreel video |
-| `resume.html` | CV |
-| `reviews.html` | Reviews |
+| `src/pages/*.astro` | one file per page → `dist/<name>.html` |
+| `src/layouts/BaseLayout.astro` | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts |
+| `src/components/Navbar.astro` | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top) |
+| `src/components/Contact.astro` | "Contact Me" section on the home page |
+| `src/lib/asset.ts` | `v()` – adds the `?v=<hash>` to local CSS/JS links |
+| `public/` | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
+| `tools/` | maintenance scripts (not deployed) |
 
-Assets live in `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`,
-`audio/`, `video/`, `showreel/`, `cv/`).
+| Page | File | Shows |
+|---|---|---|
+| `/` (`index.html`) | `src/pages/index.astro` | Home – header video, about, reviews, contact |
+| `/headshot` | `src/pages/headshot.astro` | Headshots |
+| `/gallery` | `src/pages/gallery.astro` | Production photos, audio clips and voicereels |
+| `/showreel` | `src/pages/showreel.astro` | Showreel video |
+| `/resume` | `src/pages/resume.astro` | CV (PDF shown with PDF.js) |
+| `/reviews` | `src/pages/reviews.astro` | Reviews |
+
+Per-page differences are props on `BaseLayout`: `title`, `lang`, `favicon`,
+`preloads` (font files), `outfit` / `siteBase` (extra stylesheets),
+`brandHref`, `bodyId`, `bodyStyle`; extra `<head>` content goes in
+`slot="head"` / `slot="head-scripts"`, extra end-of-body scripts in
+`slot="scripts"` (see `resume.astro` and `gallery.astro`).
+
+### Editing pages – Astro gotchas
+
+Pages are mostly plain HTML, but:
+
+- Every tag must be closed (`<div>` … `</div>`) – the build fails otherwise.
+- `{` and `}` in text start an Astro expression; write `&#123;` / `&#125;`
+  if you need them literally (inside quoted attributes they're fine).
+- `<script>` and `<style>` need `is:inline`, or Astro bundles/scopes them.
+- Link local CSS/JS with `v()` – `<link rel="stylesheet" href={v("assets/css/x.css")}>`,
+  `<script is:inline src={v("assets/js/x.js")}></script>` – so the address
+  changes when the file does (browsers keep CSS/JS for 30 days).
+- Asset paths stay relative (`assets/img/...`, no leading `/`), as before.
+- HTML comments placed directly after a component (e.g. after `<Contact />`)
+  are dropped from the output.
 
 ## Working on it locally
 
-Open the folder in VS Code and serve it, e.g.:
+Needs Node.js 22.23+ (24 recommended).
 
 ```bash
-python -m http.server 8000
+npm install
 ```
 
-then visit http://localhost:8000.
+```bash
+npm run dev
+```
+
+then visit http://localhost:4321 – pages reload as you edit. To build the
+site exactly as it's deployed (type-check + `dist/`):
+
+```bash
+npm run build
+```
+
+```bash
+npm run preview
+```
+
+(or `python -m http.server 8000 --directory dist`).
 
 > The live server runs Linux, so file names are **case-sensitive**:
 > `photo.JPG` and `photo.jpg` are different files there, even though Windows
-> treats them as the same. Make sure paths in the HTML match the file exactly.
+> treats them as the same. Make sure paths in the pages match the file exactly.
+
+> Local-only media (unused audio/video listed in [`.gitignore`](.gitignore))
+> now belongs under `public/assets/...` – if you have copies in an old
+> top-level `assets/` folder, move them there.
 
 ## Deploying
 
 Pushing to `main` deploys automatically. GitHub Actions
-([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) copies the
-site to Cloudways over SSH with `rsync`. Progress shows under the repo's
-**Actions** tab, and there's a **Run workflow** button to redeploy manually.
+([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) installs
+Node, runs `npm ci` and `npm run build`, re-checks the CSS/JS versions in
+the built HTML (`tools/cache_bust.py dist`) and copies `dist/` to Cloudways
+over SSH with `rsync`. Progress shows under the repo's **Actions** tab, and
+there's a **Run workflow** button to redeploy manually. Pull requests get a
+build-only check ([`build.yml`](.github/workflows/build.yml)) – nothing is
+uploaded.
 
 It uses four repository secrets (Settings → Secrets and variables → Actions):
 `CLOUDWAYS_HOST`, `CLOUDWAYS_USER`, `CLOUDWAYS_PATH` (`public_html`) and
@@ -76,7 +130,7 @@ Notes:
 
 - The deploy **never deletes** files on the server. Removing a file from the
   repo leaves the old copy on Cloudways; delete it over SFTP if needed.
-- `*.md`, `tools/`, `.github/` and other dev files are not uploaded.
+- Only `dist/` is uploaded (`src/`, `tools/`, `*.md` etc. never reach the server).
 - GitHub rejects files over 100 MB, so keep videos compressed (see below).
   Unused media listed in [`.gitignore`](.gitignore) isn't in the repo.
 
@@ -84,11 +138,11 @@ Notes:
 
 Images are served as WebP. To add new ones:
 
-1. Put the JPG/PNG in the right `assets/img/...` folder and reference it in
-   the page as usual (use `/` in paths, not `\`).
+1. Put the JPG/PNG in the right `public/assets/img/...` folder and reference
+   it in the page as usual (`src="assets/img/..."`, use `/` not `\`).
 2. Convert it – this resizes to max 2000px, writes a `.webp`, updates the
-   page to point at it, and moves the original to `_originals/`
-   (local backup, not committed):
+   page (any `.astro` file in `src/`) to point at it, and moves the original
+   to `_originals/` (local backup, not committed):
 
    ```bash
    uv run --with pillow python tools/optimize_images.py           # preview
@@ -97,10 +151,11 @@ Images are served as WebP. To add new ones:
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
 3. **Gallery and headshot photos** (`<img class="... zoom">` in
-   `gallery.html`, `<img class="... zoom-hs">` in `headshot.html`): make the
-   smaller versions so phones/laptops don't download the 2000px file for a
-   smaller photo. This writes `-400w`, `-800w` and `-1200w`
-   `.webp` files next to each new photo and adds `srcset`/`sizes`:
+   `src/pages/gallery.astro`, `<img class="... zoom-hs">` in
+   `src/pages/headshot.astro`): make the smaller versions so phones/laptops
+   don't download the 2000px file for a smaller photo. This writes `-400w`,
+   `-800w` and `-1200w` `.webp` files next to each new photo and adds
+   `srcset`/`sizes`:
 
    ```bash
    uv run --with pillow python tools/make_thumbnails.py --apply
@@ -133,22 +188,22 @@ Keep files well under 100 MB.
 
 Every page has to download its CSS before it can show anything, so the
 Bootstrap theme and Font Awesome are trimmed to the rules the pages use
-(159 KB → 11 KB and 30 KB → 1 KB). `tools/trim-css` opens each page in
-Chrome – phone/tablet/desktop, scrolled, with the mobile menu open – and keeps
-every rule that matches something.
+(159 KB → 11 KB and 30 KB → 1 KB). `tools/trim-css` opens each built page
+(`dist/*.html`) in Chrome – phone/tablet/desktop, scrolled, with the mobile
+menu open – and keeps every rule that matches something.
 
 | Pages load (trimmed, generated) | Source (complete, edit this) |
 |---|---|
-| `assets/bootstrap/css/bootstrap.min.css` | `assets/bootstrap/css/bootstrap.full.min.css` |
-| `assets/fonts/font-awesome.min.css` | `assets/fonts/font-awesome.full.min.css` |
-| `assets/fonts/fontawesome-subset.woff2` | `assets/fonts/fontawesome-webfont.woff2` |
+| `public/assets/bootstrap/css/bootstrap.min.css` | `public/assets/bootstrap/css/bootstrap.full.min.css` |
+| `public/assets/fonts/font-awesome.min.css` | `public/assets/fonts/font-awesome.full.min.css` |
+| `public/assets/fonts/fontawesome-subset.woff2` | `public/assets/fonts/fontawesome-webfont.woff2` |
 
 **Added a Bootstrap component, a new page, or a new icon** (e.g.
 `<i class="fa fa-star">`) and it looks unstyled or the icon is blank?
-Re-generate the trimmed files (needs Node.js and Chrome):
+Re-generate the trimmed files (needs Chrome):
 
 ```bash
-cd tools/trim-css && npm install && npm run trim
+npm run build && cd tools/trim-css && npm install && npm run trim
 ```
 
 and, for icons, then from the repo root:
@@ -157,10 +212,11 @@ and, for icons, then from the repo root:
 uv run --with fonttools --with brotli python tools/subset_icons.py
 ```
 
-New pages need adding to the `PAGES` list in `tools/trim-css/trim-css.js`.
-Quick fallback without the tools: point the page's `<link>` at
-`bootstrap.full.min.css` / `font-awesome.full.min.css` (slower, but
-complete – icons still need the subset re-run or the full font).
+then `npm run build` again. New pages are picked up automatically (every
+`.html` in `dist/`). Quick fallback without the tools: link
+`bootstrap.full.min.css` / `font-awesome.full.min.css` in
+`BaseLayout.astro` instead (slower, but complete – icons still need the
+subset re-run or the full font).
 
 ## Adding a Vimeo/YouTube video to the gallery
 
@@ -169,16 +225,24 @@ player only loads when it's clicked (`assets/js/video-facade.js`), which
 saves ~1 MB of player scripts per visit. To add one:
 
 1. Copy the normal embed code from Vimeo/YouTube (Share → Embed) and paste
-   it into `gallery.html` where you want it, inside a
-   `<div class="col s12 m6 l6 video-containers">` like the others.
+   it into `src/pages/gallery.astro` where you want it, inside a
+   `<div class="col s12 m6 l6 video-containers">` like the others. Close the
+   tag as `<iframe ...></iframe>` (Astro needs every tag closed).
 2. Convert it to a click-to-load preview (downloads the thumbnail into
-   `assets/img/video-thumbs/`):
+   `public/assets/img/video-thumbs/`):
 
    ```bash
    uv run --with pillow python tools/video_facades.py --apply
    ```
 
 3. Commit and push.
+
+## Checking a change looks the same
+
+`tools/visual-check/` has Puppeteer scripts that screenshot two copies of
+the site (e.g. `main` and your build) and diff them pixel by pixel, plus
+behaviour and returning-visitor checks – see its
+[README](tools/visual-check/README.md).
 
 ## Plans
 

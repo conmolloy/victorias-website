@@ -1,0 +1,89 @@
+---
+/**
+ * Page shell shared by every page: <head> (meta, font preloads, stylesheets,
+ * deferred Google Tag Manager), the GTM noscript iframe, the navbar, and the
+ * scripts at the end of <body> (jQuery + Bootstrap 4 JS + grayscale.js).
+ *
+ * Local CSS/JS links go through v() so they carry a content-hash ?v=
+ * (browsers cache CSS/JS for 30 days).
+ */
+import Navbar from "../components/Navbar.astro";
+import { v } from "../lib/asset";
+
+interface Props {
+  /** <title> */
+  title: string;
+  /** <html lang>; some pages never had one */
+  lang?: string;
+  /** <link rel="shortcut icon"> (CV and showreel never had one) */
+  favicon?: boolean;
+  /** font files in assets/fonts/ to <link rel="preload">, in order (the ones the first screen uses) */
+  preloads: string[];
+  /** home only: load font-outfit.css */
+  outfit?: boolean;
+  /** home and reviews: load site-base.css (former Materialize base styles) */
+  siteBase?: boolean;
+  /** navbar brand link: "#" on home and reviews, "/" elsewhere */
+  brandHref?: string;
+  bodyId?: string;
+  bodyStyle?: string;
+}
+
+const {
+  title,
+  lang,
+  favicon = true,
+  preloads,
+  outfit = false,
+  siteBase = false,
+  brandHref = "/",
+  bodyId,
+  bodyStyle,
+} = Astro.props;
+---
+
+<html lang={lang}>
+
+<head>
+    <!-- Google Tag Manager (loaded after the page has finished loading, so it
+         doesn't slow the page down: on the first scroll/tap/click/key, or 3 s
+         after load, or when the tab is switched away – whichever comes first) -->
+        <script is:inline>(function(w,d,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var done=false,ev=['scroll','pointerdown','keydown','touchstart'];
+        function load(){if(done)return;done=true;ev.forEach(function(e){w.removeEventListener(e,load)});d.removeEventListener('visibilitychange',load);
+        var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;
+        d.head.appendChild(j);}
+        ev.forEach(function(e){w.addEventListener(e,load,{passive:true})});d.addEventListener('visibilitychange',load);
+        if(d.readyState==='complete')setTimeout(load,3000);else w.addEventListener('load',function(){setTimeout(load,3000)});
+        })(window,document,'dataLayer','GTM-NXB648G');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    {favicon && <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />}
+    <title>{title}</title>
+    <slot name="head-scripts" />
+    {preloads.map((font) => <link rel="preload" href={`assets/fonts/${font}`} as="font" type="font/woff2" crossorigin>)}
+    <link rel="stylesheet" href={v("assets/css/fonts.css")}>
+    <link rel="stylesheet" href={v("assets/bootstrap/css/bootstrap.min.css")}>
+    {outfit && <link rel="stylesheet" href={v("assets/css/font-outfit.css")}>}
+    <link rel="stylesheet" href={v("assets/css/font-roboto.css")}>
+    <link rel="stylesheet" href={v("assets/fonts/font-awesome.min.css")}>
+    <link rel="stylesheet" href={v("assets/css/Projects-Clean.css")}>
+    {siteBase && <link rel="stylesheet" href={v("assets/css/site-base.css")}>}
+    <slot name="head" />
+</head>
+
+<body id={bodyId} style={bodyStyle}>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXB648G"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <Navbar brandHref={brandHref} />
+<slot />
+    <script is:inline src={v("assets/js/jquery.min.js")}></script>
+    <script is:inline src={v("assets/bootstrap/js/bootstrap.min.js")}></script>
+    <script is:inline src={v("assets/js/grayscale.js")}></script>
+    <slot name="scripts" />
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+name: Build check
+
+# Builds the site on pull requests (nothing is uploaded) so a broken build is
+# caught before it reaches main, where deploy.yml would publish it.
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site (Astro)
+        run: npm run build
+
+      - name: Version CSS/JS links
+        run: python3 tools/cache_bust.py dist
+
+      # handy for checking that unchanged files keep the version (and so the
+      # browser-cached copy) they have on the live site
+      - name: List CSS/JS versions
+        run: grep -oh 'assets/[^"]*?v=[0-9a-f]*' dist/*.html | sort -u

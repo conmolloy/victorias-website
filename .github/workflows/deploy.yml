@@ -29,13 +29,28 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
 
-      # Browsers keep CSS/JS for 30 days: version every link by its content so
-      # returning visitors get changed files (see tools/cache_bust.py)
-      - name: Version CSS/JS links
-        run: python3 tools/cache_bust.py
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
 
-      # No --delete: images, audio and video are gitignored and live only on
-      # the server, so files missing from the repo must be left alone.
+      - name: Install dependencies
+        run: npm ci
+
+      # Type-checks, then builds src/pages/*.astro + public/ into dist/
+      - name: Build site (Astro)
+        run: npm run build
+
+      # Browsers keep CSS/JS for 30 days: every link must be versioned by its
+      # content so returning visitors get changed files. The Astro build
+      # already does this (src/lib/asset.ts); this re-checks the built HTML
+      # (see tools/cache_bust.py) and fixes any link added without v().
+      - name: Version CSS/JS links
+        run: python3 tools/cache_bust.py dist
+
+      # Uploads the built site (dist/) only. No --delete: some media lives only
+      # on the server, so files missing from the build must be left alone.
       - name: Upload site
         run: |
           rsync -avz \
@@ -46,4 +61,4 @@ jobs:
             --exclude='*.md' \
             --exclude='tools/' \
             --exclude='perf/' \
-            ./ "$USER@$HOST:$REMOTE_PATH/"
+            dist/ "$USER@$HOST:$REMOTE_PATH/"

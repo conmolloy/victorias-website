@@ -1,8 +1,8 @@
 """Give gallery and headshot photos smaller versions + srcset so browsers
 download only the size they actually display.
 
-For every zoomable photo (<img class="... zoom ..."> in gallery.html,
-<img class="... zoom-hs ..."> in headshot.html) without a srcset it:
+For every zoomable photo (<img class="... zoom ..."> in src/pages/gallery.astro,
+<img class="... zoom-hs ..."> in src/pages/headshot.astro) without a srcset it:
   - writes <name>-400w.webp, -800w.webp, -1200w.webp next to the image
     (only sizes smaller than the image itself), made from the full-quality
     original in _originals/ when there is one
@@ -48,15 +48,16 @@ def headshot_sizes(cls, column):
     return f"(min-width: 1200px) 560px, (min-width: 992px) 464px, {SMALL_SCREENS}"  # 3 per row: 350 / 290
 
 
-# page -> (class that marks a zoomable photo, sizes function)
+# page -> (class that marks a zoomable photo, sizes function); paths are
+# relative to public/, where the images are
 PAGES = {
-    "gallery.html": ("zoom", gallery_sizes),
-    "headshot.html": ("zoom-hs", headshot_sizes),
+    "../src/pages/gallery.astro": ("zoom", gallery_sizes),
+    "../src/pages/headshot.astro": ("zoom-hs", headshot_sizes),
 }
 
 IMG = re.compile(r"<img\b[^>]*>", re.I)
 COLUMN = re.compile(r'class="(col-[^"]*)"')
-os.chdir(ROOT)
+os.chdir(os.path.join(ROOT, "public"))  # image paths in the pages are relative to public/
 
 
 def attr(tag, name):
@@ -66,7 +67,7 @@ def attr(tag, name):
 
 def find_original(path):
     """Full-quality source for a converted image, else the image itself."""
-    folder = os.path.join("_originals", os.path.dirname(path))
+    folder = os.path.join("..", "_originals", os.path.dirname(path))
     stem = os.path.splitext(os.path.basename(path))[0]
     if os.path.isdir(folder):
         for f in os.listdir(folder):

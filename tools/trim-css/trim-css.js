@@ -1,6 +1,7 @@
 // Removes CSS rules that none of the site's pages use.
 //
-// Serves the site locally, opens every page in Chrome at phone/tablet/desktop
+// Serves the built site (dist/, run `npm run build` in the repo root first)
+// locally, opens every page in Chrome at phone/tablet/desktop
 // widths and in each interactive state (as loaded, scrolled so the navbar
 // shrinks, mobile menu open), and keeps every rule with a selector that
 // matches an element in any of them. Pseudo-classes/elements (:hover,
@@ -8,13 +9,14 @@
 // and grayscale.js add at runtime (DYNAMIC below), so e.g.
 // `.navbar-collapse.collapsing` is kept because `.navbar-collapse` exists.
 //
-//   assets/bootstrap/css/bootstrap.full.min.css   (full theme, edit/replace this)
-//     -> assets/bootstrap/css/bootstrap.min.css     (trimmed, what pages load)
-//   assets/fonts/font-awesome.full.min.css        (all Font Awesome 4.7 icons)
-//     -> assets/fonts/font-awesome.min.css          (only icons used; then run tools/subset_icons.py)
+//   public/assets/bootstrap/css/bootstrap.full.min.css   (full theme, edit/replace this)
+//     -> public/assets/bootstrap/css/bootstrap.min.css     (trimmed, what pages load)
+//   public/assets/fonts/font-awesome.full.min.css        (all Font Awesome 4.7 icons)
+//     -> public/assets/fonts/font-awesome.min.css          (only icons used; then run tools/subset_icons.py)
 //
 // Re-run after adding pages or Bootstrap components:
-//   cd tools/trim-css && npm install && npm run trim
+//   npm run build && cd tools/trim-css && npm install && npm run trim
+// and then `npm run build` again so dist/ gets the new trimmed files.
 // (Needs Chrome; set CHROME_PATH if it isn't in the default location.)
 const fs = require("fs");
 const http = require("http");
@@ -23,11 +25,16 @@ const postcss = require("postcss");
 const puppeteer = require("puppeteer-core");
 
 const ROOT = path.resolve(__dirname, "../..");
+const SITE = path.join(ROOT, "dist");     // built pages (and a copy of public/)
+const PUBLIC = path.join(ROOT, "public"); // CSS sources and outputs
 const JOBS = [
   ["assets/bootstrap/css/bootstrap.full.min.css", "assets/bootstrap/css/bootstrap.min.css"],
   ["assets/fonts/font-awesome.full.min.css", "assets/fonts/font-awesome.min.css"],
 ];
-const PAGES = ["index", "gallery", "headshot", "resume", "reviews", "showreel"];
+// every page in the build (src/pages/*.astro -> dist/*.html)
+const PAGES = fs.existsSync(SITE)
+  ? fs.readdirSync(SITE).filter(f => f.endsWith(".html")).map(f => f.slice(0, -5)).sort()
+  : [];
 const WIDTHS = [390, 800, 1366, 1920];
 const DYNAMIC = ["show", "collapsing", "collapse", "collapsed", "navbar-shrink", "active"];
 const CHROME = process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe";
@@ -40,9 +47,10 @@ function serve() {
     let rel = decodeURIComponent(req.url.split("?")[0]).replace(/^\/+/, "");
     // analyse pages with the full CSS, never with a previously trimmed output
     const job = JOBS.find(([, out]) => out === rel);
+    const dir = job ? PUBLIC : SITE;
     if (job) rel = job[0];
-    const file = path.join(ROOT, rel);
-    if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+    const file = path.join(dir, rel);
+    if (!file.startsWith(dir) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       res.writeHead(404); return res.end();
     }
     res.writeHead(200, { "Content-Type": TYPES[path.extname(file).toLowerCase()] || "application/octet-stream" });
@@ -60,11 +68,15 @@ function matchable(sel) {
 }
 
 (async () => {
+  if (!PAGES.length) {
+    console.error("No built pages in dist/ - run `npm run build` in the repo root first.");
+    process.exit(1);
+  }
   const server = await serve();
   const base = `http://127.0.0.1:${server.address().port}`;
   const browser = await puppeteer.launch({ executablePath: CHROME, headless: true });
 
-  const roots = JOBS.map(([src]) => postcss.parse(fs.readFileSync(path.join(ROOT, src), "utf8")));
+  const roots = JOBS.map(([src]) => postcss.parse(fs.readFileSync(path.join(PUBLIC, src), "utf8")));
   const selectors = new Set();
   roots.forEach(root => root.walkRules(r => {
     if (!(r.parent.type === "atrule" && /keyframes/.test(r.parent.name))) r.selectors.forEach(s => selectors.add(matchable(s)));
@@ -119,8 +131,8 @@ function matchable(sel) {
     }
     const header = `/* Trimmed by tools/trim-css from ${path.basename(src)} - only rules the site uses. Do not edit; edit the full file and re-run. */\n`;
     const css = header + root.toString();
-    fs.writeFileSync(path.join(ROOT, out), css);
-    const before = fs.statSync(path.join(ROOT, src)).size;
+    fs.writeFileSync(path.join(PUBLIC, out), css);
+    const before = fs.statSync(path.join(PUBLIC, src)).size;
     console.log(`${out}: kept ${kept}/${total} rules, ${(before / 1024).toFixed(0)} KB -> ${(css.length / 1024).toFixed(0)} KB`);
   });
 })();

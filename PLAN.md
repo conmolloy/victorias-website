@@ -1,7 +1,7 @@
 # Website plan
 
-Deploys automatically: push to `main` → GitHub Actions → rsync to Cloudways
-(`.github/workflows/deploy.yml`). Unused media listed in `.gitignore` isn't in
+Deploys automatically: push to `main` → GitHub Actions → `astro build` →
+rsync `dist/` to Cloudways (`.github/workflows/deploy.yml`). Unused media listed in `.gitignore` isn't in
 git; the deploy never deletes files on the server.
 
 ## Done
@@ -112,17 +112,46 @@ Gallery LCP is now limited by its full-size photos – see *Gallery thumbnails*.
       CSS/JS link now carries `?v=<content hash>` (`tools/cache_bust.py`),
       and the deploy workflow runs it automatically before uploading.
 
+- [x] **4. Astro + TypeScript (phase 1: faithful port)** – the 6 pages are
+      now `src/pages/*.astro` on a shared `BaseLayout` (head, fonts, GTM,
+      scripts) + `Navbar` + `Contact` components instead of copy-pasted
+      HTML; per-page differences (title, lang, favicon, font preloads,
+      Outfit/site-base CSS, brand link, body id/style, CV page's PDF.js) are
+      props/slots. Assets moved to `public/` (same URLs), `build.format:
+      'file'` keeps `gallery.html` etc., `?v=` hashes now come from the build
+      (`src/lib/asset.ts`, same hash as `tools/cache_bust.py`, so unchanged
+      files keep their cached URL). Deploy builds and uploads `dist/`; PRs
+      get a build check. Tools updated for the new layout; Puppeteer checks
+      kept in `tools/visual-check/`.
+      Verified against `main`: 12/12 full-page screenshots (1366 + 390px)
+      identical except 14 px inside an audio player's buffering bar;
+      31/31 interactive states (menu open/focus, scrolled navbar, nav hover,
+      button / video preview / zoom photo hover) identical except 3 px inside
+      gallery photos; parsed DOM identical except head order on home and the
+      end-of-body scripts' parent on headshots/reviews (see PR); same
+      behaviour (menu, navbar shrink, smooth scroll, video previews, CV PDF,
+      no console errors); returning visitor with 30-day-cached CSS/JS from
+      the old site sees the same pixels; trimmed CSS regenerates identically.
+
 ## Next
-- [ ] **4. Astro + TypeScript** – shared nav/footer components instead of
-      copy-pasted HTML, built in the deploy workflow before the rsync. Good
-      moment to move to Bootstrap 5 (drops jQuery) and make home/reviews use
-      the same base styles as the other pages.
+- [ ] **Astro phase 2** (each needs its own visual check):
+  - Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
+    `video-facade.js` as TypeScript `<script>`s
+  - home/reviews on the same base styles as the other pages (drop
+    `site-base.css`), clean up inline `style=` and Materialize-era classes
+    (`col s4`, `grey darken-4`, `waves-effect`)
+  - gallery/headshot photo grids from data (one list per production) instead
+    of hand-written `<img srcset>` blocks; maybe `astro:assets` for
+    thumbnails instead of `tools/make_thumbnails.py`
+  - reviews from one data file (home shows a subset)
+  - consistent `<head>`: `lang="en"` and the favicon on every page (CV and
+    showreel lack them; reviews/gallery/headshots lack `lang`)
 
 ## Housekeeping
 - [x] Removed unused images, CSS/JS, `favicon - Copy.ico` and `david-site/`
       from the repo (still on the server – deploy never deletes; remove by SFTP)
 - [x] README + `tools/optimize_images.py` for converting new photos
-- [ ] `assets/cv/VICTORIA ADLER CV 2024.pdf` is the old CV (the CV page shows
+- [ ] `public/assets/cv/VICTORIA ADLER CV 2024.pdf` is the old CV (the CV page shows
       the 2025 one) – remove once no one has the old link
 - [ ] Use `/` instead of `\` in remaining asset paths
 - [ ] Nav links use `href="resume"` etc. (no `.html`) – relies on server config
