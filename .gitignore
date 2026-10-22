@@ -1,12 +1,17 @@
 .claude/
 
+# Astro
+node_modules/
+dist/
+.astro/
+
 # Media not referenced by any page (kept locally, not deployed)
-assets/video/OLD.mp4
-assets/audio/audio section/
-assets/audio/choir/
-assets/audio/lie to me/
-assets/audio/she used to be mine/
-assets/audio/solo/
+public/assets/video/OLD.mp4
+public/assets/audio/audio section/
+public/assets/audio/choir/
+public/assets/audio/lie to me/
+public/assets/audio/she used to be mine/
+public/assets/audio/solo/
 
 # Full-size originals of converted images and videos (local backup only)
 _originals/

@@ -1,7 +1,8 @@
 """Convert JPG/PNG images referenced by the site's pages to WebP.
 
-Resizes to at most 2000px, rewrites the references in the pages, and moves
-the originals to _originals/ (gitignored). Files where WebP isn't smaller are
+Looks for references in the Astro source (src/**/*.astro) to images in
+public/assets/. Resizes to at most 2000px, rewrites the references, and moves
+the originals to _originals/ in the repo root (gitignored, not deployed). Files where WebP isn't smaller are
 left alone, so it's safe to re-run whenever new photos are added.
 
 usage (from the repo root):
@@ -17,18 +18,19 @@ from urllib.parse import unquote
 from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PUBLIC = os.path.join(ROOT, "public")  # image paths in the pages are relative to this
 APPLY = "--apply" in sys.argv
 MAX_SIDE = 2000
 QUALITY = 80
-PAGES = ["index.html", "gallery.html", "headshot.html", "resume.html",
-         "reviews.html", "showreel.html"]
-PAGES = [p for p in PAGES if os.path.exists(os.path.join(ROOT, p))]
+# pages, layouts and components
+PAGES = sorted(os.path.relpath(os.path.join(d, f), ROOT)
+               for d, _, fs in os.walk(os.path.join(ROOT, "src")) for f in fs if f.endswith(".astro"))
 REF = re.compile(r"assets[\\/][^\"'<>&\n]*?\.(?:jpe?g|png)", re.I)
 
 
 def exact_case(rel):
-    """Return the on-disk path with real casing, or None if missing."""
-    cur = ROOT
+    """Return the on-disk path (under public/) with real casing, or None if missing."""
+    cur = PUBLIC
     parts = []
     for part in rel.split("/"):
         try:
@@ -72,7 +74,7 @@ for s, fs in stems.items():
 before = after = 0
 skip = set()
 for f in files:
-    src = os.path.join(ROOT, f)
+    src = os.path.join(PUBLIC, f)
     dst = os.path.splitext(src)[0] + ".webp"
     with Image.open(src) as im:
         im = ImageOps.exif_transpose(im)
@@ -118,5 +120,5 @@ for f in files:
         continue
     dest = os.path.join(ROOT, "_originals", f)
     os.makedirs(os.path.dirname(dest), exist_ok=True)
-    shutil.move(os.path.join(ROOT, f), dest)
+    shutil.move(os.path.join(PUBLIC, f), dest)
 print(f"applied; kept {len(skip)} originals: {sorted(skip)}")
