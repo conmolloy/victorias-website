@@ -18,7 +18,7 @@ jobs:
       USER: ${{ secrets.CLOUDWAYS_USER }}
       REMOTE_PATH: ${{ secrets.CLOUDWAYS_PATH }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up SSH key
         env:
@@ -30,7 +30,7 @@ jobs:
           ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
