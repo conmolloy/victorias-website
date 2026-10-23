@@ -6,7 +6,7 @@
 productions:
   - title: Treasure Island
     company: Shadow Road Productions
-    role: "Doctor Livesley & Isreal Hands"
+    role: "Doctor Livesey & Israel Hands"
     photos:
       - file: assets/img/treasure island/IMG_6579.webp
         alt: Victoria Adler in Treasure Island (Shadow Road Productions)
@@ -107,7 +107,7 @@ productions:
       - file: assets/img/god_of_carnage/20220212_182040830_iOS.webp
         alt: Victoria Adler in God of Carnage (The School of the Science of Acting)
 
-  - title: a phoenix too frequent
+  - title: A Phoenix Too Frequent
     company: The School of the Science of Acting
     role: Doto
     photos_by: Jeremy Pollard
@@ -119,7 +119,7 @@ productions:
       - file: assets/img/Phoneix/20210409_215703044_iOS.webp
         alt: Victoria Adler in A Phoenix Too Frequent (The School of the Science of Acting)
 
-  - title: A christmas carol
+  - title: A Christmas Carol
     company: Royale Dickens Company
     role: Belle
     photos_by: Jeremy Pollard
@@ -131,8 +131,8 @@ productions:
       - file: assets/img/christmas/C130.webp
         alt: Victoria Adler in A Christmas Carol (Royale Dickens Company)
 
-  - title: Time and the conways
-    company: By The School of the Science of Acting
+  - title: Time and the Conways
+    company: The School of the Science of Acting
     role: Kay
     photos_by: Jeremy Pollard
     photos:
@@ -143,7 +143,7 @@ productions:
       - file: assets/img/time and the/20210327_204237187_iOS.webp
         alt: Victoria Adler in Time and the Conways (The School of the Science of Acting)
 
-  - title: The drunken sisters
+  - title: The Drunken Sisters
     company: The School of the Science of Acting
     role: Atropos
     photos_by: Jeremy Pollard
@@ -167,7 +167,7 @@ productions:
       - file: assets/img/anatol/20190911_130306170_iOS.webp
         alt: Victoria Adler in Anatol (The School of the Science of Acting)
 
-  - title: A streetcar named desire
+  - title: A Streetcar Named Desire
     company: The School of the Science of Acting
     role: Blanche
     photos_by: Jeremy Pollard
@@ -179,7 +179,7 @@ productions:
       - file: assets/img/a streetcar/Y7a.webp
         alt: Victoria Adler in A Streetcar Named Desire (The School of the Science of Acting)
 
-  - title: The old militant
+  - title: The Old Militant
     company: The School of the Science of Acting
     role: The Second Woman
     photos:
@@ -289,7 +289,7 @@ video_rows:
       url: "https://vimeo.com/573035467"
   - - title: Street Feet 2017
       url: "https://vimeo.com/573093751"
-    - title: Reggeaton / Dancehall 2016
+    - title: Reggaeton / Dancehall 2016
       url: "https://vimeo.com/573097634"
 
 # Certificates, in two columns.

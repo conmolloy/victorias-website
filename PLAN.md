@@ -229,10 +229,12 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
     before (nested containers from the old HTML); the first review card's
     border is thinner (.5rem) than the others (.6rem); the old Materialize
     column classes (`col s4`, `col s12 m6 l6`) do nothing any more
-  - copy edits for Victoria to confirm (shown as written today): "Isreal
-    Hands", "Perpper & Salt", "Royale Dickens Company", "Reggeaton",
-    lower-case show titles ("a phoenix too frequent", "A christmas carol"…),
-    "By The School of the Science of Acting" (Time and the Conways)
+  - [x] copy edits (PR for Victoria to confirm): "Israel Hands" and
+        "Doctor Livesey", "Pepper & Salt", "Reggaeton", show titles in title
+        case, "The School of the Science of Acting" without "By", "David Yiu".
+        Left as written: "Royale Dickens Company" (needs Victoria to confirm),
+        "climatic" in the All Edinburgh Theatre quote and lower-case "victoria"
+        in a coaching review (quotes are kept word for word)
 
 ## Housekeeping
 
