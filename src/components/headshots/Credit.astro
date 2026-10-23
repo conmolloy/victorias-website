@@ -1,0 +1,20 @@
+---
+/** "Photography by …" under a shoot (with space after it, except the last one). */
+interface Props {
+  photographer: string;
+  last?: boolean;
+}
+
+const { photographer, last = false } = Astro.props;
+---
+
+<div class="container text-center">
+  {!last && <br />}
+  <h6>Photography by {photographer}</h6>
+  {!last && (
+    <>
+      <br />
+      <br />
+    </>
+  )}
+</div>

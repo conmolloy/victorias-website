@@ -9,6 +9,7 @@ export default {
     "no-descending-specificity": null,
   },
   ignoreFiles: [
+    ".claude/**",
     "dist/**",
     "**/node_modules/**",
     "public/assets/bootstrap/**",

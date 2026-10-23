@@ -1,0 +1,37 @@
+---
+/**
+ * A Vimeo/YouTube video as a click-to-load preview: thumbnail + play button;
+ * assets/js/video-facade.js swaps in the real player when it's clicked.
+ * Without JavaScript the link opens the video on Vimeo/YouTube.
+ */
+import { videoPreview, type VideoInput } from "../../lib/media";
+
+interface Props {
+  video: VideoInput;
+}
+
+const { title, url, embed, allow, thumbnail } = videoPreview(Astro.props.video);
+const HEIGHT = "368";
+---
+
+<div class="col s12 m6 l6 video-containers">
+  <a
+    class="video-facade"
+    href={url}
+    data-embed={embed}
+    data-allow={allow}
+    data-height={HEIGHT}
+    style={`height: ${HEIGHT}px`}
+    aria-label={`Play video: ${title}`}
+  >
+    <img
+      src={thumbnail.src}
+      alt={title}
+      loading="lazy"
+      decoding="async"
+      width={thumbnail.width}
+      height={thumbnail.height}
+    />
+    <span class="video-facade-play" aria-hidden="true"></span>
+  </a>
+</div>

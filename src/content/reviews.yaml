@@ -1,0 +1,65 @@
+# Reviews (src/pages/reviews.astro, and the home page) – see README
+# "How to update the site".
+
+# Press reviews, in the order they're shown. On both pages the first one has
+# a row to itself, then they go two per row.
+#   quote:        one entry per paragraph; <b>…</b> makes words bold
+#   blank_lines:  [before, after] – empty lines that make a short quote's
+#                 card as tall as the one next to it (optional)
+#   home: true    also shown on the home page
+press:
+  - quote:
+      - '"Victoria Adler’s performance in her numerous roles is in such contrast to one another that it seems like she’s an entirely new person every time she comes onstage."'
+      - '<b>"Her Macduff is practically award-winning;</b> a rather basic and forgettable character usually, Adler shows us the hell hath no fury beneath the character’s usual stoic manner."'
+    by: Katerina Partolina Schwartz
+    publication: Perpper & Salt
+    date: 14th August 2024
+    link: https://pepperandsalt.uk/2024/08/14/macbeth-sleep-no-more/
+    production: "Macbeth: Sleep No More"
+    home: true
+
+  - quote:
+      - '"Victoria Adler (First Witch, Macduff and a very engaging Doctor) differentiates her main and subsidiary characters with great skill, subtle changes in posture and voice ensuring you know just who she is playing at what point."'
+      - '"The stage tension between Floyd and Adler was electric as they circled each other like a pair of prize fighters preparing to go the distance. Verbally it was superb. Physically, it was breathtaking. Peerless."'
+    by: Tim Wilcock
+    publication: FringeReview
+    date: 9th August 2023
+    link: http://fringereview.co.uk/review/edinburgh-fringe/2023/macbeth-sleep-no-more/
+    production: "Macbeth: Sleep No More"
+    home: true
+
+  - quote:
+      - '"... but none shines brighter than Victoria Adler, who is scintillating in whichever body she is inhabiting. Adler’s sword fighting scene with Amy Floyd’s Macbeth is one of the highlights of the whole show..."'
+    blank_lines: [2, 3]
+    by: Greg Holstead
+    publication: North West End UK
+    date: 10th August 2023
+    link: https://northwestend.com/macbeth-sleep-no-more-the-space-niddrie-street/
+    production: "Macbeth: Sleep No More"
+    home: true
+
+  - quote:
+      - '"Electrifying. The kind of energy Floyd and Victoria Adler (Macduff/Witch/others) bring to the climatic confrontation between Macbeth and Macduff merit that descriptor."'
+    blank_lines: [2, 2]
+    by: Rebecca Mahar
+    publication: All Edinburgh Theatre
+    date: 10th August 2024
+    link: https://www.alledinburghtheatre.com/macbeth-sleep-no-more-shadow-road-productions-edfringe-2024-review/
+    production: "Macbeth: Sleep No More"
+
+  - quote:
+      - '"Highlights for me were Victoria Adler’s Doctor Livesey”'
+    blank_lines: [2, 3]
+    publication: St Albans Times Issue 82, Pages 24-25
+    date: 21st August 2024
+    link: https://issuu.com/stalbanstimes/docs/st_albans_times_issue_82
+    production: Treasure Island
+
+# Reviews of Victoria's archery coaching, shown in two columns (the first
+# half of the list in the left column).
+coaching_heading: Archery Coach Reviews 2025
+coaching:
+  - I had a taster session with Victoria who was really engaging and broke everything down so well, truly a great coach, I'll definitely be coming back.
+  - The instructor victoria, was extremely helpful and very patient. Her explanation and instructions were clear and simple, big 👍 to victoria.
+  - Our instructor, Victoria, was incredibly enthusiastic and encouraging, making the class a lot of fun. She was also super funny, which made the challenging and detailed class even more enjoyable.
+  - Victoria was amazing!! Love her energy and enthusiasm.

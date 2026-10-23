@@ -37,19 +37,167 @@ Each page loads the same small stack:
   buttons and header-video layout those two pages were designed with
   (originally from Materialize, which has been removed)
 
+## How to update the site
+
+The gallery, headshots and reviews live in three plain text files in
+`src/content/` – you never need to touch the HTML to add a show, photos, a
+review or a video:
+
+| File                         | What's in it                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ |
+| `src/content/gallery.yaml`   | shows (photos, company, role), "Misc" and dance photos, voice reels, songs, videos, certificates |
+| `src/content/headshots.yaml` | headshot shoots                                                                                  |
+| `src/content/reviews.yaml`   | press reviews (and which ones the home page shows), archery coaching reviews                     |
+
+They're [YAML](https://learnxinyminutes.com/docs/yaml/): one item per `-`,
+**indentation matters** (use spaces, line things up like the entries around
+them), and put text in `"quotes"` if it contains a `:` or starts with a
+quote mark. Lists appear on the page in the order they're written.
+
+**Every time**, after editing:
+
+```bash
+npm run dev
+```
+
+and check the page at http://localhost:4321 (it updates as you save). If
+something's wrong – a misspelt field name, a missing alt text, a photo that
+doesn't exist – the page shows an error saying which file and which entry
+(entries are counted from 0: `productions.5` is the 6th show). When it looks
+right, commit and push (or open a pull request) – pushing to `main` puts it
+live.
+
+### Add a show to the gallery
+
+1. Put the photos in a new folder, e.g. `public/assets/img/hamlet/` (JPG or
+   PNG is fine), then make them web-ready – this converts them to `.webp`
+   and makes the smaller versions phones use:
+
+   ```bash
+   uv run --with pillow python tools/optimize_images.py --apply
+   ```
+
+   ```bash
+   uv run --with pillow python tools/make_thumbnails.py --apply
+   ```
+
+2. Add the show at the top of `productions:` in `src/content/gallery.yaml`
+   (newest first; 3 photos fill a row):
+
+   ```yaml
+   productions:
+     - title: Hamlet
+       company: Shadow Road Productions
+       role: Ophelia
+       photos_by: Jane Smith # optional – shows "Photos by Jane Smith"
+       photos:
+         - file: assets/img/hamlet/1.webp
+           alt: Victoria Adler as Ophelia in Hamlet
+         - file: assets/img/hamlet/2.webp
+           alt: Victoria Adler as Ophelia in Hamlet
+         - file: assets/img/hamlet/3.webp
+           alt: Victoria Adler and the company of Hamlet
+   ```
+
+   `alt` describes the photo for people who can't see it (and for Google).
+   Misc and dance photos are the same `- file: … alt: …` pairs, under
+   `misc:` / `dance:`.
+
+### Add a headshot shoot
+
+Photos as above (in e.g. `public/assets/img/headshot 2025/`, then the two
+commands), then at the top of `shoots:` in `src/content/headshots.yaml`:
+
+```yaml
+shoots:
+  - year: 2025 # a year heading is shown when it changes
+    photographer: Jane Smith # shows "Photography by Jane Smith"
+    columns: 3 # photos side by side on a computer: 2 or 3
+    photos:
+      - file: assets/img/headshot 2025/1.webp
+        alt: Victoria Adler headshot by Jane Smith, 2025
+      - file: assets/img/headshot 2025/2.webp
+        alt: Victoria Adler headshot by Jane Smith, 2025
+      - file: assets/img/headshot 2025/3.webp
+        alt: Victoria Adler headshot by Jane Smith, 2025
+```
+
+The first shoot's photos load first (the top of the page), so put the best
+one first.
+
+### Add a review
+
+In `src/content/reviews.yaml`, under `press:`, where you want it to appear:
+
+```yaml
+press:
+  - quote:
+      - '"A commanding Lady Macbeth."' # one line per paragraph
+    by: Jane Smith # optional
+    publication: The Stage
+    date: 1st June 2025
+    link: https://www.thestage.co.uk/reviews/macbeth
+    production: Macbeth # for reference, not shown
+    home: true # also show it on the home page
+```
+
+Use `<b>…</b>` around words to make them bold. A short quote next to a long
+one can get `blank_lines: [2, 2]` (empty lines before/after) so the two
+cards are the same height. The first review has a row to itself, then they
+go two per row – on the home page too. Archery coaching reviews are a plain
+list under `coaching:`.
+
+### Add a video
+
+1. Add it to a row under `video_rows:` in `src/content/gallery.yaml` – just
+   the title and the normal Vimeo/YouTube address:
+
+   ```yaml
+   video_rows:
+     - - title: Stage combat showreel
+         url: https://vimeo.com/123456789
+       - title: Another video
+         url: https://www.youtube.com/watch?v=abcdefghijk
+   ```
+
+   (`- -` starts a new row; videos under it are in that row.)
+
+2. Download its preview image (the page shows the thumbnail and only loads
+   the player when someone clicks it):
+
+   ```bash
+   uv run --with pillow python tools/video_facades.py --apply
+   ```
+
+### Add a recording
+
+Put the `.mp3` (and, if you have one, an `.ogg`) in `public/assets/audio/…`
+and add it under `voice_reels:` or `songs:`:
+
+```yaml
+songs:
+  - title: Defying Gravity
+    files:
+      - assets/audio/2025/defying gravity.mp3
+```
+
 ## Where things live
 
-| Path                                    | What                                                                                                                                       |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `src/pages/*.astro`                     | one file per page → `dist/<name>.html`                                                                                                     |
-| `src/layouts/BaseLayout.astro`          | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
-| `src/components/Navbar.astro`           | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
-| `src/components/Contact.astro`          | "Contact Me" section on the home page                                                                                                      |
-| `src/components/GoogleTagManager.astro` | the deferred Google Tag Manager snippet                                                                                                    |
-| `src/lib/asset.ts`                      | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
-| `public/`                               | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
-| `tests/`                                | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                           |
-| `tools/`                                | maintenance scripts (not deployed)                                                                                                         |
+| Path                                                | What                                                                                                                                       |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/pages/*.astro`                                 | one file per page → `dist/<name>.html`                                                                                                     |
+| `src/content/*.yaml`                                | the gallery, headshots and reviews content – see [How to update the site](#how-to-update-the-site)                                         |
+| `src/content.config.ts`                             | what those files may contain (checked when building)                                                                                       |
+| `src/components/gallery/`, `headshots/`, `reviews/` | how a show, photo, recording, video, shoot or review card is laid out                                                                      |
+| `src/layouts/BaseLayout.astro`                      | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
+| `src/components/Navbar.astro`                       | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
+| `src/components/Contact.astro`                      | "Contact Me" section on the home page                                                                                                      |
+| `src/components/GoogleTagManager.astro`             | the deferred Google Tag Manager snippet                                                                                                    |
+| `src/lib/asset.ts`                                  | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
+| `src/lib/photos.ts`, `media.ts`                     | photo sizes and `srcset` (from the files), video players and preview images, with clear errors for missing files                           |
+| `public/`                                           | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
+| `tests/`                                            | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                           |
+| `tools/`                                            | maintenance scripts (not deployed)                                                                                                         |
 
 | Page               | File                       | Shows                                         |
 | ------------------ | -------------------------- | --------------------------------------------- |
@@ -217,27 +365,27 @@ Images are served as WebP. To add new ones:
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
 
-3. **Gallery and headshot photos** (`<img class="... zoom">` in
-   `src/pages/gallery.astro`, `<img class="... zoom-hs">` in
-   `src/pages/headshot.astro`): make the smaller versions so phones/laptops
-   don't download the 2000px file for a smaller photo. This writes `-400w`,
-   `-800w` and `-1200w` `.webp` files next to each new photo and adds
-   `srcset`/`sizes`:
+3. **Gallery and headshot photos** (listed in `src/content/gallery.yaml` /
+   `headshots.yaml` – see [How to update the site](#how-to-update-the-site)):
+   make the smaller versions so phones/laptops don't download the 2000px file
+   for a smaller photo. This writes `-400w`, `-800w` and `-1200w` `.webp`
+   files next to each listed photo that doesn't have them yet; the build
+   adds `srcset`/`sizes`/`width`/`height` itself:
 
    ```bash
    uv run --with pillow python tools/make_thumbnails.py --apply
    ```
 
    Run it after step 2 (it uses the full-quality original in `_originals/`).
-   If you later replace a gallery photo with a new file, delete its
-   `srcset`/`sizes`/`width`/`height` attributes first so it's regenerated.
+   If you replace a photo with a new file of the same name, delete its
+   `-400w`/`-800w`/`-1200w` files first so they're remade.
 
 4. Commit and push.
 
-Add `loading="lazy"` to `<img>` tags that **aren't** visible at the top of
-the page – but not to photos on the first screen, or they'll appear late.
-The page's most important first-screen photo can also get
-`fetchpriority="high"` (e.g. the first headshot).
+Gallery and headshot photos lazy-load automatically, except the first show's
+and the first shoot's (they're on the first screen); the first headshot also
+loads first of all. For any other `<img>` you add to a page, add
+`loading="lazy"` unless it's visible at the top of the page.
 
 ## Adding or replacing videos
 
@@ -290,20 +438,8 @@ subset re-run or the full font).
 
 The gallery shows each video as a thumbnail with a play button; the real
 player only loads when it's clicked (`assets/js/video-facade.js`), which
-saves ~1 MB of player scripts per visit. To add one:
-
-1. Copy the normal embed code from Vimeo/YouTube (Share → Embed) and paste
-   it into `src/pages/gallery.astro` where you want it, inside a
-   `<div class="col s12 m6 l6 video-containers">` like the others. Close the
-   tag as `<iframe ...></iframe>` (Astro needs every tag closed).
-2. Convert it to a click-to-load preview (downloads the thumbnail into
-   `public/assets/img/video-thumbs/`):
-
-   ```bash
-   uv run --with pillow python tools/video_facades.py --apply
-   ```
-
-3. Commit and push.
+saves ~1 MB of player scripts per visit. Videos are listed in
+`src/content/gallery.yaml` – see [Add a video](#add-a-video).
 
 ## Checking a change looks the same
 

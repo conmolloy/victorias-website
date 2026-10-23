@@ -1,7 +1,7 @@
 """Convert JPG/PNG images referenced by the site's pages to WebP.
 
-Looks for references in the Astro source (src/**/*.astro) to images in
-public/assets/. Resizes to at most 2000px, rewrites the references, and moves
+Looks for references in the Astro source (src/**/*.astro) and the content
+files (src/content/*.yaml) to images in public/assets/. Resizes to at most 2000px, rewrites the references, and moves
 the originals to _originals/ in the repo root (gitignored, not deployed). Files where WebP isn't smaller are
 left alone, so it's safe to re-run whenever new photos are added.
 
@@ -22,9 +22,10 @@ PUBLIC = os.path.join(ROOT, "public")  # image paths in the pages are relative t
 APPLY = "--apply" in sys.argv
 MAX_SIDE = 2000
 QUALITY = 80
-# pages, layouts and components
+# pages, layouts, components and content files
 PAGES = sorted(os.path.relpath(os.path.join(d, f), ROOT)
-               for d, _, fs in os.walk(os.path.join(ROOT, "src")) for f in fs if f.endswith(".astro"))
+               for d, _, fs in os.walk(os.path.join(ROOT, "src")) for f in fs
+               if f.endswith((".astro", ".yaml")))
 REF = re.compile(r"assets[\\/][^\"'<>&\n]*?\.(?:jpe?g|png)", re.I)
 
 
