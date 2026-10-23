@@ -158,9 +158,16 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       "Certificates" heading were also too wide; they now fit the column.
       Gallery fits at 320–430px; desktop screenshots of every page and phone
       screenshots of the other pages unchanged. `test.fail(...)` removed.
-- [ ] **Home (320–385px) and reviews (320px) are too wide on the smallest
-      phones**: `.headshot { min-width: 370px }` on home, a `.col-md` on
-      reviews. Not covered by the 390px phone tests.
+- [x] **Consistent `<head>`**: every page now has `lang="en"` and the
+      favicon, from the shared layout (reviews, gallery and headshots had no
+      `lang`; CV and showreel had no favicon). The `lang`/`favicon` layout
+      props are gone; build-output tests check both on every page.
+- [x] **Home (320–385px) and reviews (320px) were too wide on the smallest
+      phones**: the home headshot's 370px minimum now only applies from 385px
+      up; below 360px the review cards drop the 40px side margins on
+      `<figure>`, so "(Macduff/Witch/others)" fits. Every page now fits at
+      320/360/375/390/430px, and the phone e2e test checks all five widths.
+      Desktop and 390px screenshots unchanged.
 - [x] **Accessibility**: `alt` text for all 114 photos/logos (show and
       company for gallery photos, photographer and year for headshots,
       site name for the profile logos, what each certificate is), labels
@@ -186,8 +193,6 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
     of hand-written `<img srcset>` blocks; maybe `astro:assets` for
     thumbnails instead of `tools/make_thumbnails.py`
   - reviews from one data file (home shows a subset)
-  - consistent `<head>`: `lang="en"` and the favicon on every page (CV and
-    showreel lack them; reviews/gallery/headshots lack `lang`)
 
 ## Housekeeping
 

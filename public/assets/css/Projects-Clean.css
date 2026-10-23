@@ -199,6 +199,12 @@
   min-width: 370px;
   margin-top: 25px;
 }
+/* below 385px the 370px minimum no longer fits: use the column's width */
+@media (max-width: 384.98px) {
+  .headshot {
+    min-width: 0;
+  }
+}
 .video-containers {
   /* 400px makes the two videos stack once they'd be narrower than that;
      capped at the row's width so they still fit on phones under 430px */

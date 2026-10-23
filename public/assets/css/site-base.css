@@ -183,3 +183,13 @@ video.responsive-video {
 .btn.grey:focus {
   color: #fff;
 }
+
+/* Review cards on the smallest phones: drop the 40px side margins on
+   <figure> so long words like "(Macduff/Witch/others)" fit without making
+   the page scroll sideways */
+@media (max-width: 359.98px) {
+  figure {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

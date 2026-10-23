@@ -14,10 +14,6 @@ import { v } from "../lib/asset";
 interface Props {
   /** <title> */
   title: string;
-  /** <html lang>; some pages never had one */
-  lang?: string;
-  /** <link rel="shortcut icon"> (CV and showreel never had one) */
-  favicon?: boolean;
   /** font files in assets/fonts/ to <link rel="preload">, in order (the ones the first screen uses) */
   preloads: string[];
   /** home only: load font-outfit.css */
@@ -32,8 +28,6 @@ interface Props {
 
 const {
   title,
-  lang,
-  favicon = true,
   preloads,
   outfit = false,
   siteBase = false,
@@ -43,7 +37,7 @@ const {
 } = Astro.props;
 ---
 
-<html lang={lang}>
+<html lang="en">
   <head>
     <GoogleTagManager />
     <meta charset="utf-8" />
@@ -51,9 +45,7 @@ const {
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    {favicon && (
-      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-    )}
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <title>{title}</title>
     <slot name="head-scripts" />
     {preloads.map((font) => (
