@@ -14,6 +14,10 @@ updates:
       # typescript ^5 || ^6), so npm ci fails. Remove once Astro supports it.
       - dependency-name: typescript
         update-types: ["version-update:semver-major"]
+      # Keep Node's type definitions on the Node version the site builds with
+      # (.nvmrc). Remove when .nvmrc moves to a newer major.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directories: [/tools/trim-css, /tools/visual-check]
