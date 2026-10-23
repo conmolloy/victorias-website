@@ -87,11 +87,12 @@
   }
 }
 
+/* Home header video: a 16:9 box the absolutely-positioned video sits in */
 .video-container {
-  position: absolute;
-  top: -100%;
-  left: 0%;
+  position: relative;
   width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
   overflow: hidden;
 }
 .responsive-video {
@@ -99,6 +100,7 @@
   /*z-index: -1;*/
   opacity: 0.8;
   width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -366,9 +368,6 @@ hr {
     transform: translateY(-15px);
   }
 }
-.review {
-  margin-top: 10px;
-}
 
 /* Click-to-load video embeds (gallery) – see components/gallery/VideoPreview.astro */
 .video-facade {
@@ -377,6 +376,7 @@ hr {
   display: inline-block;
   vertical-align: baseline;
   width: 100%;
+  height: 368px; /* the player's (data-height in VideoPreview.astro) */
   background: #000;
   overflow: hidden;
   cursor: pointer;
@@ -423,4 +423,190 @@ hr {
    loading; keep the aspect ratio when CSS sets the width (.w-100). */
 img.zoom-hs {
   height: auto;
+}
+
+/* Section backgrounds (headshots/showreel: white, gallery/CV: black) */
+.projects-clean.light {
+  background: #fff;
+  color: #000;
+}
+.projects-clean.dark {
+  background: #000;
+  color: #fff;
+}
+
+/* Navbar: page links in Roboto (the theme's Cabin elsewhere) */
+#mainNav a.js-scroll-trigger {
+  font-family: Roboto, sans-serif;
+}
+
+/* Gallery: show title and company */
+.production .name {
+  margin: 10px 0 8px;
+}
+
+/* ---------------------------------------------------------------------
+   Home and reviews were designed with a smaller text size than the other
+   pages: 14px (14.5px from 992px, 15px from 1200px) instead of 16px. On
+   pages with <body class="compact"> (BaseLayout's `compact`), --page-rem is
+   that size and the navbar, headings, review cards and contact section are
+   sized in it where other pages use rem.
+   --------------------------------------------------------------------- */
+.compact {
+  --page-rem: 14px;
+  font-size: var(--page-rem);
+}
+@media (min-width: 992px) {
+  .compact {
+    --page-rem: 14.5px;
+  }
+}
+@media (min-width: 1200px) {
+  .compact {
+    --page-rem: 15px;
+  }
+}
+.compact #mainNav {
+  --bs-navbar-padding-x: var(--page-rem);
+  --bs-navbar-padding-y: calc(0.5 * var(--page-rem));
+  --bs-navbar-brand-padding-y: calc(0.3125 * var(--page-rem));
+  --bs-navbar-brand-margin-end: var(--page-rem);
+  --bs-navbar-nav-link-padding-x: calc(0.5 * var(--page-rem));
+  --bs-navbar-toggler-border-radius: calc(0.25 * var(--page-rem));
+}
+.compact #mainNav .navbar-nav {
+  --bs-nav-link-padding-y: calc(0.5 * var(--page-rem));
+}
+.compact #mainNav .container {
+  max-width: 1280px;
+}
+.compact #mainNav .navbar-toggler:focus {
+  outline: none;
+  background-color: #373b40;
+}
+.compact h1,
+.compact h2,
+.compact h3 {
+  font-weight: 400;
+  line-height: 110%;
+}
+.compact h1 {
+  font-size: calc(4.2 * var(--page-rem));
+  margin: calc(2.8 * var(--page-rem)) 0 calc(1.68 * var(--page-rem));
+}
+.compact h2 {
+  font-size: calc(3.56 * var(--page-rem));
+  margin: calc(2.3733333333 * var(--page-rem)) 0 calc(1.424 * var(--page-rem));
+}
+.compact h3 {
+  font-size: calc(2.92 * var(--page-rem));
+  margin: calc(1.9466666667 * var(--page-rem)) 0 calc(1.168 * var(--page-rem));
+}
+.compact .row {
+  margin: 0 auto 20px;
+}
+
+/* Home: "actor" under the name */
+.tagline {
+  font-family: Outfit, sans-serif;
+}
+.compact .tagline {
+  margin-bottom: 2.5%;
+}
+
+/* Reviews page */
+.reviews-page {
+  padding-top: 100px;
+}
+.compact .reviews-title {
+  margin-bottom: 4%;
+}
+.review-col {
+  margin-right: 2.5%;
+  margin-left: 2.5%;
+}
+/* two reviews side by side: no gap between them beyond the cards' own */
+.review-col:not(:last-child) {
+  margin-right: 0;
+}
+
+/* Review cards (home and reviews) */
+.review-card {
+  margin: var(--page-rem, 1rem) 40px;
+  padding: var(--page-rem, 1rem);
+  border-left: calc(0.5 * var(--page-rem, 1rem)) solid #fff;
+  border-radius: calc(0.25 * var(--page-rem, 1rem));
+}
+.review-card.thick {
+  border-left-width: calc(0.6 * var(--page-rem, 1rem));
+}
+/* on the smallest phones: no side margins, so long words like
+   "(Macduff/Witch/others)" fit without the page scrolling sideways */
+@media (max-width: 359.98px) {
+  .review-card {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+.review-card .blockquote {
+  margin-bottom: var(--page-rem, 1rem);
+  padding-bottom: calc(0.5 * var(--page-rem, 1rem));
+  font-size: calc(1.25 * var(--page-rem, 1rem));
+}
+/* "Read Review": a dark grey button (Materialize-style) */
+.btn.btn-review {
+  --bs-btn-padding-y: 0;
+  --bs-btn-padding-x: 16px;
+  --bs-btn-font-size: 14px;
+  --bs-btn-line-height: 36px;
+  --bs-btn-border-width: 0;
+  --bs-btn-border-radius: 2px;
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #212121;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #212121;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #212121;
+  height: 36px;
+  margin-top: 10px;
+  outline: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.2s ease-out;
+  box-shadow:
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12),
+    0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+.btn.btn-review:hover {
+  box-shadow:
+    0 3px 3px 0 rgba(0, 0, 0, 0.14),
+    0 1px 7px 0 rgba(0, 0, 0, 0.12),
+    0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+.btn.btn-review.spaced {
+  margin: 10px;
+}
+
+/* Home: "Contact Me" over the stage photo */
+.contact-me {
+  background:
+    url("../img/time%20and%20the/20210327_204237187_iOS.webp") bottom no-repeat,
+    #000;
+}
+.contact-me .section {
+  padding-top: var(--page-rem, 1rem);
+  padding-bottom: var(--page-rem, 1rem);
+}
+.contact-section > .col {
+  padding-right: calc(0.75 * var(--page-rem, 1rem));
+  padding-left: calc(0.75 * var(--page-rem, 1rem));
+}
+.banner-social-icon {
+  margin-bottom: var(--page-rem, 1rem);
+  padding-left: 0;
+  list-style: none;
+}
+.banner-social-icon .list-inline-item:not(:last-child) {
+  margin-right: calc(0.5 * var(--page-rem, 1rem));
 }

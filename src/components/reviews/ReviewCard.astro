@@ -10,10 +10,10 @@ interface Props {
   /** caption: who, where, when (leave out for an anonymous quote) */
   caption?: string | undefined;
   link?: string | undefined;
-  /** left border width (the reviews page's first card is thinner) */
-  border?: string;
-  /** style of the "Read Review" button */
-  buttonStyle?: string | undefined;
+  /** thicker left border (the reviews page's cards, except the first) */
+  thick?: boolean;
+  /** margin all round the "Read Review" button (reviews page) */
+  spacedButton?: boolean;
 }
 
 const {
@@ -21,18 +21,15 @@ const {
   blankLines,
   caption,
   link,
-  border = ".5rem",
-  buttonStyle,
+  thick = false,
+  spacedButton = false,
 } = Astro.props;
 const [before, after] = blankLines ?? [0, 0];
 const lines = (n: number) => Array.from({ length: n });
 ---
 
-<figure
-  class="bg-grey p-3 rounded"
-  style={`border-left: ${border} solid #ffffff;`}
->
-  <blockquote class="blockquote pb-2">
+<figure class:list={["review-card", { thick }]}>
+  <blockquote class="blockquote">
     {quote.map((paragraph, i) => (
       <p>
         {i === 0 && lines(before).map(() => <br />)}
@@ -48,7 +45,7 @@ const lines = (n: number) => Array.from({ length: n });
     </figcaption>
   )}
   {link && (
-    <a href={link} class="btn review grey darken-4" style={buttonStyle}>
+    <a href={link} class:list={["btn btn-review", { spaced: spacedButton }]}>
       Read Review
     </a>
   )}

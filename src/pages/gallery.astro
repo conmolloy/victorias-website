@@ -34,15 +34,12 @@ const miscRows = rows(data.misc, 3);
 >
   <div class="header-container">
     <section>
-      <section
-        class="projects-clean"
-        style="background: rgb(0,0,0);color: white;"
-      >
+      <section class="projects-clean dark">
         <div class="container">
           <div class="row header-new">
             <div class="intro"></div>
           </div>
-          <div class="col s12">
+          <div class="col">
             <nav class="gallery-nav" aria-label="Gallery sections">
               <a class="js-scroll-trigger galbtn" href="#acting">
                 Acting
@@ -105,7 +102,7 @@ const miscRows = rows(data.misc, 3);
                   class:list={["row", { projects: i === miscRows.length - 1 }]}
                 >
                   {row.map((photo) => (
-                    <div class="col s4">
+                    <div class="col">
                       <GalleryPhoto photo={photo} kind="dance" />
                     </div>
                   ))}
@@ -124,7 +121,7 @@ const miscRows = rows(data.misc, 3);
               {rows(data.dance, 3).map((row) => (
                 <div class="row">
                   {row.map((photo) => (
-                    <div class="col s4">
+                    <div class="col">
                       <GalleryPhoto photo={photo} kind="dance" />
                     </div>
                   ))}

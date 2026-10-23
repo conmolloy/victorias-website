@@ -27,12 +27,12 @@ interface Props {
   preloads: string[];
   /** home only: load font-outfit.css */
   outfit?: boolean;
-  /** home and reviews: load site-base.css (former Materialize base styles) */
-  siteBase?: boolean;
+  /** home and reviews: their smaller text size (`.compact` in Projects-Clean.css) */
+  compact?: boolean;
   /** navbar brand link: "#" on home and reviews, "/" elsewhere */
   brandHref?: string;
   bodyId?: string;
-  bodyStyle?: string;
+  bodyClass?: string;
 }
 
 const {
@@ -42,10 +42,10 @@ const {
   ogType,
   preloads,
   outfit = false,
-  siteBase = false,
+  compact = false,
   brandHref = "/",
   bodyId,
-  bodyStyle,
+  bodyClass,
 } = Astro.props;
 ---
 
@@ -81,11 +81,10 @@ const {
     <link rel="stylesheet" href={v("assets/css/font-roboto.css")} />
     <link rel="stylesheet" href={v("assets/fonts/font-awesome.min.css")} />
     <link rel="stylesheet" href={v("assets/css/Projects-Clean.css")} />
-    {siteBase && <link rel="stylesheet" href={v("assets/css/site-base.css")} />}
     <slot name="head" />
   </head>
 
-  <body id={bodyId} style={bodyStyle}>
+  <body id={bodyId} class:list={[bodyClass, { compact }]}>
     <!-- Google Tag Manager (noscript) -->
     <noscript>
       <iframe

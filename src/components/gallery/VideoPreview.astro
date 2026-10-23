@@ -11,17 +11,17 @@ interface Props {
 }
 
 const { title, url, embed, allow, thumbnail } = videoPreview(Astro.props.video);
+// the player's height (also the preview's, in Projects-Clean.css)
 const HEIGHT = "368";
 ---
 
-<div class="col s12 m6 l6 video-containers">
+<div class="col video-containers">
   <a
     class="video-facade"
     href={url}
     data-embed={embed}
     data-allow={allow}
     data-height={HEIGHT}
-    style={`height: ${HEIGHT}px`}
     aria-label={`Play video: ${title}`}
   >
     <img

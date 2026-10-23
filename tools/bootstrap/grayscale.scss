@@ -230,9 +230,10 @@ a {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       background: #000;
     }
+    // (the theme's highlight behind the active link is left out: the site
+    // never showed it)
     .nav-link.active {
       outline: none;
-      background-color: rgba(255, 255, 255, 0.3);
       &:hover {
         color: #fff;
       }
