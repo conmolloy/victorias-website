@@ -12,7 +12,7 @@ import VideoPreview from "../components/gallery/VideoPreview.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const { data } = (await getEntry("gallery", "gallery"))!;
-const [first, second, ...rest] = data.productions;
+const { productions } = data;
 
 /** split a list into rows of `size` */
 const rows = <T,>(items: T[], size: number): T[][] =>
@@ -65,30 +65,16 @@ const miscRows = rows(data.misc, 3);
             </h2>
           </div>
 
-          {/*
-            The shows sit in nested containers, as on the original page: the
-            1st show, then the 2nd one container deeper, then all the others
-            a third container deeper (each level is indented a little more).
-            The sections after them close those containers one by one.
-          */}
+          {/* every show and section the same width */}
           <div class="container">
-            <Production
-              production={first!}
-              eager
-              last={data.productions.length === 1}
-            />
             <div class="container">
-              {second && (
-                <Production production={second} last={rest.length === 0} />
-              )}
-              <div class="container">
-                {rest.map((production, i) => (
-                  <Production
-                    production={production}
-                    last={i === rest.length - 1}
-                  />
-                ))}
-              </div>
+              {productions.map((production, i) => (
+                <Production
+                  production={production}
+                  eager={i === 0}
+                  last={i === productions.length - 1}
+                />
+              ))}
 
               <div class="row header-new">
                 <div class="intro">
