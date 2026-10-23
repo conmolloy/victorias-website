@@ -9,6 +9,11 @@ updates:
     groups:
       dependencies:
         patterns: ["*"]
+    ignore:
+      # TypeScript 7 isn't supported by @astrojs/check yet (it needs
+      # typescript ^5 || ^6), so npm ci fails. Remove once Astro supports it.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directories: [/tools/trim-css, /tools/visual-check]
