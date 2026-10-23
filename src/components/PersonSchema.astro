@@ -1,0 +1,23 @@
+---
+/**
+ * Structured data for search engines (schema.org Person, as JSON-LD) on the
+ * home page: who the site is about and her profiles elsewhere.
+ */
+import { PROFILES, SHARE_IMAGE, SITE_NAME, SITE_URL } from "../lib/site";
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE_NAME,
+  jobTitle: "Actor",
+  url: `${SITE_URL}/`,
+  image: SITE_URL + SHARE_IMAGE.path,
+  sameAs: PROFILES.map((profile) => profile.href),
+};
+---
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(person)}
+/>
