@@ -29,7 +29,7 @@ const columnClass =
     ? "col-lg-4 col-md-12 mb-4 mb-lg-0"
     : "col-lg-6 col-md-12 mb-lg-0";
 // widths the photos are shown at: zoomed (1.6x on hover) on desktop, full
-// column width on phones and tablets (as measured for make_thumbnails.py)
+// column width on phones and tablets (as measured on the page)
 const SMALL_SCREENS =
   "(min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)";
 const sizes =
@@ -37,6 +37,13 @@ const sizes =
     ? `(min-width: 1200px) 560px, (min-width: 992px) 464px, ${SMALL_SCREENS}`
     : `(min-width: 1200px) 864px, (min-width: 992px) 720px, ${SMALL_SCREENS}`;
 const isFirst = (photo: object) => eager && photo === shoot.photos[0];
+const attrs = new Map(
+  await Promise.all(
+    shoot.photos.map(
+      async (photo) => [photo, await photoAttrs(photo.file)] as const,
+    ),
+  ),
+);
 ---
 
 {rows.map((row) => (
@@ -44,7 +51,7 @@ const isFirst = (photo: object) => eager && photo === shoot.photos[0];
     {row.map((column) => (
       <div class={columnClass}>
         {column.map((photo) => {
-          const { src, srcset, width, height } = photoAttrs(photo.file);
+          const { src, srcset, width, height } = attrs.get(photo)!;
           return (
             <img
               alt={photo.alt}

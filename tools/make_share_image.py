@@ -31,7 +31,7 @@ def source_path():
         return sys.argv[1]
     for path in (
         os.path.join(ROOT, "_originals", SOURCE + ".jpg"),
-        os.path.join(ROOT, "public", SOURCE + ".webp"),
+        os.path.join(ROOT, "src", SOURCE + ".webp"),
     ):
         if os.path.exists(path):
             return path

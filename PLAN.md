@@ -207,9 +207,9 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       extra service; TinaCMS if she wants live visual editing; also Decap /
       Keystatic) on top of the `src/content/*.yaml` data, so she can add
       productions, photos, headshots and reviews herself. Saves commit to
-      GitHub, then CI checks + deploy as now. Needs: thumbnails generated
-      automatically in CI when photos are uploaded (today
-      `tools/make_thumbnails.py` runs locally), logins via GitHub with 2FA
+      GitHub, then CI checks + deploy as now. Needs: ~~thumbnails generated
+      automatically in CI when photos are uploaded~~ (done: the build makes
+      them with `astro:assets`), logins via GitHub with 2FA
       (or the CMS's own auth / a small Cloudflare OAuth helper), a decision
       on publish-directly vs edits-as-PR, and consider making the repo
       private (drafts/uploads are public while it's public). Trial with
@@ -223,9 +223,11 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
         (`col s4`, `grey darken-4`, `waves-effect`) – their smaller text size is
         now `<body class="compact">` (`--page-rem`), pixel-identical; removing
         `compact` from index/reviews would give them the other pages' size
-  - `astro:assets` (`<Image>`) instead of `tools/make_thumbnails.py`: Astro
-    would make the smaller versions itself – but every image address (and
-    file) changes, so it needs its own check
+  - [x] `astro:assets` (`<Image>`) instead of `tools/make_thumbnails.py`: Astro
+        would make the smaller versions itself – but every image address (and
+        file) changes, so it needs its own check – gallery/headshot photos moved
+        to `src/assets/img/`, `getImage()` makes the 400/800/1200px versions in
+        `/_astro/`, the full-size photo is served unchanged; layout identical
   - tidy the layout quirks the data-driven pages still reproduce on purpose
     (visual changes, so with Victoria's OK): the 2nd and 3rd shows and the
     later headshot shoots are each indented a little more than the one
