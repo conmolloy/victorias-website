@@ -1,0 +1,86 @@
+# Headshots page (src/pages/headshot.astro) – see README "How to update the site".
+# Newest shoot first. The year heading is shown when it changes.
+shoots:
+  - year: 2024
+    photographer: Michael Shelford
+    columns: 3
+    photos:
+      - file: assets/img/headshot 2024/q3/victoria-7646-3.webp
+        alt: "Victoria Adler headshot by Michael Shelford, 2024"
+      - file: assets/img/headshot 2024/q3/victoria-7753-3.webp
+        alt: "Victoria Adler headshot by Michael Shelford, 2024"
+      - file: assets/img/headshot 2024/q3/victoria-7939-3.webp
+        alt: "Victoria Adler headshot by Michael Shelford, 2024"
+
+  - year: 2024
+    photographer: Framed Duck Studio
+    columns: 2
+    stack: 4 # photos per column, listed column by column
+    photos:
+      - file: assets/img/headshot 2024/q2/D80A1721-Edit-2.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/Victoria Adler-142-Edit.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/Victoria Adler-038-Edit.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/Victoria Adler-161-Edit.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/Victoria Adler-169-Edit.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/Victoria Adler-114-Edit.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/D80A1937-Edit.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+      - file: assets/img/headshot 2024/q2/D80A1697.webp
+        alt: "Victoria Adler headshot by Framed Duck Studio, 2024"
+
+  - year: 2024
+    photographer: DAVID YIU
+    columns: 2
+    photos:
+      - file: assets/img/headshot 2024/q1/victoria-adler-03.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-06.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-09.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-08.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-04.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-05.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-07.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+      - file: assets/img/headshot 2024/q1/victoria-adler-01.webp
+        alt: "Victoria Adler headshot by David Yiu, 2024"
+
+  - year: 2023
+    photographer: Point Of You
+    columns: 3
+    stack: 2 # photos per column, listed column by column
+    photos:
+      - file: assets/img/headshots-2023/Color.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-18.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-14.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-13.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-4.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-15.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-5.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/100A9815.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-20.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/100A9506.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/Color-9.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"
+      - file: assets/img/headshots-2023/100A9331.webp
+        alt: "Victoria Adler headshot by Point Of You, 2023"

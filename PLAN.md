@@ -191,16 +191,36 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
 - [ ] `npm audit`: 6 "high" warnings, all one advisory in `braces` (used only
       by Stylelint's file matching, dev-only, never shipped); no fixed
       version yet – Dependabot will pick it up.
+- [x] **Content in data files** (Astro phase 2, part 1): the gallery
+      (16 shows, misc/dance photos, voice reels, songs, videos,
+      certificates), headshots (4 shoots) and reviews (5 press + 4 coaching;
+      the home page shows the ones marked `home: true`) come from
+      `src/content/*.yaml`, checked against a schema when building (a
+      misspelt field, missing alt text or credit, or a photo/thumbnail/
+      audio/preview image that doesn't exist stops the build with a clear
+      message). `srcset`/`sizes`/`width`/`height` are worked out from the
+      image files. README has a "How to update the site" guide. Pages look
+      identical (full-page screenshots desktop + 390px, 30 interactive
+      states, behaviour checks).
 - [ ] **Astro phase 2** (each needs its own visual check):
   - Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
     `video-facade.js` as TypeScript `<script>`s
   - home/reviews on the same base styles as the other pages (drop
     `site-base.css`), clean up inline `style=` and Materialize-era classes
     (`col s4`, `grey darken-4`, `waves-effect`)
-  - gallery/headshot photo grids from data (one list per production) instead
-    of hand-written `<img srcset>` blocks; maybe `astro:assets` for
-    thumbnails instead of `tools/make_thumbnails.py`
-  - reviews from one data file (home shows a subset)
+  - `astro:assets` (`<Image>`) instead of `tools/make_thumbnails.py`: Astro
+    would make the smaller versions itself – but every image address (and
+    file) changes, so it needs its own check
+  - tidy the layout quirks the data-driven pages still reproduce on purpose
+    (visual changes, so with Victoria's OK): the 2nd and 3rd shows and the
+    later headshot shoots are each indented a little more than the one
+    before (nested containers from the old HTML); the first review card's
+    border is thinner (.5rem) than the others (.6rem); the old Materialize
+    column classes (`col s4`, `col s12 m6 l6`) do nothing any more
+  - copy edits for Victoria to confirm (shown as written today): "Isreal
+    Hands", "Perpper & Salt", "Royale Dickens Company", "Reggeaton",
+    lower-case show titles ("a phoenix too frequent", "A christmas carol"…),
+    "By The School of the Science of Acting" (Time and the Conways)
 
 ## Housekeeping
 

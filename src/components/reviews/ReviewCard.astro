@@ -1,0 +1,54 @@
+---
+/**
+ * A review card: the quote, who wrote it where and when, and a "Read Review"
+ * link. Without `by`/`publication`/`link` (coaching reviews) it's just the quote.
+ */
+interface Props {
+  quote: string[];
+  /** [before, after]: empty lines that make a short quote's card taller */
+  blankLines?: [number, number] | undefined;
+  /** caption: who, where, when (leave out for an anonymous quote) */
+  caption?: string | undefined;
+  link?: string | undefined;
+  /** left border width (the reviews page's first card is thinner) */
+  border?: string;
+  /** style of the "Read Review" button */
+  buttonStyle?: string | undefined;
+}
+
+const {
+  quote,
+  blankLines,
+  caption,
+  link,
+  border = ".5rem",
+  buttonStyle,
+} = Astro.props;
+const [before, after] = blankLines ?? [0, 0];
+const lines = (n: number) => Array.from({ length: n });
+---
+
+<figure
+  class="bg-grey p-3 rounded"
+  style={`border-left: ${border} solid #ffffff;`}
+>
+  <blockquote class="blockquote pb-2">
+    {quote.map((paragraph, i) => (
+      <p>
+        {i === 0 && lines(before).map(() => <br />)}
+        <Fragment set:html={paragraph} />
+        {i === quote.length - 1 && lines(after).map(() => <br />)}
+      </p>
+    ))}
+  </blockquote>
+  {caption && (
+    <figcaption class="blockquote-footer mb-0 font-italic">
+      {caption}
+    </figcaption>
+  )}
+  {link && (
+    <a href={link} class="btn review grey darken-4" style={buttonStyle}>
+      Read Review
+    </a>
+  )}
+</figure>

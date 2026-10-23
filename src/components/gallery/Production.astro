@@ -1,0 +1,43 @@
+---
+/** One show in the gallery: a row of photos, its title, company and role. */
+import GalleryPhoto from "./GalleryPhoto.astro";
+
+interface Props {
+  production: {
+    title: string;
+    company: string;
+    role: string;
+    photos_by?: string | undefined;
+    photos: { file: string; alt: string }[];
+  };
+  /** the first show is on the first screen: its photos load straight away */
+  eager?: boolean;
+  /** no divider after the last show */
+  last?: boolean;
+}
+
+const { production, eager = false, last = false } = Astro.props;
+---
+
+<div class="row projects">
+  {production.photos.map((photo) => (
+    <div class="col s4">
+      <GalleryPhoto photo={photo} eager={eager} />
+    </div>
+  ))}
+</div>
+<div class="row">
+  <div class="col s6">
+    <h3 class="text text-center name" style="margin: 10px 0px 8px;">
+      <strong>{production.title}</strong>
+    </h3>
+    <h6 class="text text-center name" style="margin: 10px 0px 8px;">
+      <strong>{production.company}</strong>
+    </h6>
+    <p class="descriptiontwo">{production.role}</p>
+    {production.photos_by && (
+      <p class="descriptiontwo">Photos by {production.photos_by}</p>
+    )}
+  </div>
+</div>
+{!last && <hr />}

@@ -1,0 +1,66 @@
+---
+/**
+ * One headshot shoot's photos in rows of 2 or 3 columns. With `stack`, each
+ * column holds that many photos on top of each other (listed column by
+ * column in the data file).
+ */
+import { photo as photoAttrs } from "../../lib/photos";
+
+interface Props {
+  shoot: {
+    columns: 2 | 3;
+    stack: number;
+    photos: { file: string; alt: string }[];
+  };
+  /** the first shoot is on the first screen: load straight away, first photo first */
+  eager?: boolean;
+}
+
+const { shoot, eager = false } = Astro.props;
+
+const chunk = <T,>(items: T[], size: number): T[][] =>
+  Array.from({ length: Math.ceil(items.length / size) }, (_, i) =>
+    items.slice(i * size, (i + 1) * size),
+  );
+const rows = chunk(chunk(shoot.photos, shoot.stack), shoot.columns);
+
+const columnClass =
+  shoot.columns === 3
+    ? "col-lg-4 col-md-12 mb-4 mb-lg-0"
+    : "col-lg-6 col-md-12 mb-6 mb-lg-0";
+// widths the photos are shown at: zoomed (1.6x on hover) on desktop, full
+// column width on phones and tablets (as measured for make_thumbnails.py)
+const SMALL_SCREENS =
+  "(min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)";
+const sizes =
+  shoot.columns === 3
+    ? `(min-width: 1200px) 560px, (min-width: 992px) 464px, ${SMALL_SCREENS}`
+    : `(min-width: 1200px) 864px, (min-width: 992px) 720px, ${SMALL_SCREENS}`;
+const isFirst = (photo: object) => eager && photo === shoot.photos[0];
+---
+
+{rows.map((row) => (
+  <div class="row">
+    {row.map((column) => (
+      <div class={columnClass}>
+        {column.map((photo) => {
+          const { src, srcset, width, height } = photoAttrs(photo.file);
+          return (
+            <img
+              alt={photo.alt}
+              fetchpriority={isFirst(photo) ? "high" : undefined}
+              loading={eager ? undefined : "lazy"}
+              decoding={isFirst(photo) ? undefined : "async"}
+              src={src}
+              srcset={srcset}
+              sizes={sizes}
+              class="w-100 shadow-1-strong rounded mb-4 zoom-hs"
+              width={width}
+              height={height}
+            />
+          );
+        })}
+      </div>
+    ))}
+  </div>
+))}

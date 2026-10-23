@@ -1,0 +1,36 @@
+---
+/**
+ * A zoomable gallery photo (hover zooms it; see .zoom in Projects-Clean.css)
+ * with srcset/sizes so browsers download only the size they show.
+ */
+import { photo as photoAttrs } from "../../lib/photos";
+
+interface Props {
+  photo: { file: string; alt: string };
+  /** extra class: "dance" (dance + misc photos) or "certificate" */
+  kind?: "dance" | "certificate";
+  /** first screen: load straight away instead of when scrolled near */
+  eager?: boolean;
+}
+
+const { photo, kind, eager = false } = Astro.props;
+const { src, srcset, width, height } = photoAttrs(photo.file);
+
+// widths each photo is shown at (zoomed), as measured for make_thumbnails.py
+const sizes =
+  kind === "certificate"
+    ? "(min-width: 1200px) 864px, (min-width: 1001px) 720px, 126vw"
+    : "(min-width: 1200px) 592px, (min-width: 1001px) 496px, 87vw";
+---
+
+<img
+  alt={photo.alt}
+  loading={eager ? undefined : "lazy"}
+  decoding="async"
+  class:list={[kind, "img-fluid zoom"]}
+  src={src}
+  srcset={srcset}
+  sizes={sizes}
+  width={width}
+  height={height}
+/>

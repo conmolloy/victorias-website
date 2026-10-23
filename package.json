@@ -21,7 +21,8 @@
     "verify": "npm run format:check && npm run lint && npm test && npm run build && npm run test:dist && npm run test:e2e"
   },
   "dependencies": {
-    "astro": "7.4.2"
+    "astro": "7.4.2",
+    "yaml": "2.9.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",

@@ -9,6 +9,8 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig([
   globalIgnores([
+    // Claude Code keeps worktrees (whole copies of the repo) here
+    ".claude/",
     "dist/",
     ".astro/",
     "**/node_modules/",

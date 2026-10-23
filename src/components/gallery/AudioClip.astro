@@ -1,0 +1,23 @@
+---
+/** A recording with its title (gallery "Audio" and "Singing" sections). */
+import { audioFile } from "../../lib/media";
+
+interface Props {
+  clip: { title: string; files: string[] };
+}
+
+const { clip } = Astro.props;
+const sources = clip.files.map(audioFile);
+---
+
+<div class="col">
+  {/* Voice reels and songs have no captions: no transcript yet for the reels, and captions would only repeat the published lyrics of the songs */}
+  {/* eslint-disable-next-line astro/jsx-a11y/media-has-caption -- see above */}
+  <audio controls>
+    {sources.map(({ src, type }) => (
+      <source src={src} type={type} />
+    ))}
+    Your browser does not support the audio element.
+  </audio>
+  <p class="description">{clip.title}</p>
+</div>
