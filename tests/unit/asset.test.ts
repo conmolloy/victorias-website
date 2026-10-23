@@ -15,9 +15,9 @@ describe("v() cache-busting", () => {
     expect(v(path)).toBe(`${path}?v=${md5(path)}`);
   });
 
-  it("works for scripts too", () => {
-    expect(v("assets/js/grayscale.js")).toMatch(
-      /^assets\/js\/grayscale\.js\?v=[0-9a-f]{8}$/,
+  it("works for files in any folder of public/", () => {
+    expect(v("assets/bootstrap/css/bootstrap.min.css")).toMatch(
+      /^assets\/bootstrap\/css\/bootstrap\.min\.css\?v=[0-9a-f]{8}$/,
     );
   });
 

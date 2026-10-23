@@ -42,7 +42,8 @@ const lines = (n: number) => Array.from({ length: n });
     ))}
   </blockquote>
   {caption && (
-    <figcaption class="blockquote-footer mb-0 font-italic">
+    <figcaption class="blockquote-footer mb-0 fst-italic">
+      {/* the gap after the "—" is its non-breaking space plus this space */}{" "}
       {caption}
     </figcaption>
   )}

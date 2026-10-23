@@ -1,7 +1,8 @@
 ---
 /**
- * Fixed top navbar (Bootstrap 4 / Grayscale theme). Collapses into the
- * hamburger menu below 768px; grayscale.js shrinks it after scrolling.
+ * Fixed top navbar (Bootstrap 5 / Grayscale theme). Collapses into the
+ * hamburger menu below 768px (Bootstrap's collapse plugin) and shrinks after
+ * scrolling (the script at the end).
  *
  * "Home" is always the highlighted (active) link, on every page, as on the
  * original site. Links have no ".html": the server maps /resume to resume.html.
@@ -34,16 +35,18 @@ const pages = [
       Victoria Adler
     </a>
     <button
-      data-toggle="collapse"
-      class="navbar-toggler navbar-toggler-right"
-      data-target="#navbarResponsive"
+      data-bs-toggle="collapse"
+      class="navbar-toggler"
+      data-bs-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
       type="button"
       aria-label="Menu"
     >
       <i class="fa fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item nav-link js-scroll-trigger">
           <a
             class="nav-link active js-scroll-trigger"
@@ -77,3 +80,23 @@ const pages = [
     </div>
   </div>
 </nav>
+
+<script>
+  import Collapse from "bootstrap/js/dist/collapse.js";
+
+  const nav = document.getElementById("mainNav")!;
+  const menu = document.getElementById("navbarResponsive")!;
+
+  // close the phone menu when one of its links is clicked
+  for (const link of document.querySelectorAll(".js-scroll-trigger")) {
+    link.addEventListener("click", () => {
+      Collapse.getOrCreateInstance(menu, { toggle: false }).hide();
+    });
+  }
+
+  // shrink the navbar (smaller, black background) once the page is scrolled
+  const shrink = () =>
+    nav.classList.toggle("navbar-shrink", window.scrollY > 50);
+  shrink();
+  window.addEventListener("scroll", shrink, { passive: true });
+</script>

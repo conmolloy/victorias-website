@@ -6,7 +6,7 @@
 // shrinks, mobile menu open), and keeps every rule with a selector that
 // matches an element in any of them. Pseudo-classes/elements (:hover,
 // ::before, ...) are ignored when matching, and so are the classes Bootstrap
-// and grayscale.js add at runtime (DYNAMIC below), so e.g.
+// and the navbar script add at runtime (DYNAMIC below), so e.g.
 // `.navbar-collapse.collapsing` is kept because `.navbar-collapse` exists.
 //
 //   public/assets/bootstrap/css/bootstrap.full.min.css   (full theme, edit/replace this)

@@ -10,7 +10,6 @@ import GalleryPhoto from "../components/gallery/GalleryPhoto.astro";
 import Production from "../components/gallery/Production.astro";
 import VideoPreview from "../components/gallery/VideoPreview.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { v } from "../lib/asset";
 
 const { data } = (await getEntry("gallery", "gallery"))!;
 const [first, second, ...rest] = data.productions;
@@ -204,10 +203,4 @@ const miscRows = rows(data.misc, 3);
       </section>
     </section>
   </div>
-
-  <script
-    is:inline
-    slot="scripts"
-    src={v("assets/js/video-facade.js")}
-  ></script>
 </BaseLayout>

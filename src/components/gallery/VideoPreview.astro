@@ -1,7 +1,7 @@
 ---
 /**
  * A Vimeo/YouTube video as a click-to-load preview: thumbnail + play button;
- * assets/js/video-facade.js swaps in the real player when it's clicked.
+ * the script below swaps in the real player when it's clicked.
  * Without JavaScript the link opens the video on Vimeo/YouTube.
  */
 import { videoPreview, type VideoInput } from "../../lib/media";
@@ -35,3 +35,25 @@ const HEIGHT = "368";
     <span class="video-facade-play" aria-hidden="true"></span>
   </a>
 </div>
+
+<script>
+  // Click-to-load video embeds (see tools/video_facades.py): the Vimeo/YouTube
+  // player and its scripts only load when someone clicks play.
+  document.addEventListener("click", (event) => {
+    const link =
+      event.target instanceof Element
+        ? event.target.closest<HTMLAnchorElement>("a.video-facade")
+        : null;
+    if (!link) return;
+    event.preventDefault();
+    const iframe = document.createElement("iframe");
+    iframe.src = link.dataset.embed!;
+    iframe.width = "100%";
+    iframe.height = link.dataset.height!;
+    iframe.setAttribute("frameborder", "0");
+    iframe.setAttribute("allow", link.dataset.allow!);
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.title = link.querySelector("img")!.alt;
+    link.replaceWith(iframe);
+  });
+</script>

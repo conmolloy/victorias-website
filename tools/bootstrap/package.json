@@ -1,0 +1,11 @@
+{
+  "name": "build-bootstrap",
+  "private": true,
+  "description": "Builds the site's Bootstrap 5 + Grayscale CSS from Sass (see build.js)",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "sass": "1.93.2"
+  }
+}

@@ -2,8 +2,8 @@
 /**
  * Page shell shared by every page: <head> (meta, search/link-preview tags,
  * font preloads, stylesheets, deferred Google Tag Manager), the GTM noscript
- * iframe, the navbar, and the
- * scripts at the end of <body> (jQuery + Bootstrap 4 JS + grayscale.js).
+ * iframe, the navbar, and the script at the end of <body> (smooth scrolling
+ * for in-page links; the navbar has its own script).
  *
  * Local CSS/JS links go through v() so they carry a content-hash ?v=
  * (browsers cache CSS/JS for 30 days).
@@ -99,9 +99,45 @@ const {
     <!-- End Google Tag Manager (noscript) -->
     <Navbar brandHref={brandHref} />
     <slot />
-    <script is:inline src={v("assets/js/jquery.min.js")}></script>
-    <script is:inline src={v("assets/bootstrap/js/bootstrap.min.js")}></script>
-    <script is:inline src={v("assets/js/grayscale.js")}></script>
     <slot name="scripts" />
+    <script>
+      // In-page links (the gallery's section buttons) scroll smoothly to
+      // their section in 1s, leaving 48px for the navbar, instead of jumping.
+      const DURATION = 1000;
+      const NAVBAR = 48;
+      const swing = (p: number) => 0.5 - Math.cos(p * Math.PI) / 2;
+
+      function scrollToY(y: number) {
+        const from = window.scrollY;
+        const start = performance.now();
+        const step = (now: number) => {
+          const p = Math.min((now - start) / DURATION, 1);
+          window.scrollTo(0, from + (y - from) * swing(p));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+
+      for (const link of document.querySelectorAll<HTMLAnchorElement>(
+        'a.js-scroll-trigger[href*="#"]:not([href="#"])',
+      )) {
+        link.addEventListener("click", (event) => {
+          if (
+            link.pathname.replace(/^\//, "") !==
+              location.pathname.replace(/^\//, "") ||
+            link.hostname !== location.hostname
+          )
+            return;
+          const id = decodeURIComponent(link.hash.slice(1));
+          const target =
+            document.getElementById(id) ?? document.getElementsByName(id)[0];
+          if (!target) return;
+          event.preventDefault();
+          scrollToY(
+            target.getBoundingClientRect().top + window.scrollY - NAVBAR,
+          );
+        });
+      }
+    </script>
   </body>
 </html>

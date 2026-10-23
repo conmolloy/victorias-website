@@ -26,18 +26,13 @@ const render = (props: Record<string, unknown>) =>
   });
 
 describe("BaseLayout", () => {
-  it("renders the title, page content and the end-of-body scripts in order", async () => {
+  it("renders the title and page content, without jQuery or Bootstrap's bundle", async () => {
     const html = await render({ title: "Gallery" });
     expect(html).toContain("<title>Gallery</title>");
     expect(html).toContain("<main>page content</main>");
-    const scripts = [...html.matchAll(/<script src="([^"?]+)\?v=/g)].map(
-      (m) => m[1],
-    );
-    expect(scripts).toEqual([
-      "assets/js/jquery.min.js",
-      "assets/bootstrap/js/bootstrap.min.js",
-      "assets/js/grayscale.js",
-    ]);
+    // the navbar and smooth scrolling are bundled TypeScript (<script> in
+    // Navbar.astro / BaseLayout.astro), not script files in public/
+    expect(html).not.toMatch(/jquery|bootstrap\.min\.js|grayscale\.js/);
   });
 
   it("versions every local stylesheet, in cascade order", async () => {
@@ -151,6 +146,10 @@ describe("Navbar", () => {
       props: { brandHref: "#" },
     });
     expect(html).toContain('class="navbar-brand js-scroll-trigger" href="#"');
+    // Bootstrap 5's collapse plugin opens the phone menu
+    expect(html).toContain(
+      'data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarResponsive"',
+    );
     const links = [
       ...html.matchAll(/<a class="nav-link[^"]*" href="([^"]+)"/g),
     ].map((m) => m[1]);
