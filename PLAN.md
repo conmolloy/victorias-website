@@ -202,6 +202,18 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       image files. README has a "How to update the site" guide. Pages look
       identical (full-page screenshots desktop + 390px, 30 interactive
       states, behaviour checks).
+- [ ] **Editing screen for Victoria** (after the content-files PR): a
+      Git-based CMS at `/admin` (trial Sveltia CMS first – free, static, no
+      extra service; TinaCMS if she wants live visual editing; also Decap /
+      Keystatic) on top of the `src/content/*.yaml` data, so she can add
+      productions, photos, headshots and reviews herself. Saves commit to
+      GitHub, then CI checks + deploy as now. Needs: thumbnails generated
+      automatically in CI when photos are uploaded (today
+      `tools/make_thumbnails.py` runs locally), logins via GitHub with 2FA
+      (or the CMS's own auth / a small Cloudflare OAuth helper), a decision
+      on publish-directly vs edits-as-PR, and consider making the repo
+      private (drafts/uploads are public while it's public). Trial with
+      Victoria before committing to one tool.
 - [ ] **Astro phase 2** (each needs its own visual check):
   - Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
     `video-facade.js` as TypeScript `<script>`s
