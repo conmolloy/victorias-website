@@ -15,7 +15,13 @@ beforeAll(async () => {
 
 const render = (props: Record<string, unknown>) =>
   container.renderToString(BaseLayout, {
-    props: { title: "Test", preloads: [], ...props },
+    props: {
+      title: "Test",
+      description: "A test page.",
+      path: "/",
+      preloads: [],
+      ...props,
+    },
     slots: { default: "<main>page content</main>" },
   });
 
@@ -85,6 +91,29 @@ describe("BaseLayout", () => {
       bodyStyle: "padding-top: 100px",
     });
     expect(html).toContain('<body id="page-top" style="padding-top: 100px">');
+  });
+
+  it("adds the description, canonical link and link-preview tags", async () => {
+    const html = await render({
+      title: "Gallery – Victoria Adler",
+      description: "Stage photos.",
+      path: "/gallery",
+    });
+    expect(html).toContain('<meta name="description" content="Stage photos.">');
+    expect(html).toContain(
+      '<link rel="canonical" href="https://victoriaadler.co.uk/gallery">',
+    );
+    expect(html).toContain('<meta property="og:type" content="website">');
+    expect(html).toContain(
+      '<meta property="og:image" content="https://victoriaadler.co.uk/assets/img/share/victoria-adler.jpg">',
+    );
+    expect(html).not.toContain("profile:first_name");
+
+    const home = await render({ path: "/", ogType: "profile" });
+    expect(home).toContain('<meta property="og:type" content="profile">');
+    expect(home).toContain(
+      '<meta property="profile:first_name" content="Victoria">',
+    );
   });
 
   it("includes Google Tag Manager and its noscript fallback", async () => {

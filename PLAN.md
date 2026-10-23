@@ -158,6 +158,14 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       "Certificates" heading were also too wide; they now fit the column.
       Gallery fits at 320–430px; desktop screenshots of every page and phone
       screenshots of the other pages unchanged. `test.fail(...)` removed.
+- [x] **Link previews and search listings**: every page has its own title
+      and description (search results), a canonical address (the
+      extension-less one), Open Graph + Twitter card tags so shared links
+      show Victoria's photo, name and a one-line description, and the home
+      page has schema.org `Person` data with her Spotlight/IMDb/Instagram.
+      Preview image: 1200×630 JPEG from the first 2024 headshot
+      (`tools/make_share_image.py`). Added `sitemap.xml` and `robots.txt`.
+      Pages look identical.
 - [x] **Consistent `<head>`**: every page now has `lang="en"` and the
       favicon, from the shared layout (reviews, gallery and headshots had no
       `lang`; CV and showreel had no favicon). The `lang`/`favicon` layout

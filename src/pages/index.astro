@@ -1,10 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Contact from "../components/Contact.astro";
+import PersonSchema from "../components/PersonSchema.astro";
 ---
 
 <BaseLayout
-  title="Victoria's Website"
+  title="Victoria Adler – Actor"
+  description="Swedish actor based in London, trained at Stockholm Art School and the Kogan Academy of Dramatic Arts, with a background in stage combat, archery and dance."
+  path="/"
+  ogType="profile"
   preloads={[
     "lora-latin.woff2",
     "cabin-700-latin.woff2",
@@ -15,6 +19,7 @@ import Contact from "../components/Contact.astro";
   brandHref="#"
   bodyId="page-top"
 >
+  <PersonSchema slot="head" />
   <div class="header-container">
     <div class="video-container">
       <video

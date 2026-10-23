@@ -1,0 +1,46 @@
+---
+/**
+ * Search and link-preview tags for one page: description, canonical URL,
+ * Open Graph (WhatsApp, iMessage, Facebook, LinkedIn, email...) and Twitter
+ * card (X). All URLs are absolute, as the apps that read them require.
+ */
+import { SHARE_IMAGE, SITE_NAME, SITE_URL, type PAGES } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  /** the page's canonical (extension-less) path, e.g. "/gallery" */
+  path: (typeof PAGES)[number];
+  /** "profile" on the home page (it's about Victoria), "website" elsewhere */
+  ogType?: "profile" | "website";
+}
+
+const { title, description, path, ogType = "website" } = Astro.props;
+const url = SITE_URL + path;
+const image = SITE_URL + SHARE_IMAGE.path;
+---
+
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+<meta property="og:type" content={ogType} />
+{ogType === "profile" && (
+  <>
+    <meta property="profile:first_name" content="Victoria" />
+    <meta property="profile:last_name" content="Adler" />
+  </>
+)}
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={image} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content={String(SHARE_IMAGE.width)} />
+<meta property="og:image:height" content={String(SHARE_IMAGE.height)} />
+<meta property="og:image:alt" content={SHARE_IMAGE.alt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+<meta name="twitter:image:alt" content={SHARE_IMAGE.alt} />

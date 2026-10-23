@@ -1,7 +1,8 @@
 ---
 /**
- * Page shell shared by every page: <head> (meta, font preloads, stylesheets,
- * deferred Google Tag Manager), the GTM noscript iframe, the navbar, and the
+ * Page shell shared by every page: <head> (meta, search/link-preview tags,
+ * font preloads, stylesheets, deferred Google Tag Manager), the GTM noscript
+ * iframe, the navbar, and the
  * scripts at the end of <body> (jQuery + Bootstrap 4 JS + grayscale.js).
  *
  * Local CSS/JS links go through v() so they carry a content-hash ?v=
@@ -9,11 +10,19 @@
  */
 import GoogleTagManager from "../components/GoogleTagManager.astro";
 import Navbar from "../components/Navbar.astro";
+import SeoTags from "../components/SeoTags.astro";
 import { v } from "../lib/asset";
+import type { PAGES } from "../lib/site";
 
 interface Props {
-  /** <title> */
+  /** <title>, also the headline of link previews */
   title: string;
+  /** one or two sentences for search results and link previews */
+  description: string;
+  /** the page's canonical (extension-less) path, e.g. "/gallery" */
+  path: (typeof PAGES)[number];
+  /** link-preview type: "profile" on home, "website" (default) elsewhere */
+  ogType?: "profile" | "website";
   /** font files in assets/fonts/ to <link rel="preload">, in order (the ones the first screen uses) */
   preloads: string[];
   /** home only: load font-outfit.css */
@@ -28,6 +37,9 @@ interface Props {
 
 const {
   title,
+  description,
+  path,
+  ogType,
   preloads,
   outfit = false,
   siteBase = false,
@@ -47,6 +59,12 @@ const {
     />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <title>{title}</title>
+    <SeoTags
+      title={title}
+      description={description}
+      path={path}
+      ogType={ogType}
+    />
     <slot name="head-scripts" />
     {preloads.map((font) => (
       <link

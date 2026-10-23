@@ -106,12 +106,12 @@ test("navbar shrinks after scrolling", async ({ page }) => {
 
 test("nav links reach every page", async ({ page, isMobile }) => {
   for (const [label, title] of [
-    ["CV", "My Resume"],
-    ["Showreel", "Showreel"],
-    ["Portfolio", "Portfolio"],
-    ["Gallery", "Gallery"],
-    ["Reviews", "Reviews"],
-    ["Home", "Victoria's Website"],
+    ["CV", "CV – Victoria Adler"],
+    ["Showreel", "Showreel – Victoria Adler"],
+    ["Portfolio", "Headshots – Victoria Adler"],
+    ["Gallery", "Gallery – Victoria Adler"],
+    ["Reviews", "Reviews – Victoria Adler"],
+    ["Home", "Victoria Adler – Actor"],
   ]) {
     await page.goto("/reviews.html");
     if (isMobile) await page.locator(".navbar-toggler").click();

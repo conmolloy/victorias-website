@@ -60,7 +60,8 @@ Each page loads the same small stack:
 | `/resume`          | `src/pages/resume.astro`   | CV (PDF shown with PDF.js)                    |
 | `/reviews`         | `src/pages/reviews.astro`  | Reviews                                       |
 
-Per-page differences are props on `BaseLayout`: `title`, `lang`, `favicon`,
+Per-page settings are props on `BaseLayout`: `title`, `description` and
+`path` (see [Link previews and search](#link-previews-and-search)),
 `preloads` (font files), `outfit` / `siteBase` (extra stylesheets),
 `brandHref`, `bodyId`, `bodyStyle`; extra `<head>` content goes in
 `slot="head"` / `slot="head-scripts"`, extra end-of-body scripts in
@@ -174,6 +175,30 @@ Notes:
 - Only `dist/` is uploaded (`src/`, `tools/`, `*.md` etc. never reach the server).
 - GitHub rejects files over 100 MB, so keep videos compressed (see below).
   Unused media listed in [`.gitignore`](.gitignore) isn't in the repo.
+
+## Link previews and search
+
+Each page's `<title>` and `description` (props on `BaseLayout` at the top of
+`src/pages/*.astro`) are what Google shows in results, and – with the photo
+below – what WhatsApp, iMessage, email, LinkedIn, Facebook and X show when
+someone shares a link. Keep descriptions under ~160 characters and only say
+things the site itself says.
+
+- Shared links show `public/assets/img/share/victoria-adler.jpg` (1200×630
+  JPEG). To change the photo or its framing, edit `SOURCE` / `TOP` /
+  `BOTTOM` in `tools/make_share_image.py` and run
+  `uv run --with pillow python tools/make_share_image.py`.
+- The tags themselves are in `src/components/SeoTags.astro`; the home page
+  also describes Victoria for search engines (`PersonSchema.astro`, using the
+  profile links in `src/lib/site.ts`).
+- Each page has one canonical address – the one without `.html`
+  (`/gallery`) – and `sitemap.xml` (from `src/pages/sitemap.xml.ts`) lists
+  them. **Adding a page:** add its path to `PAGES` in `src/lib/site.ts`
+  (the build-output tests fail until you do).
+- Apps cache previews: after changing them, re-check a link with
+  Facebook's [Sharing Debugger](https://developers.facebook.com/tools/debug/)
+  or LinkedIn's [Post Inspector](https://www.linkedin.com/post-inspector/),
+  which also refreshes their copy.
 
 ## Adding photos
 
