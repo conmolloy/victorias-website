@@ -80,7 +80,9 @@ describe.each(pages)("dist/%s", (page) => {
     }
   });
 
-  it("has a title and Google Tag Manager", () => {
+  it("has lang=en, the favicon, a title and Google Tag Manager", () => {
+    expect(html).toContain('<html lang="en">');
+    expect(html).toContain('rel="shortcut icon"');
     expect(html).toMatch(/<title>[^<]+<\/title>/);
     expect(html.match(/GTM-NXB648G/g)?.length).toBe(2); // script + noscript
   });

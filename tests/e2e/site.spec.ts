@@ -74,19 +74,25 @@ test("phone menu opens and closes", async ({ page, isMobile }) => {
   await expect(menu).not.toHaveClass(/\bshow\b/);
 });
 
+// common phone widths, from the smallest still in use (320px) up
+const PHONE_WIDTHS = [320, 360, 375, 390, 430];
+
 for (const name of PAGES) {
-  test(`${name}.html fits a phone screen (no sideways scrolling)`, async ({
+  test(`${name}.html fits phone screens (no sideways scrolling)`, async ({
     page,
     isMobile,
   }) => {
-    test.skip(!isMobile, "phone width only");
-    await page.goto(`/${name}.html`);
-    await page.waitForLoadState("load");
-    const { scroll, client } = await page.evaluate(() => ({
-      scroll: document.documentElement.scrollWidth,
-      client: document.documentElement.clientWidth,
-    }));
-    expect(scroll).toBeLessThanOrEqual(client);
+    test.skip(!isMobile, "phone widths only");
+    for (const width of PHONE_WIDTHS) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto(`/${name}.html`);
+      await page.waitForLoadState("load");
+      const { scroll, client } = await page.evaluate(() => ({
+        scroll: document.documentElement.scrollWidth,
+        client: document.documentElement.clientWidth,
+      }));
+      expect(scroll, `${name}.html at ${width}px`).toBeLessThanOrEqual(client);
+    }
   });
 }
 

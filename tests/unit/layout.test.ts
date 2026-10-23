@@ -70,21 +70,21 @@ describe("BaseLayout", () => {
     ]);
   });
 
-  it("handles lang, favicon and body attributes", async () => {
-    const plain = await render({});
-    expect(plain).toMatch(/<html>/);
-    expect(plain).toContain('href="favicon.ico"');
-    expect(plain).toMatch(/<body>/);
+  it("gives every page lang=en and the favicon", async () => {
+    const html = await render({});
+    expect(html).toContain('<html lang="en">');
+    expect(html).toContain(
+      '<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">',
+    );
+    expect(html).toMatch(/<body>/);
+  });
 
-    const custom = await render({
-      lang: "en",
-      favicon: false,
+  it("sets body id and style when asked", async () => {
+    const html = await render({
       bodyId: "page-top",
       bodyStyle: "padding-top: 100px",
     });
-    expect(custom).toContain('<html lang="en">');
-    expect(custom).not.toContain("favicon.ico");
-    expect(custom).toContain('<body id="page-top" style="padding-top: 100px">');
+    expect(html).toContain('<body id="page-top" style="padding-top: 100px">');
   });
 
   it("includes Google Tag Manager and its noscript fallback", async () => {
