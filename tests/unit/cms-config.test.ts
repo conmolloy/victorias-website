@@ -44,8 +44,9 @@ function uncovered(data: unknown, fields: Field[], path: string): string[] {
 }
 
 describe("editing screen config (public/admin/config.yml)", () => {
-  it("edits the four content files, committing to main of this repo", () => {
+  it("edits the five content files, committing to main of this repo", () => {
     expect(files.map((f) => f.file).sort()).toEqual([
+      "src/content/cv.yaml",
       "src/content/gallery.yaml",
       "src/content/headshots.yaml",
       "src/content/home.yaml",
@@ -81,5 +82,33 @@ describe("editing screen config (public/admin/config.yml)", () => {
     expect(config.media_folder).toBe("src/assets/img");
     expect(config.public_folder).toBe("/assets/img");
     expect(config.output.omit_empty_optional_fields).toBe(true);
+  });
+
+  it("only takes PDFs for the CV, stored where the page serves them", () => {
+    const cv = files.find((f) => f.file === "src/content/cv.yaml")!;
+    const file = cv.fields.find((f) => f.name === "file") as Field & {
+      accept: string;
+      media_folder: string;
+      public_folder: string;
+    };
+    expect(file.widget).toBe("file");
+    expect(file.accept).toContain("application/pdf");
+    expect(file.media_folder).toBe("/public/assets/cv");
+    expect(file.public_folder).toBe("/assets/cv");
+  });
+
+  it("uploads files served as they are to public/, not next to the content file", () => {
+    // a field's media_folder without a leading "/" is relative to the
+    // content file: uploads would land in src/content/public/… and never
+    // reach the site
+    const folders: string[] = [];
+    JSON.stringify(config, (key, value) => {
+      if (key === "media_folder" && typeof value === "string")
+        folders.push(value);
+      return value;
+    });
+    const fieldFolders = folders.filter((f) => f !== config.media_folder);
+    expect(fieldFolders.length).toBeGreaterThanOrEqual(3); // home photo, audio, CV
+    for (const folder of fieldFolders) expect(folder).toMatch(/^\/public\//);
   });
 });

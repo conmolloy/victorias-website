@@ -4,6 +4,7 @@
  */
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { v } from "./asset";
 
 const publicFile = (path: string) => join(process.cwd(), "public", path);
 
@@ -122,4 +123,25 @@ export function videoPreview(video: VideoInput): VideoPreview {
     allow: video.allow ?? (provider === "vimeo" ? VIMEO_ALLOW : YOUTUBE_ALLOW),
     thumbnail: { src: encodePath(thumb), ...webpSize(publicFile(thumb)) },
   };
+}
+
+/**
+ * The CV's address: a PDF in public/, checked to exist and to really be a
+ * PDF, with a content-hash version (`?v=…`) so a new CV uploaded under the
+ * same file name is never hidden by a returning visitor's browser cache.
+ */
+export function cvFile(path: string): string {
+  const file = publicFile(path);
+  if (!existsSync(file))
+    throw new Error(
+      `CV not found: public/${path}
+` +
+        "Check the file in src/content/cv.yaml (upper/lower case matters on the live server).",
+    );
+  if (readFileSync(file).subarray(0, 5).toString("latin1") !== "%PDF-")
+    throw new Error(
+      `public/${path} is not a PDF file.
+` + "Save the CV as a PDF (in Word: File → Save As → PDF) and upload that.",
+    );
+  return v(path);
 }

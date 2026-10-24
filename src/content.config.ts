@@ -5,6 +5,7 @@
  *   headshots.yaml  headshot shoots
  *   reviews.yaml    press reviews (some also on the home page), coaching reviews
  *   home.yaml       home page: tagline, photo, about text, contact details
+ *   cv.yaml         the CV page's PDF
  *
  * Each file is checked against the schema below when the site is built, so
  * a typo (a misspelt field name, a missing alt text or credit, a wrong
@@ -184,4 +185,20 @@ const home = defineCollection({
     .strict(),
 });
 
-export const collections = { gallery, headshots, reviews, home };
+const cv = defineCollection({
+  loader: yamlFile("cv"),
+  schema: z
+    .object({
+      id: z.string(), // added by yamlFile()
+      /** a PDF in public/assets/cv/ (checked to exist by src/lib/media.ts) */
+      file: assetPath(
+        /^\/?assets\/cv\/[^/]+\.pdf$/i,
+        'The CV must be a .pdf file in public/assets/cv/, e.g. "/assets/cv/victoria-adler-cv.pdf"',
+      ),
+      /** when the CV was last updated, e.g. 2025-03-01 (for the editing screen) */
+      updated: z.iso.date().optional(),
+    })
+    .strict(),
+});
+
+export const collections = { gallery, headshots, reviews, home, cv };

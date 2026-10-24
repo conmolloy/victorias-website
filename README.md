@@ -40,9 +40,9 @@ Each page loads the same small stack:
 
 ## How to update the site
 
-The home page text, gallery, headshots and reviews live in four plain text
+The home page text, gallery, headshots, reviews and CV live in five plain text
 files in `src/content/` – you never need to touch the HTML to change the
-about text or add a show, photos, a review or a video. Victoria can edit them in the browser with the
+about text, add a show, photos, a review or a video, or put up a new CV. Victoria can edit them in the browser with the
 [editing screen](#the-editing-screen-admin); they can also be edited directly:
 
 | File                         | What's in it                                                                                        |
@@ -51,18 +51,19 @@ about text or add a show, photos, a review or a video. Victoria can edit them in
 | `src/content/headshots.yaml` | headshot shoots                                                                                     |
 | `src/content/reviews.yaml`   | press reviews (and which ones the home page shows), archery coaching reviews                        |
 | `src/content/home.yaml`      | home page: the line under her name, the photo next to the text, the about text, contact phone/email |
+| `src/content/cv.yaml`        | the CV page's PDF (in `public/assets/cv/`) and when it was last updated                             |
 
 ### The editing screen (`/admin`)
 
 **https://victoriaadler.co.uk/admin/** is a web page for editing the home
-page text, gallery, headshots and reviews without the command line (it's
-[Sveltia CMS](https://sveltiacms.app), on trial). It edits the same four
+page text, gallery, headshots, reviews and CV without the command line (it's
+[Sveltia CMS](https://sveltiacms.app), on trial). It edits the same five
 files: lists of shows, photos, shoots, reviews and videos you can add to,
 reorder (drag) and change, with photo uploads.
 
 #### Using the editing screen (for Victoria)
 
-- **Choose a page** on the left: Home page, Gallery, Headshots or Reviews.
+- **Choose a page** on the left: Home page, CV, Gallery, Headshots or Reviews.
   Edit on the left; the **preview** on the right shows the page as it will
   look – the site's own fonts, colours and layout – and updates as you
   type. Click something in the preview to jump to its box. Dashed boxes in
@@ -75,6 +76,14 @@ reorder (drag) and change, with photo uploads.
 - **Photos:** drag a photo onto a photo box (a JPG straight from the
   photographer is fine – it's resized and converted for you) and give it a
   short description.
+- **A new CV:** open **CV**, click **Replace** under the current one,
+  then **Upload** and pick the PDF (in Word: _File → Save As → PDF_ first –
+  only PDFs are accepted), **Insert**, click **Today** under _Last updated_,
+  and **Save**. The preview shows its first page, as the CV page does. The
+  file is renamed for the web (e.g. "Victoria Adler CV 2026.pdf" becomes
+  `victoria-adler-cv-2026.pdf`). Visitors who saw the old CV get the new one
+  straight away, even if the new file has the same name. The old PDF stays
+  in the media library but isn't linked from anywhere.
 - **Made a mistake?** Change it back and save again. Every save is kept, so
   nothing is lost: an older version can also be brought back from the
   file's history on GitHub (or ask Conor). If a save had a problem – say a
@@ -93,6 +102,13 @@ reorder (drag) and change, with photo uploads.
   downloaded automatically when the site is built.
 - **Recordings** are stored in `public/assets/audio/` (keep them under
   ~50 MB).
+- **The CV** is stored in `public/assets/cv/` as it is; the page links it
+  as `…pdf?v=<hash of the file>`, so the address changes whenever the file
+  does and a 30-day browser cache can't keep showing an old CV. The build
+  stops if `cv.yaml` names a file that's missing or isn't really a PDF.
+- Upload folders for files served as they are (`/public/assets/…` in
+  `config.yml`) start with `/`: without it the editor saves uploads next to
+  the content file, in `src/content/public/…`, where the site never sees them.
 - The editor rewrites a whole file when it saves: the explanations
   (`# comments`) in the files disappear after the first save – this README
   and the hints in the editor cover the same ground.
@@ -184,6 +200,16 @@ bio: |
 contact:
   phone: "07988448247" # keep the quotes, or the leading 0 is lost
   email: victoriaadlers@gmail.com
+```
+
+### Change the CV
+
+Put the PDF in `public/assets/cv/` (a name without spaces is tidiest) and
+point `src/content/cv.yaml` at it:
+
+```yaml
+file: /assets/cv/victoria-adler-cv-2026.pdf
+updated: 2026-10-24 # optional, YYYY-MM-DD – only shown in the editor
 ```
 
 ### Add a show to the gallery

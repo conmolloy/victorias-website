@@ -1,5 +1,12 @@
 ---
+import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { cvFile } from "../lib/media";
+
+// the PDF named in src/content/cv.yaml (editable at /admin → CV)
+const cv = await getEntry("cv", "cv");
+if (!cv) throw new Error("src/content/cv.yaml is missing");
+const pdf = cvFile(cv.data.file);
 ---
 
 <BaseLayout
@@ -36,13 +43,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <div class="row header-new">
           <div class="intro"></div>
         </div>
-        <a
-          id="download-link"
-          class="btn btn-dark"
-          href="assets/cv/VICTORIA ADLER CV 2025.pdf"
-          download
-        >
-          Download PDF
+        <a id="download-link" class="btn btn-dark" href={pdf} download>
+          Download CV (PDF)
         </a>
         <canvas id="pdf-canvas"></canvas>
       </div>
@@ -50,7 +52,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </div>
 
   <script is:inline>
-    var url = "assets/cv/VICTORIA ADLER CV 2025.pdf";
+    // the same file as the download link
+    var url = document.getElementById("download-link").getAttribute("href");
 
     var pdfjsLib = window["pdfjs-dist/build/pdf"];
     pdfjsLib.GlobalWorkerOptions.workerSrc =
