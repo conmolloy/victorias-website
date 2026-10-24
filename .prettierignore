@@ -13,3 +13,7 @@ public/assets/js/*.min.js
 perf/
 playwright-report/
 test-results/
+
+# written by the editing screen (/admin) in its own style – its saves must
+# not fail the formatting check (the build checks their content instead)
+src/content/
