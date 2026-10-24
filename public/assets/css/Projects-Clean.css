@@ -445,6 +445,12 @@ img.zoom-hs {
   margin: 10px 0 8px;
 }
 
+/* Home and reviews: their rows aren't in a .container, so no negative side
+   margins (they'd make phones scroll sideways); 20px between rows */
+.content-section .row {
+  margin: 0 auto 20px;
+}
+
 /* Home: "actor" under the name */
 .tagline {
   font-family: Outfit, sans-serif;
