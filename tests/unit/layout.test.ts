@@ -82,9 +82,8 @@ describe("BaseLayout", () => {
     const html = await render({
       bodyId: "page-top",
       bodyClass: "reviews-page",
-      compact: true,
     });
-    expect(html).toContain('<body id="page-top" class="reviews-page compact">');
+    expect(html).toContain('<body id="page-top" class="reviews-page">');
   });
 
   it("adds the description, canonical link and link-preview tags", async () => {

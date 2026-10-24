@@ -27,8 +27,6 @@ interface Props {
   preloads: string[];
   /** home only: load font-outfit.css */
   outfit?: boolean;
-  /** home and reviews: their smaller text size (`.compact` in Projects-Clean.css) */
-  compact?: boolean;
   /** navbar brand link: "#" on home and reviews, "/" elsewhere */
   brandHref?: string;
   bodyId?: string;
@@ -42,7 +40,6 @@ const {
   ogType,
   preloads,
   outfit = false,
-  compact = false,
   brandHref = "/",
   bodyId,
   bodyClass,
@@ -84,7 +81,7 @@ const {
     <slot name="head" />
   </head>
 
-  <body id={bodyId} class:list={[bodyClass, { compact }]}>
+  <body id={bodyId} class={bodyClass}>
     <!-- Google Tag Manager (noscript) -->
     <noscript>
       <iframe
