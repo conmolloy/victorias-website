@@ -1,6 +1,6 @@
 /** Helpers for showing the reviews in src/content/reviews.yaml. */
 
-/** "Katerina Partolina Schwartz, Perpper & Salt, 14th August 2024" */
+/** "Katerina Partolina Schwartz, Pepper & Salt, 14th August 2024" */
 export function caption(review: {
   by?: string | undefined;
   publication: string;

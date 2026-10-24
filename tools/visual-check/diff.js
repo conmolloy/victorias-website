@@ -3,7 +3,8 @@
 const fs = require("fs");
 const path = require("path");
 const { PNG } = require("pngjs");
-const pixelmatch = require("pixelmatch");
+// pixelmatch 6+ is an ES module: require() returns { default: fn }
+const pixelmatch = require("pixelmatch").default;
 
 const [a, b, out] = process.argv.slice(2);
 fs.mkdirSync(out, { recursive: true });
