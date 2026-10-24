@@ -218,6 +218,19 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
         editing), Decap or Keystatic work on the same YAML files
   - [ ] consider making the repo private (her uploads and the history are
         public while it's public)
+  - [x] live preview that looks like the real pages (site CSS + per-page
+        templates, `public/admin/preview.js`), "View on Live Site" links,
+        deploys recorded as a GitHub environment so the editor can show
+        when a save is live; Sveltia 0.251.0
+  - [ ] option (needs Cloudflare + a GitHub OAuth app): **"Sign In with
+        GitHub"** via the Sveltia CMS Authenticator instead of pasting a
+        token (README "Optional: one-click Sign In with GitHub")
+  - [ ] option (needs a preview host + decisions): **check before
+        publishing** – `publish_mode: preview` (or `editorial_workflow`):
+        saves go to a branch + pull request, a host that builds PR previews
+        (Cloudflare Pages or Vercel, free tiers) shows the real built site,
+        and Publish merges it; needs branch protection / auto-merge settings
+        decided
 - [x] **Astro phase 2** (each needs its own visual check):
   - [x] Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
         `video-facade.js` as TypeScript `<script>`s – CSS built from Bootstrap

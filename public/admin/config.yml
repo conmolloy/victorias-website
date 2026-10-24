@@ -18,12 +18,13 @@ backend:
 site_url: https://victoriaadler.co.uk
 display_url: https://victoriaadler.co.uk
 
-# Photos: stored in src/assets/img/, written as "assets/img/<file>" (the form
-# the content files use). Uploads are converted to WebP and shrunk to at most
+# Photos: stored in src/assets/img/, written as "/assets/img/<file>" (the
+# leading slash lets the editor find the file for its preview; the build
+# reads it without). Uploads are converted to WebP and shrunk to at most
 # 2000px in the browser before they're saved; the build makes the smaller
 # versions phones use.
 media_folder: src/assets/img
-public_folder: assets/img
+public_folder: /assets/img
 media_libraries:
   default:
     config:
@@ -65,7 +66,7 @@ _audio_fields: &audio_fields
       label: Audio file
       widget: file
       media_folder: public/assets/audio
-      public_folder: assets/audio
+      public_folder: /assets/audio
 
 collections:
   - name: home
@@ -74,6 +75,7 @@ collections:
       - name: home
         label: Home page
         file: src/content/home.yaml
+        preview_path: "/" # "View on Live Site"
         fields:
           - name: tagline
             label: Line under her name
@@ -88,7 +90,7 @@ collections:
                 widget: image
                 # served as it is from public/ (not resized by the build)
                 media_folder: public/assets/img
-                public_folder: assets/img
+                public_folder: /assets/img
               - name: alt
                 label: Description (alt text)
                 widget: string
@@ -117,6 +119,7 @@ collections:
       - name: gallery
         label: Gallery page
         file: src/content/gallery.yaml
+        preview_path: "/gallery" # "View on Live Site"
         fields:
           - name: productions
             label: Shows (newest first)
@@ -227,6 +230,7 @@ collections:
       - name: headshots
         label: Headshots page
         file: src/content/headshots.yaml
+        preview_path: "/headshot" # "View on Live Site"
         fields:
           - name: shoots
             label: Shoots (newest first)
@@ -239,10 +243,9 @@ collections:
             fields:
               - name: year
                 label: Year
-                widget: number
-                value_type: int
-                min: 2000
-                max: 2100
+                # text, not a number field: a number shows as "2,024" in the list
+                widget: string
+                pattern: ["^20[0-9][0-9]$", "A year, e.g. 2025"]
                 hint: A year heading is shown when it changes from the shoot above.
               - name: photographer
                 label: Photographer
@@ -279,6 +282,7 @@ collections:
       - name: reviews
         label: Reviews (and the home page's reviews)
         file: src/content/reviews.yaml
+        preview_path: "/reviews" # "View on Live Site"
         fields:
           - name: press
             label: Press reviews

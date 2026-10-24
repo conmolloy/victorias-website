@@ -13,6 +13,11 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # Records each deploy on GitHub (Deployments): the editing screen (/admin)
+    # reads it to show whether the latest save is live yet
+    environment:
+      name: production
+      url: https://victoriaadler.co.uk
     env:
       HOST: ${{ secrets.CLOUDWAYS_HOST }}
       USER: ${{ secrets.CLOUDWAYS_USER }}

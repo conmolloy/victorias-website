@@ -56,9 +56,30 @@ about text or add a show, photos, a review or a video. Victoria can edit them in
 
 **https://victoriaadler.co.uk/admin/** is a web page for editing the home
 page text, gallery, headshots and reviews without the command line (it's
-[Sveltia CMS](https://sveltiacms.app), on trial). It edits the same three
+[Sveltia CMS](https://sveltiacms.app), on trial). It edits the same four
 files: lists of shows, photos, shoots, reviews and videos you can add to,
 reorder (drag) and change, with photo uploads.
+
+#### Using the editing screen (for Victoria)
+
+- **Choose a page** on the left: Home page, Gallery, Headshots or Reviews.
+  Edit on the left; the **preview** on the right shows the page as it will
+  look – the site's own fonts, colours and layout – and updates as you
+  type. Click something in the preview to jump to its box. Dashed boxes in
+  the preview are notes for you; they're not on the site. (The preview is
+  as wide as the pane, so it looks like the site on a tablet.)
+- **Save** (top right) publishes: the change is on the live site about
+  **2–3 minutes** later. The editor shows when the update has gone live,
+  and **View on Live Site** opens the page. (Refresh the page if it still
+  looks old.)
+- **Photos:** drag a photo onto a photo box (a JPG straight from the
+  photographer is fine – it's resized and converted for you) and give it a
+  short description.
+- **Made a mistake?** Change it back and save again. Every save is kept, so
+  nothing is lost: an older version can also be brought back from the
+  file's history on GitHub (or ask Conor). If a save had a problem – say a
+  photo without a description – the site simply stays as it was until it's
+  fixed.
 
 - **Saving publishes.** Each save is a commit to `main`, which runs the
   checks and deploys as usual – the change is live about 2–3 minutes later
@@ -128,7 +149,9 @@ change the pinned version in `public/admin/index.html`.
 They're [YAML](https://learnxinyminutes.com/docs/yaml/): one item per `-`,
 **indentation matters** (use spaces, line things up like the entries around
 them), and put text in `"quotes"` if it contains a `:` or starts with a
-quote mark. Lists appear on the page in the order they're written.
+quote mark. Lists appear on the page in the order they're written. Photo
+and audio paths start with `/assets/` (the editing screen needs the leading
+slash to show them in its preview).
 
 **Every time**, after editing:
 
@@ -151,7 +174,7 @@ the home page are the ones marked `home: true` in `reviews.yaml`):
 ```yaml
 tagline: actor # the line under her name
 photo: # the photo next to the text, in public/assets/img/
-  file: assets/img/headshot 2024/q1/victoria-adler-10.webp
+  file: /assets/img/headshot 2024/q1/victoria-adler-10.webp
   alt: Victoria Adler headshot by David Yiu, 2024
 bio: |
   First paragraph of the about text…
@@ -186,11 +209,11 @@ contact:
        role: Ophelia
        photos_by: Jane Smith # optional – shows "Photos by Jane Smith"
        photos:
-         - file: assets/img/hamlet/1.webp
+         - file: /assets/img/hamlet/1.webp
            alt: Victoria Adler as Ophelia in Hamlet
-         - file: assets/img/hamlet/2.webp
+         - file: /assets/img/hamlet/2.webp
            alt: Victoria Adler as Ophelia in Hamlet
-         - file: assets/img/hamlet/3.webp
+         - file: /assets/img/hamlet/3.webp
            alt: Victoria Adler and the company of Hamlet
    ```
 
@@ -209,11 +232,11 @@ shoots:
     photographer: Jane Smith # shows "Photography by Jane Smith"
     columns: 3 # photos side by side on a computer: 2 or 3
     photos:
-      - file: assets/img/headshot 2025/1.webp
+      - file: /assets/img/headshot 2025/1.webp
         alt: Victoria Adler headshot by Jane Smith, 2025
-      - file: assets/img/headshot 2025/2.webp
+      - file: /assets/img/headshot 2025/2.webp
         alt: Victoria Adler headshot by Jane Smith, 2025
-      - file: assets/img/headshot 2025/3.webp
+      - file: /assets/img/headshot 2025/3.webp
         alt: Victoria Adler headshot by Jane Smith, 2025
 ```
 
@@ -274,7 +297,7 @@ and add it under `voice_reels:` or `songs:`:
 songs:
   - title: Defying Gravity
     files:
-      - assets/audio/2025/defying gravity.mp3
+      - /assets/audio/2025/defying gravity.mp3
 ```
 
 ## Where things live

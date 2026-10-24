@@ -24,14 +24,22 @@ const yamlFile = (name: string) =>
 
 const text = z.string().trim().min(1);
 
-/** A photo in src/, e.g. assets/img/macbeth/1.webp, with its alt text. */
+/**
+ * A photo/audio path as written in the content files, "/assets/…" (the
+ * editing screen needs the leading slash to find the file), read as
+ * "assets/…" – the form the pages and src/lib/*.ts use.
+ */
+const assetPath = (pattern: RegExp, message: string) =>
+  text.regex(pattern, { message }).transform((path) => path.replace(/^\//, ""));
+
+/** A photo in src/, e.g. /assets/img/macbeth/1.webp, with its alt text. */
 const photo = z
   .object({
-    file: text.regex(/^assets\/.+\.webp$/, {
-      message:
-        'Photos must be .webp files under src/assets/, e.g. "assets/img/show/1.webp" ' +
+    file: assetPath(
+      /^\/?assets\/.+\.webp$/,
+      'Photos must be .webp files under src/assets/, e.g. "/assets/img/show/1.webp" ' +
         "(convert a .jpg/.png with: uv run --with pillow python tools/optimize_images.py --apply)",
-    }),
+    ),
     alt: text,
   })
   .strict();
@@ -40,7 +48,14 @@ const audioClip = z
   .object({
     title: text,
     /** .mp3 (and optionally .ogg) files under public/assets/ */
-    files: z.array(text.regex(/^assets\/.+\.(mp3|ogg)$/)).min(1),
+    files: z
+      .array(
+        assetPath(
+          /^\/?assets\/.+\.(mp3|ogg)$/,
+          'Audio files must be .mp3 or .ogg under public/assets/, e.g. "/assets/audio/song.mp3"',
+        ),
+      )
+      .min(1),
   })
   .strict();
 
@@ -95,7 +110,9 @@ const headshots = defineCollection({
         .array(
           z
             .object({
-              year: z.number().int().min(2000).max(2100),
+              // a number, or text like "2025" (the editing screen saves the
+              // year as text so it isn't shown as "2,025")
+              year: z.coerce.number().int().min(2000).max(2100),
               photographer: text,
               /** photos side by side on a desktop screen */
               columns: z.union([z.literal(2), z.literal(3)]),
@@ -146,10 +163,10 @@ const home = defineCollection({
       /** served as it is from public/ (not resized by the build) */
       photo: z
         .object({
-          file: text.regex(/^assets\/.+\.(webp|jpe?g|png)$/, {
-            message:
-              'The home photo must be an image under public/assets/, e.g. "assets/img/home.webp"',
-          }),
+          file: assetPath(
+            /^\/?assets\/.+\.(webp|jpe?g|png)$/,
+            'The home photo must be an image under public/assets/, e.g. "/assets/img/home.webp"',
+          ),
           alt: text,
         })
         .strict(),

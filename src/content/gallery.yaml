@@ -8,55 +8,55 @@ productions:
     company: Shadow Road Productions
     role: "Doctor Livesey & Israel Hands"
     photos:
-      - file: assets/img/treasure island/IMG_6579.webp
+      - file: /assets/img/treasure island/IMG_6579.webp
         alt: Victoria Adler in Treasure Island (Shadow Road Productions)
-      - file: assets/img/treasure island/IMG_6637.webp
+      - file: /assets/img/treasure island/IMG_6637.webp
         alt: Victoria Adler in Treasure Island (Shadow Road Productions)
-      - file: assets/img/treasure island/IMG_6679.webp
+      - file: /assets/img/treasure island/IMG_6679.webp
         alt: Victoria Adler in Treasure Island (Shadow Road Productions)
 
   - title: Robin Hood
     company: Splats Entertainment
     role: Robin Hood
     photos:
-      - file: assets/img/robinhood/1.webp
+      - file: /assets/img/robinhood/1.webp
         alt: Victoria Adler in Robin Hood (Splats Entertainment)
-      - file: assets/img/robinhood/e42ea717-3d19-4f87-9280-22c3663d36ff.webp
+      - file: /assets/img/robinhood/e42ea717-3d19-4f87-9280-22c3663d36ff.webp
         alt: Victoria Adler in Robin Hood (Splats Entertainment)
-      - file: assets/img/robinhood/2.webp
+      - file: /assets/img/robinhood/2.webp
         alt: Victoria Adler in Robin Hood (Splats Entertainment)
 
   - title: The Wanderer
     company: Frisky Halfspeed Productions
     role: Frigg
     photos:
-      - file: assets/img/wanderer/_DSC1054.webp
+      - file: /assets/img/wanderer/_DSC1054.webp
         alt: Victoria Adler in The Wanderer (Frisky Halfspeed Productions)
-      - file: assets/img/wanderer/_DSC1065.webp
+      - file: /assets/img/wanderer/_DSC1065.webp
         alt: Victoria Adler in The Wanderer (Frisky Halfspeed Productions)
-      - file: assets/img/wanderer/_DSC1048-2.webp
+      - file: /assets/img/wanderer/_DSC1048-2.webp
         alt: Victoria Adler in The Wanderer (Frisky Halfspeed Productions)
 
   - title: A Midsummer Night’s Dream
     company: Teatro do Avesso
     role: Titania
     photos:
-      - file: assets/img/msnd/AMND 2023 (1).webp
+      - file: /assets/img/msnd/AMND 2023 (1).webp
         alt: Victoria Adler in A Midsummer Night’s Dream (Teatro do Avesso)
-      - file: assets/img/msnd/AMND 2023 (3).webp
+      - file: /assets/img/msnd/AMND 2023 (3).webp
         alt: Victoria Adler in A Midsummer Night’s Dream (Teatro do Avesso)
-      - file: assets/img/msnd/AMND 2023 (2).webp
+      - file: /assets/img/msnd/AMND 2023 (2).webp
         alt: Victoria Adler in A Midsummer Night’s Dream (Teatro do Avesso)
 
   - title: The Pirate Circus
     company: Splats Entertainment
     role: Nutter
     photos:
-      - file: assets/img/priate_circus/PC 2023 (3).webp
+      - file: /assets/img/priate_circus/PC 2023 (3).webp
         alt: Victoria Adler in The Pirate Circus (Splats Entertainment)
-      - file: assets/img/priate_circus/_DSC0019.webp
+      - file: /assets/img/priate_circus/_DSC0019.webp
         alt: Victoria Adler in The Pirate Circus (Splats Entertainment)
-      - file: assets/img/priate_circus/PC 2023 (1).webp
+      - file: /assets/img/priate_circus/PC 2023 (1).webp
         alt: Victoria Adler in The Pirate Circus (Splats Entertainment)
 
   - title: Macbeth
@@ -64,11 +64,11 @@ productions:
     role: "Macduff & First Witch"
     photos_by: John Pannell
     photos:
-      - file: assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1405.webp
+      - file: /assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1405.webp
         alt: Victoria Adler in Macbeth (Shadow Road Productions)
-      - file: assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1314.webp
+      - file: /assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1314.webp
         alt: Victoria Adler in Macbeth (Shadow Road Productions)
-      - file: assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1356.webp
+      - file: /assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1356.webp
         alt: Victoria Adler in Macbeth (Shadow Road Productions)
 
   - title: "Jack & Jill and the Beanstalk"
@@ -76,11 +76,11 @@ productions:
     role: Jill
     photos_by: Leigh Farrant
     photos:
-      - file: assets/img/beanstalk/1.webp
+      - file: /assets/img/beanstalk/1.webp
         alt: "Victoria Adler in Jack & Jill and the Beanstalk (Splats Entertainment)"
-      - file: assets/img/beanstalk/2.webp
+      - file: /assets/img/beanstalk/2.webp
         alt: "Victoria Adler in Jack & Jill and the Beanstalk (Splats Entertainment)"
-      - file: assets/img/beanstalk/3.webp
+      - file: /assets/img/beanstalk/3.webp
         alt: "Victoria Adler in Jack & Jill and the Beanstalk (Splats Entertainment)"
 
   - title: Tamerlano
@@ -88,11 +88,11 @@ productions:
     role: Zaida
     photos_by: Jean-Luc Benazet Photography
     photos:
-      - file: assets/img/Tamerlano/1.webp
+      - file: /assets/img/Tamerlano/1.webp
         alt: Victoria Adler in Tamerlano (Cambridge Handel Opera Company)
-      - file: assets/img/Tamerlano/2.webp
+      - file: /assets/img/Tamerlano/2.webp
         alt: Victoria Adler in Tamerlano (Cambridge Handel Opera Company)
-      - file: assets/img/Tamerlano/3.webp
+      - file: /assets/img/Tamerlano/3.webp
         alt: Victoria Adler in Tamerlano (Cambridge Handel Opera Company)
 
   - title: God of Carnage
@@ -100,11 +100,11 @@ productions:
     role: Annette Reille
     photos_by: Jeremy Pollard
     photos:
-      - file: assets/img/god_of_carnage/20220212_173030060_iOS.webp
+      - file: /assets/img/god_of_carnage/20220212_173030060_iOS.webp
         alt: Victoria Adler in God of Carnage (The School of the Science of Acting)
-      - file: assets/img/god_of_carnage/20220212_175104650_iOS.webp
+      - file: /assets/img/god_of_carnage/20220212_175104650_iOS.webp
         alt: Victoria Adler in God of Carnage (The School of the Science of Acting)
-      - file: assets/img/god_of_carnage/20220212_182040830_iOS.webp
+      - file: /assets/img/god_of_carnage/20220212_182040830_iOS.webp
         alt: Victoria Adler in God of Carnage (The School of the Science of Acting)
 
   - title: A Phoenix Too Frequent
@@ -112,11 +112,11 @@ productions:
     role: Doto
     photos_by: Jeremy Pollard
     photos:
-      - file: assets/img/Phoneix/20210411_212917113_iOS.webp
+      - file: /assets/img/Phoneix/20210411_212917113_iOS.webp
         alt: Victoria Adler in A Phoenix Too Frequent (The School of the Science of Acting)
-      - file: assets/img/Phoneix/20210411_212917078_iOS.webp
+      - file: /assets/img/Phoneix/20210411_212917078_iOS.webp
         alt: Victoria Adler in A Phoenix Too Frequent (The School of the Science of Acting)
-      - file: assets/img/Phoneix/20210409_215703044_iOS.webp
+      - file: /assets/img/Phoneix/20210409_215703044_iOS.webp
         alt: Victoria Adler in A Phoenix Too Frequent (The School of the Science of Acting)
 
   - title: A Christmas Carol
@@ -124,11 +124,11 @@ productions:
     role: Belle
     photos_by: Jeremy Pollard
     photos:
-      - file: assets/img/christmas/20210111_180110574_iOS.webp
+      - file: /assets/img/christmas/20210111_180110574_iOS.webp
         alt: Victoria Adler in A Christmas Carol (Royale Dickens Company)
-      - file: assets/img/christmas/C126.webp
+      - file: /assets/img/christmas/C126.webp
         alt: Victoria Adler in A Christmas Carol (Royale Dickens Company)
-      - file: assets/img/christmas/C130.webp
+      - file: /assets/img/christmas/C130.webp
         alt: Victoria Adler in A Christmas Carol (Royale Dickens Company)
 
   - title: Time and the Conways
@@ -136,11 +136,11 @@ productions:
     role: Kay
     photos_by: Jeremy Pollard
     photos:
-      - file: assets/img/time and the/hög.webp
+      - file: /assets/img/time and the/hög.webp
         alt: Victoria Adler in Time and the Conways (The School of the Science of Acting)
-      - file: assets/img/time and the/_JJP9998.webp
+      - file: /assets/img/time and the/_JJP9998.webp
         alt: Victoria Adler in Time and the Conways (The School of the Science of Acting)
-      - file: assets/img/time and the/20210327_204237187_iOS.webp
+      - file: /assets/img/time and the/20210327_204237187_iOS.webp
         alt: Victoria Adler in Time and the Conways (The School of the Science of Acting)
 
   - title: The Drunken Sisters
@@ -148,11 +148,11 @@ productions:
     role: Atropos
     photos_by: Jeremy Pollard
     photos:
-      - file: assets/img/dunken sisters/V10.webp
+      - file: /assets/img/dunken sisters/V10.webp
         alt: Victoria Adler in The Drunken Sisters (The School of the Science of Acting)
-      - file: assets/img/dunken sisters/V18.webp
+      - file: /assets/img/dunken sisters/V18.webp
         alt: Victoria Adler in The Drunken Sisters (The School of the Science of Acting)
-      - file: assets/img/dunken sisters/V3.webp
+      - file: /assets/img/dunken sisters/V3.webp
         alt: Victoria Adler in The Drunken Sisters (The School of the Science of Acting)
 
   - title: Anatol
@@ -160,11 +160,11 @@ productions:
     role: Emilie
     photos_by: Jeremy Pollard
     photos:
-      - file: assets/img/anatol/20190911_131030360_iOS.webp
+      - file: /assets/img/anatol/20190911_131030360_iOS.webp
         alt: Victoria Adler in Anatol (The School of the Science of Acting)
-      - file: assets/img/anatol/20190911_130918460_iOS.webp
+      - file: /assets/img/anatol/20190911_130918460_iOS.webp
         alt: Victoria Adler in Anatol (The School of the Science of Acting)
-      - file: assets/img/anatol/20190911_130306170_iOS.webp
+      - file: /assets/img/anatol/20190911_130306170_iOS.webp
         alt: Victoria Adler in Anatol (The School of the Science of Acting)
 
   - title: A Streetcar Named Desire
@@ -172,105 +172,105 @@ productions:
     role: Blanche
     photos_by: Jeremy Pollard
     photos:
-      - file: "assets/img/a streetcar/StagePool - Victoria Adler - Linje Lusta {Tennesse Williams} 2019 - -1-2.webp"
+      - file: "/assets/img/a streetcar/StagePool - Victoria Adler - Linje Lusta {Tennesse Williams} 2019 - -1-2.webp"
         alt: Victoria Adler in A Streetcar Named Desire (The School of the Science of Acting)
-      - file: assets/img/a streetcar/Y3.webp
+      - file: /assets/img/a streetcar/Y3.webp
         alt: Victoria Adler in A Streetcar Named Desire (The School of the Science of Acting)
-      - file: assets/img/a streetcar/Y7a.webp
+      - file: /assets/img/a streetcar/Y7a.webp
         alt: Victoria Adler in A Streetcar Named Desire (The School of the Science of Acting)
 
   - title: The Old Militant
     company: The School of the Science of Acting
     role: The Second Woman
     photos:
-      - file: assets/img/old militant/IMG_2047.webp
+      - file: /assets/img/old militant/IMG_2047.webp
         alt: Victoria Adler in The Old Militant (The School of the Science of Acting)
-      - file: assets/img/old militant/IMG_2064.webp
+      - file: /assets/img/old militant/IMG_2064.webp
         alt: Victoria Adler in The Old Militant (The School of the Science of Acting)
-      - file: assets/img/old militant/IMG_2070.webp
+      - file: /assets/img/old militant/IMG_2070.webp
         alt: Victoria Adler in The Old Militant (The School of the Science of Acting)
 
 # "Misc": other productions, shown 3 per row.
 misc:
-  - file: assets/img/misc/V123.webp
+  - file: /assets/img/misc/V123.webp
     alt: Victoria Adler as Olga in Three Sisters
-  - file: assets/img/misc/Untitled.webp
+  - file: /assets/img/misc/Untitled.webp
     alt: Victoria Adler in Motherly Love
-  - file: assets/img/misc/Dancers on a bench (1)-2.webp
+  - file: /assets/img/misc/Dancers on a bench (1)-2.webp
     alt: Victoria Adler in Dancers on a Bench
-  - file: assets/img/misc/20190911_114320850_iOS.webp
+  - file: /assets/img/misc/20190911_114320850_iOS.webp
     alt: Victoria Adler as the Rich Woman in Anatol
-  - file: assets/img/misc/20190911_162217570_iOS.webp
+  - file: /assets/img/misc/20190911_162217570_iOS.webp
     alt: Victoria Adler as the Bride in Anatol
-  - file: assets/img/misc/StagePool - Victoria Adler - Angel (Kogan Acedemy of Dramatic Arts) 2019 - -1.webp
+  - file: /assets/img/misc/StagePool - Victoria Adler - Angel (Kogan Acedemy of Dramatic Arts) 2019 - -1.webp
     alt: Victoria Adler in Angel
-  - file: assets/img/misc/V29.webp
+  - file: /assets/img/misc/V29.webp
     alt: Victoria Adler in The Secret Shopper
-  - file: assets/img/misc/V130.webp
+  - file: /assets/img/misc/V130.webp
     alt: Victoria Adler in Two Laundresses
-  - file: assets/img/misc/V131.webp
+  - file: /assets/img/misc/V131.webp
     alt: Victoria Adler in Two Laundresses
-  - file: assets/img/misc/V75.webp
+  - file: /assets/img/misc/V75.webp
     alt: Victoria Adler in Kekri
-  - file: assets/img/misc/20210111_195551585_iOS.webp
+  - file: /assets/img/misc/20210111_195551585_iOS.webp
     alt: Victoria Adler in Kekri
-  - file: assets/img/misc/20200408_064426000_iOS.webp
+  - file: /assets/img/misc/20200408_064426000_iOS.webp
     alt: Victoria Adler in Reminiscing
-  - file: assets/img/misc/S4-2.webp
+  - file: /assets/img/misc/S4-2.webp
     alt: Victoria Adler in Sunday Roast
-  - file: assets/img/misc/S7-2.webp
+  - file: /assets/img/misc/S7-2.webp
     alt: Victoria Adler in Sunday Roast
-  - file: assets/img/misc/20190422_120405000_iOS-2.webp
+  - file: /assets/img/misc/20190422_120405000_iOS-2.webp
     alt: Victoria Adler as Marcy in Ravenscroft
 
 # Dance photos, 3 per row.
 dance:
-  - file: assets/img/dance/2.webp
+  - file: /assets/img/dance/2.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/1.webp
+  - file: /assets/img/dance/1.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/3.webp
+  - file: /assets/img/dance/3.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/4.webp
+  - file: /assets/img/dance/4.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/5.webp
+  - file: /assets/img/dance/5.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/6.webp
+  - file: /assets/img/dance/6.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/7.webp
+  - file: /assets/img/dance/7.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/8.webp
+  - file: /assets/img/dance/8.webp
     alt: Victoria Adler dancing
-  - file: assets/img/dance/9.webp
+  - file: /assets/img/dance/9.webp
     alt: Victoria Adler dancing
 
 # Voice reels ("Audio" section), 2 per row. List the .mp3 (and .ogg if there is one).
 voice_reels:
   - title: Narration Reel
     files:
-      - assets/audio/voicereels/Victoria Adler - Narration Reel (2nd draft).mp3
+      - /assets/audio/voicereels/Victoria Adler - Narration Reel (2nd draft).mp3
   - title: Commercial Reel
     files:
-      - assets/audio/voicereels/Victoria Adler - Commercial Reel (2nd draft).mp3
+      - /assets/audio/voicereels/Victoria Adler - Commercial Reel (2nd draft).mp3
 
 # Song recordings ("Singing" section), 2 per row.
 songs:
   - title: Waitress - She Used To Be Mine
     files:
-      - assets/audio/dec 2021/she used to be mine/She Used To Be Mine.ogg
-      - assets/audio/dec 2021/she used to be mine/She Used To Be Mine.mp3
+      - /assets/audio/dec 2021/she used to be mine/She Used To Be Mine.ogg
+      - /assets/audio/dec 2021/she used to be mine/She Used To Be Mine.mp3
   - title: In the Bleak Midwinter
     files:
-      - assets/audio/dec 2021/in the bleak midwinter/In The Bleak Midwinter.ogg
-      - assets/audio/dec 2021/in the bleak midwinter/In The Bleak Midwinter.mp3
+      - /assets/audio/dec 2021/in the bleak midwinter/In The Bleak Midwinter.ogg
+      - /assets/audio/dec 2021/in the bleak midwinter/In The Bleak Midwinter.mp3
   - title: Stille Nacht (Soprano)
     files:
-      - assets/audio/dec 2021/stille nacht/Stille Nacht.ogg
-      - assets/audio/dec 2021/stille nacht/Stille Nacht.mp3
+      - /assets/audio/dec 2021/stille nacht/Stille Nacht.ogg
+      - /assets/audio/dec 2021/stille nacht/Stille Nacht.mp3
   - title: Hallelujah
     files:
-      - assets/audio/dec 2021/hallelujah/Hallelujah.ogg
-      - assets/audio/dec 2021/hallelujah/Hallelujah.mp3
+      - /assets/audio/dec 2021/hallelujah/Hallelujah.ogg
+      - /assets/audio/dec 2021/hallelujah/Hallelujah.mp3
 
 # Vimeo/YouTube videos, as rows: each `- videos:` is a row of videos. The
 # preview image is downloaded automatically when the site is built
@@ -299,22 +299,22 @@ video_rows:
 # Certificates, in two columns: each `- photos:` is a column.
 certificates:
   - photos:
-      - file: assets/img/certificates/IMG_4670.webp
+      - file: /assets/img/certificates/IMG_4670.webp
         alt: "British Academy of Dramatic Combat certificate: Axe & Shield, Further level, Distinction (2024)"
-      - file: assets/img/certificates/Victoria Adler 12 Nov 2023.webp
+      - file: /assets/img/certificates/Victoria Adler 12 Nov 2023.webp
         alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Quarter Staff (2023)"
-      - file: assets/img/certificates/standard.webp
+      - file: /assets/img/certificates/standard.webp
         alt: "British Academy of Dramatic Combat certificate: Standard consolidation level in Rapier & Dagger and Unarmed (2023)"
-      - file: assets/img/certificates/school.webp
+      - file: /assets/img/certificates/school.webp
         alt: "The School of the Science of Acting Certificate of Merit: Three-Year Course in Acting (2020)"
   - photos:
-      - file: assets/img/certificates/broadsword.webp
+      - file: /assets/img/certificates/broadsword.webp
         alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Broadsword (2024)"
-      - file: assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78.webp
+      - file: /assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78.webp
         alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Swashbuckling (2024)"
-      - file: assets/img/certificates/d_and_r_merit.webp
+      - file: /assets/img/certificates/d_and_r_merit.webp
         alt: "British Academy of Dramatic Combat certificate: Rapier & Dagger, Standard level, Merit (2023)"
-      - file: assets/img/certificates/unartmed_merit.webp
+      - file: /assets/img/certificates/unartmed_merit.webp
         alt: "British Academy of Dramatic Combat certificate: Unarmed, Standard level, Merit (2023)"
-      - file: assets/img/certificates/Lulea University of Technology-1.webp
+      - file: /assets/img/certificates/Lulea University of Technology-1.webp
         alt: "Luleå University of Technology certificate: MOOC Introduction to Acting (2023)"
