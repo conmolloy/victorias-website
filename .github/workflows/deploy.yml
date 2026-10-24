@@ -38,6 +38,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Videos added in the editing screen (/admin) have no preview image
+      # yet: download any that are missing (tools/video_facades.py)
+      - name: Video preview images
+        run: |
+          python3 -m venv /tmp/py
+          /tmp/py/bin/pip install --quiet pillow
+          /tmp/py/bin/python tools/video_facades.py --apply
+
       # Type-checks, then builds src/pages/*.astro + public/ into dist/
       - name: Build site (Astro)
         run: npm run build

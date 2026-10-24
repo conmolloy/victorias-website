@@ -45,13 +45,88 @@ Each page loads the same small stack:
 
 The gallery, headshots and reviews live in three plain text files in
 `src/content/` – you never need to touch the HTML to add a show, photos, a
-review or a video:
+review or a video. Victoria can edit them in the browser with the
+[editing screen](#the-editing-screen-admin); they can also be edited directly:
 
 | File                         | What's in it                                                                                     |
 | ---------------------------- | ------------------------------------------------------------------------------------------------ |
 | `src/content/gallery.yaml`   | shows (photos, company, role), "Misc" and dance photos, voice reels, songs, videos, certificates |
 | `src/content/headshots.yaml` | headshot shoots                                                                                  |
 | `src/content/reviews.yaml`   | press reviews (and which ones the home page shows), archery coaching reviews                     |
+
+### The editing screen (`/admin`)
+
+**https://victoriaadler.co.uk/admin/** is a web page for editing the gallery,
+headshots and reviews without the command line (it's
+[Sveltia CMS](https://sveltiacms.app), on trial). It edits the same three
+files: lists of shows, photos, shoots, reviews and videos you can add to,
+reorder (drag) and change, with photo uploads.
+
+- **Saving publishes.** Each save is a commit to `main`, which runs the
+  checks and deploys as usual – the change is live about 2–3 minutes later
+  (progress: the repo's **Actions** tab). If a save would break the site –
+  e.g. a photo with no description – the checks stop the deploy, the live
+  site stays as it was, and the problem shows in the Actions tab.
+- **Photos** are converted to WebP and shrunk to 2000px in the browser before
+  they're saved (into `src/assets/img/`), and the build makes the smaller
+  versions phones use – just upload the JPG from the photographer.
+- **Videos:** paste the normal Vimeo/YouTube address; the preview image is
+  downloaded automatically when the site is built.
+- **Recordings** are stored in `public/assets/audio/` (keep them under
+  ~50 MB).
+- The editor rewrites a whole file when it saves: the explanations
+  (`# comments`) in the files disappear after the first save – this README
+  and the hints in the editor cover the same ground.
+
+#### Giving Victoria access
+
+1. Victoria makes a free [GitHub](https://github.com/signup) account (with
+   two-factor authentication on: Settings → Password and authentication).
+2. Add her to the repository: **Settings → Collaborators → Add people**
+   (role: Write). She accepts the email invitation.
+3. She signs in at `/admin`:
+   - **Sign In Using Access Token** (works now): the dialog's link opens
+     GitHub with the right permissions ticked; choose _Only select
+     repositories → victorias-website_, an expiry (up to a year), generate,
+     copy, paste. The browser remembers it until it expires.
+   - **Sign In with GitHub** (one click, nicer): needs a small free sign-in
+     helper set up once – see below. Until then that button won't work.
+
+Anyone who can edit can also break or delete things, so only add people you
+trust; every change is in the Git history and can be undone.
+
+#### Optional: one-click "Sign In with GitHub"
+
+GitHub needs a tiny server to finish a sign-in for a static site. Sveltia's
+[authenticator](https://github.com/sveltia/sveltia-cms-auth) runs on a free
+Cloudflare Workers account:
+
+1. Deploy it with the **Deploy to Cloudflare Workers** button in its README;
+   note the Worker's address (`https://sveltia-cms-auth.<name>.workers.dev`).
+2. Register a GitHub OAuth app at github.com/settings/applications/new –
+   callback URL: `<Worker address>/callback` – and generate a client secret.
+3. In the Worker's settings (Variables) set `GITHUB_CLIENT_ID`,
+   `GITHUB_CLIENT_SECRET` (encrypted) and `ALLOWED_DOMAINS` =
+   `victoriaadler.co.uk`.
+4. Un-comment `base_url:` in `public/admin/config.yml`, put the Worker
+   address there, commit.
+
+#### Trying it without touching the live site
+
+Run `npm run dev`, open http://localhost:4321/admin/index.html (the dev server needs the
+`index.html`) in Chrome or Edge and
+choose **Work with Local Repository** (pick this repo's folder): edits are
+written to your local files, nothing is committed or published, and the dev
+server shows the result straight away.
+
+#### Changing the editor
+
+The fields are described in `public/admin/config.yml`; they must match
+`src/content.config.ts` (a test checks that every field in the content files
+is in the editor, so a save can't silently drop one). To update Sveltia,
+change the pinned version in `public/admin/index.html`.
+
+### Editing the files directly
 
 They're [YAML](https://learnxinyminutes.com/docs/yaml/): one item per `-`,
 **indentation matters** (use spaces, line things up like the entries around
@@ -157,13 +232,14 @@ list under `coaching:`.
 
    ```yaml
    video_rows:
-     - - title: Stage combat showreel
-         url: https://vimeo.com/123456789
-       - title: Another video
-         url: https://www.youtube.com/watch?v=abcdefghijk
+     - videos:
+         - title: Stage combat showreel
+           url: https://vimeo.com/123456789
+         - title: Another video
+           url: https://www.youtube.com/watch?v=abcdefghijk
    ```
 
-   (`- -` starts a new row; videos under it are in that row.)
+   (each `- videos:` is a row; the videos under it are in that row.)
 
 2. Download its preview image (the page shows the thumbnail and only loads
    the player when someone clicks it):

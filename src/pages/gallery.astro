@@ -156,7 +156,7 @@ const miscRows = rows(data.misc, 3);
               </div>
               {data.video_rows.map((row) => (
                 <div class="row">
-                  {row.map((video) => (
+                  {row.videos.map((video) => (
                     <VideoPreview video={video} />
                   ))}
                 </div>
@@ -174,7 +174,7 @@ const miscRows = rows(data.misc, 3);
               <div class="row">
                 {data.certificates.map((column) => (
                   <div class="col">
-                    {column.map((photo) => (
+                    {column.photos.map((photo) => (
                       <GalleryPhoto photo={photo} kind="certificate" />
                     ))}
                   </div>

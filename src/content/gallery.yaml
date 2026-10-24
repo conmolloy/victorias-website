@@ -272,43 +272,49 @@ songs:
       - assets/audio/dec 2021/hallelujah/Hallelujah.ogg
       - assets/audio/dec 2021/hallelujah/Hallelujah.mp3
 
-# Vimeo/YouTube videos, as rows. Each row is a list of videos; a
-# preview image is needed for each (tools/video_facades.py makes it).
+# Vimeo/YouTube videos, as rows: each `- videos:` is a row of videos. The
+# preview image is downloaded automatically when the site is built
+# (tools/video_facades.py).
 video_rows:
-  - - title: Stunt Training
-      url: "https://vimeo.com/983925079"
-      player: "https://player.vimeo.com/video/983925079?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1"
-      allow: autoplay; fullscreen; picture-in-picture; clipboard-write
-    - title: Flexibility
-      url: "https://vimeo.com/573045854"
-    - title: Two Lovers and a Beachcomber by the Real Sea
-      url: "https://www.youtube.com/watch?v=l03ONU8GYZ8"
-  - - title: Acrobatics
-      url: "https://vimeo.com/573041554"
-    - title: Acrobatics/Improvisation
-      url: "https://vimeo.com/573035467"
-  - - title: Street Feet 2017
-      url: "https://vimeo.com/573093751"
-    - title: Reggaeton / Dancehall 2016
-      url: "https://vimeo.com/573097634"
+  - videos:
+      - title: Stunt Training
+        url: "https://vimeo.com/983925079"
+        player: "https://player.vimeo.com/video/983925079?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1"
+        allow: autoplay; fullscreen; picture-in-picture; clipboard-write
+      - title: Flexibility
+        url: "https://vimeo.com/573045854"
+      - title: Two Lovers and a Beachcomber by the Real Sea
+        url: "https://www.youtube.com/watch?v=l03ONU8GYZ8"
+  - videos:
+      - title: Acrobatics
+        url: "https://vimeo.com/573041554"
+      - title: Acrobatics/Improvisation
+        url: "https://vimeo.com/573035467"
+  - videos:
+      - title: Street Feet 2017
+        url: "https://vimeo.com/573093751"
+      - title: Reggaeton / Dancehall 2016
+        url: "https://vimeo.com/573097634"
 
-# Certificates, in two columns.
+# Certificates, in two columns: each `- photos:` is a column.
 certificates:
-  - - file: assets/img/certificates/IMG_4670.webp
-      alt: "British Academy of Dramatic Combat certificate: Axe & Shield, Further level, Distinction (2024)"
-    - file: assets/img/certificates/Victoria Adler 12 Nov 2023.webp
-      alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Quarter Staff (2023)"
-    - file: assets/img/certificates/standard.webp
-      alt: "British Academy of Dramatic Combat certificate: Standard consolidation level in Rapier & Dagger and Unarmed (2023)"
-    - file: assets/img/certificates/school.webp
-      alt: "The School of the Science of Acting Certificate of Merit: Three-Year Course in Acting (2020)"
-  - - file: assets/img/certificates/broadsword.webp
-      alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Broadsword (2024)"
-    - file: assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78.webp
-      alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Swashbuckling (2024)"
-    - file: assets/img/certificates/d_and_r_merit.webp
-      alt: "British Academy of Dramatic Combat certificate: Rapier & Dagger, Standard level, Merit (2023)"
-    - file: assets/img/certificates/unartmed_merit.webp
-      alt: "British Academy of Dramatic Combat certificate: Unarmed, Standard level, Merit (2023)"
-    - file: assets/img/certificates/Lulea University of Technology-1.webp
-      alt: "Luleå University of Technology certificate: MOOC Introduction to Acting (2023)"
+  - photos:
+      - file: assets/img/certificates/IMG_4670.webp
+        alt: "British Academy of Dramatic Combat certificate: Axe & Shield, Further level, Distinction (2024)"
+      - file: assets/img/certificates/Victoria Adler 12 Nov 2023.webp
+        alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Quarter Staff (2023)"
+      - file: assets/img/certificates/standard.webp
+        alt: "British Academy of Dramatic Combat certificate: Standard consolidation level in Rapier & Dagger and Unarmed (2023)"
+      - file: assets/img/certificates/school.webp
+        alt: "The School of the Science of Acting Certificate of Merit: Three-Year Course in Acting (2020)"
+  - photos:
+      - file: assets/img/certificates/broadsword.webp
+        alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Broadsword (2024)"
+      - file: assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78.webp
+        alt: "British Academy of Stage & Screen Combat certificate: Fight Performance Test pass in Swashbuckling (2024)"
+      - file: assets/img/certificates/d_and_r_merit.webp
+        alt: "British Academy of Dramatic Combat certificate: Rapier & Dagger, Standard level, Merit (2023)"
+      - file: assets/img/certificates/unartmed_merit.webp
+        alt: "British Academy of Dramatic Combat certificate: Unarmed, Standard level, Merit (2023)"
+      - file: assets/img/certificates/Lulea University of Technology-1.webp
+        alt: "Luleå University of Technology certificate: MOOC Introduction to Acting (2023)"

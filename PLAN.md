@@ -202,18 +202,21 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       image files. README has a "How to update the site" guide. Pages look
       identical (full-page screenshots desktop + 390px, 30 interactive
       states, behaviour checks).
-- [ ] **Editing screen for Victoria** (after the content-files PR): a
-      Git-based CMS at `/admin` (trial Sveltia CMS first – free, static, no
-      extra service; TinaCMS if she wants live visual editing; also Decap /
-      Keystatic) on top of the `src/content/*.yaml` data, so she can add
-      productions, photos, headshots and reviews herself. Saves commit to
-      GitHub, then CI checks + deploy as now. Needs: ~~thumbnails generated
-      automatically in CI when photos are uploaded~~ (done: the build makes
-      them with `astro:assets`), logins via GitHub with 2FA
-      (or the CMS's own auth / a small Cloudflare OAuth helper), a decision
-      on publish-directly vs edits-as-PR, and consider making the repo
-      private (drafts/uploads are public while it's public). Trial with
-      Victoria before committing to one tool.
+- [x] **Editing screen for Victoria – trial set up** (2026-10-24): Sveltia
+      CMS at `/admin` (README "The editing screen") edits
+      `src/content/*.yaml` and uploads photos (converted to WebP in the
+      browser) and recordings; each save commits to `main` and goes live
+      through the usual checks + deploy. New videos' preview images are
+      downloaded in CI. A test checks the editor covers every field in the
+      content files. Still to do:
+  - [ ] Victoria: GitHub account with 2FA, added as a collaborator (Write),
+        signs in with a token (README "Giving Victoria access")
+  - [ ] optional: one-click "Sign In with GitHub" (Cloudflare Worker +
+        GitHub OAuth app, README)
+  - [ ] trial with Victoria; if it doesn't suit her, TinaCMS (live visual
+        editing), Decap or Keystatic work on the same YAML files
+  - [ ] consider making the repo private (her uploads and the history are
+        public while it's public)
 - [x] **Astro phase 2** (each needs its own visual check):
   - [x] Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
         `video-facade.js` as TypeScript `<script>`s – CSS built from Bootstrap

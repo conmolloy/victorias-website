@@ -79,8 +79,8 @@ const gallery = defineCollection({
       dance: z.array(photo),
       voice_reels: z.array(audioClip),
       songs: z.array(audioClip),
-      video_rows: z.array(z.array(video).min(1)),
-      certificates: z.array(z.array(photo)),
+      video_rows: z.array(z.object({ videos: z.array(video).min(1) }).strict()),
+      certificates: z.array(z.object({ photos: z.array(photo) }).strict()),
     })
     .strict(),
 });
