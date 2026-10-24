@@ -370,7 +370,7 @@ hr {
   margin-top: 10px;
 }
 
-/* Click-to-load video embeds (gallery) – see assets/js/video-facade.js */
+/* Click-to-load video embeds (gallery) – see components/gallery/VideoPreview.astro */
 .video-facade {
   position: relative;
   /* laid out like the <iframe> it replaces, so nothing moves when it's swapped */

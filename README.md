@@ -7,13 +7,17 @@ plain static HTML/CSS/JS – no PHP, no server-side code. The build output
 
 Each page loads the same small stack:
 
-- **Bootstrap 4.6** with the Start Bootstrap _Grayscale_ theme
-  (`public/assets/bootstrap/`) – layout, navbar, mobile menu. Pages load a
-  **trimmed** `bootstrap.min.css` (11 KB, only the rules the site uses);
-  the complete theme is `bootstrap.full.min.css` – see
-  [Trimmed CSS](#trimmed-css-bootstrap-and-icons).
-- **jQuery 3.5** (needed by Bootstrap 4's JS) + `assets/js/grayscale.js`
-  (smooth scrolling, navbar shrink on scroll) – loaded at the end of `<body>`
+- **Bootstrap 5.3** with the Start Bootstrap _Grayscale_ theme
+  (`public/assets/bootstrap/`) – layout, navbar, mobile menu. The CSS is
+  built from Bootstrap's Sass by `tools/bootstrap` (with Bootstrap 4's
+  spacing, colours and grid behaviour, so the pages look as they did);
+  pages load a **trimmed** `bootstrap.min.css` (17 KB, only the rules the
+  site uses) – see [Trimmed CSS](#trimmed-css-bootstrap-and-icons).
+- **No jQuery.** The scripts are TypeScript `<script>`s in the components,
+  bundled by Astro into `/_astro/` (content-hashed file names): the navbar
+  (`Navbar.astro`: Bootstrap's collapse plugin for the phone menu, shrinks
+  after scrolling), smooth scrolling for in-page links (`BaseLayout.astro`)
+  and the click-to-load videos (`gallery/VideoPreview.astro`)
 - **Font Awesome 4.7** icons, also trimmed: `assets/fonts/font-awesome.min.css`
   - `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
     envelope, arrow-down)
@@ -183,21 +187,21 @@ songs:
 
 ## Where things live
 
-| Path                                                | What                                                                                                                                       |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `src/pages/*.astro`                                 | one file per page → `dist/<name>.html`                                                                                                     |
-| `src/content/*.yaml`                                | the gallery, headshots and reviews content – see [How to update the site](#how-to-update-the-site)                                         |
-| `src/content.config.ts`                             | what those files may contain (checked when building)                                                                                       |
-| `src/components/gallery/`, `headshots/`, `reviews/` | how a show, photo, recording, video, shoot or review card is laid out                                                                      |
-| `src/layouts/BaseLayout.astro`                      | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, end-of-body scripts                          |
-| `src/components/Navbar.astro`                       | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                            |
-| `src/components/Contact.astro`                      | "Contact Me" section on the home page                                                                                                      |
-| `src/components/GoogleTagManager.astro`             | the deferred Google Tag Manager snippet                                                                                                    |
-| `src/lib/asset.ts`                                  | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                         |
-| `src/lib/photos.ts`, `media.ts`                     | photo sizes and `srcset` (from the files), video players and preview images, with clear errors for missing files                           |
-| `public/`                                           | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `js/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
-| `tests/`                                            | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                           |
-| `tools/`                                            | maintenance scripts (not deployed)                                                                                                         |
+| Path                                                | What                                                                                                                                |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `src/pages/*.astro`                                 | one file per page → `dist/<name>.html`                                                                                              |
+| `src/content/*.yaml`                                | the gallery, headshots and reviews content – see [How to update the site](#how-to-update-the-site)                                  |
+| `src/content.config.ts`                             | what those files may contain (checked when building)                                                                                |
+| `src/components/gallery/`, `headshots/`, `reviews/` | how a show, photo, recording, video, shoot or review card is laid out                                                               |
+| `src/layouts/BaseLayout.astro`                      | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, smooth-scrolling script               |
+| `src/components/Navbar.astro`                       | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                     |
+| `src/components/Contact.astro`                      | "Contact Me" section on the home page                                                                                               |
+| `src/components/GoogleTagManager.astro`             | the deferred Google Tag Manager snippet                                                                                             |
+| `src/lib/asset.ts`                                  | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                  |
+| `src/lib/photos.ts`, `media.ts`                     | photo sizes and `srcset` (from the files), video players and preview images, with clear errors for missing files                    |
+| `public/`                                           | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
+| `tests/`                                            | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                    |
+| `tools/`                                            | maintenance scripts (not deployed)                                                                                                  |
 
 | Page               | File                       | Shows                                         |
 | ------------------ | -------------------------- | --------------------------------------------- |
@@ -222,10 +226,14 @@ Pages are mostly plain HTML, but:
 - Every tag must be closed (`<div>` … `</div>`) – the build fails otherwise.
 - `{` and `}` in text start an Astro expression; write `&#123;` / `&#125;`
   if you need them literally (inside quoted attributes they're fine).
-- `<script>` and `<style>` need `is:inline`, or Astro bundles/scopes them.
-- Link local CSS/JS with `v()` – `<link rel="stylesheet" href={v("assets/css/x.css")}>`,
-  `<script is:inline src={v("assets/js/x.js")}></script>` – so the address
-  changes when the file does (browsers keep CSS/JS for 30 days).
+- A plain `<script>` is TypeScript that Astro bundles (and includes once
+  per page, however often the component is used) – that's how the site's
+  scripts are written. `<style>` and scripts that must stay exactly as
+  written (Google Tag Manager, the CV's PDF.js) need `is:inline`.
+- Link local CSS files with `v()` – `<link rel="stylesheet" href={v("assets/css/x.css")}>`
+  (also `<script is:inline src={v("assets/js/x.js")}>` for a script file in
+  `public/`) – so the address changes when the file does (browsers keep
+  CSS/JS for 30 days). Bundled scripts get a new file name by themselves.
 - Asset paths stay relative (`assets/img/...`, no leading `/`), as before.
 - HTML comments placed directly after a component (e.g. after `<Contact />`)
   are dropped from the output.
@@ -404,15 +412,25 @@ Keep files well under 100 MB.
 
 Every page has to download its CSS before it can show anything, so the
 Bootstrap theme and Font Awesome are trimmed to the rules the pages use
-(159 KB → 11 KB and 30 KB → 1 KB). `tools/trim-css` opens each built page
+(111 KB → 17 KB and 30 KB → 1 KB). `tools/trim-css` opens each built page
 (`dist/*.html`) in Chrome – phone/tablet/desktop, scrolled, with the mobile
 menu open – and keeps every rule that matches something.
 
-| Pages load (trimmed, generated)                 | Source (complete, edit this)                         |
-| ----------------------------------------------- | ---------------------------------------------------- |
-| `public/assets/bootstrap/css/bootstrap.min.css` | `public/assets/bootstrap/css/bootstrap.full.min.css` |
-| `public/assets/fonts/font-awesome.min.css`      | `public/assets/fonts/font-awesome.full.min.css`      |
-| `public/assets/fonts/fontawesome-subset.woff2`  | `public/assets/fonts/fontawesome-webfont.woff2`      |
+| Pages load (trimmed, generated)                 | Source (complete, edit this)                                                                       |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `public/assets/bootstrap/css/bootstrap.min.css` | `public/assets/bootstrap/css/bootstrap.full.min.css` (built from `tools/bootstrap/grayscale.scss`) |
+| `public/assets/fonts/font-awesome.min.css`      | `public/assets/fonts/font-awesome.full.min.css`                                                    |
+| `public/assets/fonts/fontawesome-subset.woff2`  | `public/assets/fonts/fontawesome-webfont.woff2`                                                    |
+
+**Changing Bootstrap's settings or the theme** (or updating Bootstrap):
+edit `tools/bootstrap/grayscale.scss` (the `bootstrap` version in
+`package.json` is used for both the CSS and the navbar's script), then
+
+```bash
+cd tools/bootstrap && npm install && npm run build
+```
+
+and re-trim as below.
 
 **Added a Bootstrap component, a new page, or a new icon** (e.g.
 `<i class="fa fa-star">`) and it looks unstyled or the icon is blank?
@@ -437,7 +455,8 @@ subset re-run or the full font).
 ## Adding a Vimeo/YouTube video to the gallery
 
 The gallery shows each video as a thumbnail with a play button; the real
-player only loads when it's clicked (`assets/js/video-facade.js`), which
+player only loads when it's clicked (the script in
+`src/components/gallery/VideoPreview.astro`), which
 saves ~1 MB of player scripts per visit. Videos are listed in
 `src/content/gallery.yaml` – see [Add a video](#add-a-video).
 

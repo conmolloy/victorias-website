@@ -46,17 +46,8 @@ for (const name of PAGES) {
         }));
       expect(icon.content).not.toMatch(/^(none|""|normal)$/);
       expect(icon.font).toMatch(/FontAwesome/i);
-      // jQuery + Bootstrap's collapse plugin are loaded
-      expect(
-        await page.evaluate(() => {
-          const $ = (
-            window as {
-              jQuery?: (() => void) & { fn: Record<string, unknown> };
-            }
-          ).jQuery;
-          return typeof $ === "function" && typeof $.fn.collapse === "function";
-        }),
-      ).toBe(true);
+      // jQuery and Bootstrap 4's script are gone for good
+      expect(await page.evaluate(() => "jQuery" in window)).toBe(false);
       expect(problems).toEqual([]);
     });
   });
@@ -130,7 +121,7 @@ test("gallery buttons scroll smoothly to their section", async ({
   test.skip(isMobile, "checked at desktop width");
   await page.goto("/gallery.html");
   await page.locator('a.galbtn[href="#video-section"]').click();
-  // grayscale.js animates the scroll, leaving 48px for the navbar
+  // BaseLayout's script animates the scroll, leaving 48px for the navbar
   await expect
     .poll(() =>
       page.evaluate(() =>

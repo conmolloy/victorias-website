@@ -1,0 +1,248 @@
+/*!
+ * Bootstrap 5 + the site's version of Start Bootstrap - Grayscale 4.1.1
+ * (https://startbootstrap.com/theme/grayscale, MIT licence).
+ * Built by tools/bootstrap (npm run build) - edit this file, not the CSS.
+ */
+
+// Bootstrap 4.6 values where Bootstrap 5 changed them, so the pages look the
+// same as they did with Bootstrap 4 + the Grayscale theme.
+$primary: #42dca3;
+$dark: #343a40;
+$font-family-sans-serif:
+  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+  Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$body-text-align: left;
+$link-decoration: none;
+$link-hover-decoration: underline;
+$border-radius: 0.25rem;
+$hr-opacity: 1;
+$blockquote-footer-font-size: 80%;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+);
+$grid-gutter-width: 30px;
+$btn-focus-width: 0.2rem;
+$navbar-padding-x: 1rem;
+$navbar-toggler-focus-width: 0;
+$navbar-light-color: rgba(#000, 0.5);
+$navbar-light-hover-color: rgba(#000, 0.7);
+$navbar-light-active-color: rgba(#000, 0.9);
+$enable-rfs: false; // fixed heading sizes, as in Bootstrap 4
+$enable-smooth-scroll: false; // the gallery buttons scroll with JS
+$enable-dark-mode: false;
+
+// only the parts the site uses (tools/trim-css then drops unused rules)
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// Bootstrap 4 columns: positioned, they may shrink, and widths rounded to 5
+// decimals (33.33333%) so they come out the same number of pixels wide
+@mixin make-col-ready() {
+  position: relative;
+  width: 100%;
+  padding-right: calc(var(--#{$prefix}gutter-x) * 0.5);
+  padding-left: calc(var(--#{$prefix}gutter-x) * 0.5);
+  margin-top: var(--#{$prefix}gutter-y);
+}
+@mixin make-col($size: false, $columns: $grid-columns) {
+  @if $size {
+    flex: 0 0 auto;
+    width: percentage(
+      divide(round(divide($size, $columns) * 10000000), 10000000)
+    );
+  } @else {
+    flex: 1 1 0;
+    max-width: 100%;
+  }
+}
+
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+// Bootstrap 4 behaviour the pages' markup still relies on
+.navbar-expand-md > .container {
+  @include media-breakpoint-down(md) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+// equal-width columns may shrink, as in Bootstrap 4
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    .col#{breakpoint-infix($breakpoint)} {
+      flex-shrink: 1;
+      max-width: 100%;
+    }
+  }
+}
+// a .col outside a .row (gallery) still gets a column's width and padding
+.col {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding-right: $grid-gutter-width * 0.5;
+  padding-left: $grid-gutter-width * 0.5;
+}
+// Bootstrap 5 makes every child of a .row a full-width column; in Bootstrap
+// 4 only .col* elements were (the pages also put headings and .intro boxes
+// directly in rows)
+.row > :not([class*="col"]) {
+  position: static;
+  width: auto;
+  max-width: none;
+  padding-right: 0;
+  padding-left: 0;
+}
+// links without a colour of their own keep the browser's (Bootstrap 4's
+// reboot set none)
+a {
+  color: revert;
+  &:hover {
+    color: #21b17b; // Bootstrap 4: darken($primary, 15%)
+  }
+}
+// Bootstrap 5 removes the space under a quote's last paragraph and pulls
+// the caption up into it
+.blockquote > p:last-child {
+  margin-bottom: 25px;
+  @include media-breakpoint-up(md) {
+    margin-bottom: 35px;
+  }
+}
+.blockquote-footer {
+  margin-top: 0;
+}
+// "Download PDF" (CV): Bootstrap 4's darker hover/pressed colours
+.btn-dark {
+  --#{$prefix}btn-hover-bg: #23272b;
+  --#{$prefix}btn-hover-border-color: #1d2124;
+  --#{$prefix}btn-focus-shadow-rgb: 82, 88, 93;
+  --#{$prefix}btn-active-bg: #1d2124;
+  --#{$prefix}btn-active-border-color: #171a1d;
+}
+
+// Grayscale theme (the rules the site uses; Lora + Cabin are self-hosted:
+// see assets/css/fonts.css)
+body {
+  font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  color: #fff;
+  background-color: #000;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  margin: 0 0 35px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 25px;
+  @include media-breakpoint-up(md) {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 0 35px;
+  }
+}
+a {
+  transition: all 0.2s ease-in-out;
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+}
+#mainNav {
+  font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: #000;
+  .navbar-toggler {
+    font-size: 14px;
+    padding: 11px;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  .navbar-brand {
+    font-weight: 700;
+  }
+  a {
+    color: #fff;
+  }
+  .navbar-nav .nav-item {
+    transition: background 0.3s ease-in-out;
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      background-color: transparent;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition:
+      background 0.3s ease-in-out,
+      padding-top 0.3s ease-in-out,
+      padding-bottom 0.3s;
+    letter-spacing: 1px;
+    border-bottom: none;
+    background: transparent;
+    &.navbar-shrink {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      background: #000;
+    }
+    .nav-link.active {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.3);
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+  text-shadow: none;
+}
+img::selection {
+  background: transparent;
+}

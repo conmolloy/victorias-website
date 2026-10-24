@@ -215,8 +215,9 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       private (drafts/uploads are public while it's public). Trial with
       Victoria before committing to one tool.
 - [ ] **Astro phase 2** (each needs its own visual check):
-  - Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
-    `video-facade.js` as TypeScript `<script>`s
+  - [x] Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
+        `video-facade.js` as TypeScript `<script>`s – CSS built from Bootstrap
+        5.3's Sass by `tools/bootstrap` with Bootstrap 4's values, pixel-identical
   - home/reviews on the same base styles as the other pages (drop
     `site-base.css`), clean up inline `style=` and Materialize-era classes
     (`col s4`, `grey darken-4`, `waves-effect`)

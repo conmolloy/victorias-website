@@ -37,11 +37,6 @@ const PAGES = ["index", "gallery", "headshot", "resume", "reviews", "showreel"];
       timeout: 120000,
     });
     const r = {};
-    r.jquery = await p.evaluate(
-      () =>
-        typeof jQuery === "function" &&
-        typeof jQuery.fn.collapse === "function",
-    );
     // mobile menu
     await p.click(".navbar-toggler");
     await new Promise((res) => setTimeout(res, 700));

@@ -80,6 +80,12 @@ describe.each(pages)("dist/%s", (page) => {
     }
   });
 
+  it("has the bundled scripts it loads (/_astro/, content-hashed names)", () => {
+    const scripts = [...html.matchAll(/<script[^>]* src="\/(_astro\/[^"]+)"/g)];
+    expect(scripts.length).toBeGreaterThan(0); // the navbar's
+    for (const [, path] of scripts) expect(existsExactCase(path)).toBe(true);
+  });
+
   it("has lang=en, the favicon, a title and Google Tag Manager", () => {
     expect(html).toContain('<html lang="en">');
     expect(html).toContain('rel="shortcut icon"');
