@@ -1,0 +1,345 @@
+# Sveltia CMS – the editing screen at /admin. It edits the three content
+# files in src/content/ (the same ones described in README "How to update
+# the site") and commits each save straight to `main`, which runs the checks
+# and deploys: a mistake that would break the site stops the deploy, and the
+# live site stays as it was.
+#
+# The fields below must match src/content.config.ts (the build checks the
+# files against it) and are listed in the order they're saved in.
+
+backend:
+  name: github
+  repo: conmolloy/victorias-website
+  branch: main
+  # "Sign in with GitHub" needs a small sign-in helper (README "Editing
+  # screen" → GitHub sign-in); until then use "Sign in with Token".
+  # base_url: https://sveltia-cms-auth.EXAMPLE.workers.dev
+
+site_url: https://victoriaadler.co.uk
+display_url: https://victoriaadler.co.uk
+
+# Photos: stored in src/assets/img/, written as "assets/img/<file>" (the form
+# the content files use). Uploads are converted to WebP and shrunk to at most
+# 2000px in the browser before they're saved; the build makes the smaller
+# versions phones use.
+media_folder: src/assets/img
+public_folder: assets/img
+media_libraries:
+  default:
+    config:
+      slugify_filename: true # "My Photo 1.JPG" -> "my-photo-1.webp"
+      transformations:
+        raster_image:
+          format: webp
+          quality: 80
+          width: 2000
+          height: 2000
+
+output:
+  # leave out optional fields that are empty (the content checks expect them
+  # to be missing, not blank)
+  omit_empty_optional_fields: true
+
+# Reused field definitions (YAML anchors)
+_photo_fields: &photo_fields
+  - name: file
+    label: Photo
+    widget: image
+  - name: alt
+    label: Description (alt text)
+    widget: string
+    hint: What the photo shows, for people who can't see it – e.g. "Victoria Adler as Ophelia in Hamlet".
+
+_audio_fields: &audio_fields
+  - name: title
+    label: Title
+    widget: string
+  - name: files
+    label: Audio files
+    label_singular: Audio file
+    widget: list
+    min: 1
+    hint: The .mp3 (and an .ogg too, if you have one).
+    field:
+      name: file
+      label: Audio file
+      widget: file
+      media_folder: public/assets/audio
+      public_folder: assets/audio
+
+collections:
+  - name: home
+    label: Home page
+    files:
+      - name: home
+        label: Home page
+        file: src/content/home.yaml
+        fields:
+          - name: tagline
+            label: Line under her name
+            widget: string
+            hint: e.g. "actor"
+          - name: photo
+            label: Photo next to the text
+            widget: object
+            fields:
+              - name: file
+                label: Photo
+                widget: image
+                # served as it is from public/ (not resized by the build)
+                media_folder: public/assets/img
+                public_folder: assets/img
+              - name: alt
+                label: Description (alt text)
+                widget: string
+                hint: What the photo shows, e.g. "Victoria Adler headshot by David Yiu, 2024".
+          - name: bio
+            label: About text
+            widget: text
+            hint: Leave an empty line between paragraphs. The reviews above it are edited under Reviews ("Also show on the home page").
+          - name: contact
+            label: Contact Me
+            widget: object
+            fields:
+              - name: phone
+                label: Phone number
+                widget: string
+                hint: Digits (spaces are fine), e.g. 07988 448247
+              - name: email
+                label: Email address
+                widget: string
+                pattern:
+                  ["^[^@ ]+@[^@ ]+[.][^@ ]+$", "Must be an email address"]
+
+  - name: gallery
+    label: Gallery
+    files:
+      - name: gallery
+        label: Gallery page
+        file: src/content/gallery.yaml
+        fields:
+          - name: productions
+            label: Shows (newest first)
+            label_singular: Show
+            widget: list
+            add_to_top: true
+            collapsed: true
+            min: 1
+            summary: "{{fields.title}} – {{fields.role}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: company, label: Company, widget: string }
+              - name: role
+                label: Role(s)
+                widget: string
+                hint: e.g. "Macduff & First Witch"
+              - name: photos_by
+                label: Photos by
+                widget: string
+                required: false
+                hint: Photographer's name (optional) – shown as "Photos by …".
+              - name: photos
+                label: Photos
+                label_singular: Photo
+                widget: list
+                collapsed: auto
+                summary: "{{fields.alt}}"
+                min: 1
+                hint: 3 photos fill a row. The newest show's photos load first.
+                fields: *photo_fields
+          - name: misc
+            label: Misc photos
+            label_singular: Photo
+            widget: list
+            collapsed: auto
+            summary: "{{fields.alt}}"
+            hint: Other productions, shown 3 per row.
+            fields: *photo_fields
+          - name: dance
+            label: Dance photos
+            label_singular: Photo
+            widget: list
+            collapsed: auto
+            summary: "{{fields.alt}}"
+            hint: Shown 3 per row.
+            fields: *photo_fields
+          - name: voice_reels
+            label: Voice reels ("Audio" section)
+            label_singular: Voice reel
+            widget: list
+            collapsed: true
+            fields: *audio_fields
+          - name: songs
+            label: Songs ("Singing" section)
+            label_singular: Song
+            widget: list
+            collapsed: true
+            fields: *audio_fields
+          - name: video_rows
+            label: Videos (in rows)
+            label_singular: Row
+            widget: list
+            collapsed: true
+            hint: Each row holds two or three videos side by side.
+            fields:
+              - name: videos
+                label: Videos
+                label_singular: Video
+                widget: list
+                min: 1
+                summary: "{{fields.title}}"
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - name: url
+                    label: Vimeo or YouTube address
+                    widget: string
+                    hint: The normal address of the video page, e.g. https://vimeo.com/123456789 – its preview image is fetched automatically.
+                    pattern:
+                      - "(vimeo\\.com/\\d+|youtube\\.com/watch\\?v=|youtu\\.be/)"
+                      - Must be a Vimeo or YouTube video address
+                  - name: player
+                    label: Player address (advanced)
+                    widget: string
+                    required: false
+                    hint: Leave empty to use the standard player.
+                  - name: allow
+                    label: Player permissions (advanced)
+                    widget: string
+                    required: false
+                    hint: Leave empty for the standard ones.
+          - name: certificates
+            label: Certificates (two columns)
+            label_singular: Column
+            widget: list
+            collapsed: true
+            fields:
+              - name: photos
+                label: Photos
+                label_singular: Photo
+                widget: list
+                collapsed: auto
+                summary: "{{fields.alt}}"
+                fields: *photo_fields
+
+  - name: headshots
+    label: Headshots
+    files:
+      - name: headshots
+        label: Headshots page
+        file: src/content/headshots.yaml
+        fields:
+          - name: shoots
+            label: Shoots (newest first)
+            label_singular: Shoot
+            widget: list
+            add_to_top: true
+            collapsed: true
+            min: 1
+            summary: "{{fields.year}} – {{fields.photographer}}"
+            fields:
+              - name: year
+                label: Year
+                widget: number
+                value_type: int
+                min: 2000
+                max: 2100
+                hint: A year heading is shown when it changes from the shoot above.
+              - name: photographer
+                label: Photographer
+                widget: string
+                hint: Shown as "Photography by …".
+              - name: columns
+                label: Photos side by side
+                widget: number
+                value_type: int
+                min: 2
+                max: 3
+                default: 3
+                hint: 2 or 3, on a computer screen (phones show one at a time).
+              - name: stack
+                label: Photos stacked per column (advanced)
+                widget: number
+                value_type: int
+                min: 1
+                required: false
+                hint: Leave empty for a normal grid. If set, photos are listed column by column.
+              - name: photos
+                label: Photos
+                label_singular: Photo
+                widget: list
+                collapsed: auto
+                summary: "{{fields.alt}}"
+                min: 1
+                hint: The first shoot's photos load first – put the best one first.
+                fields: *photo_fields
+
+  - name: reviews
+    label: Reviews
+    files:
+      - name: reviews
+        label: Reviews (and the home page's reviews)
+        file: src/content/reviews.yaml
+        fields:
+          - name: press
+            label: Press reviews
+            label_singular: Review
+            widget: list
+            collapsed: true
+            summary: "{{fields.publication}} – {{fields.date}}"
+            hint: The first review has a row to itself, then they go two per row (on the home page too).
+            fields:
+              - name: quote
+                label: Quote
+                label_singular: Paragraph
+                widget: list
+                min: 1
+                hint: One item per paragraph. Put <b>…</b> around words to make them bold.
+                field: { name: paragraph, label: Paragraph, widget: text }
+              - name: blank_lines
+                label: Blank lines before / after (optional)
+                widget: list
+                required: false
+                min: 2
+                max: 2
+                hint: Two numbers, e.g. 2 and 3 – makes a short quote's card as tall as the one next to it.
+                field:
+                  {
+                    name: lines,
+                    label: Lines,
+                    widget: number,
+                    value_type: int,
+                    min: 0,
+                  }
+              - name: by
+                label: Reviewer
+                widget: string
+                required: false
+              - { name: publication, label: Publication, widget: string }
+              - name: date
+                label: Date
+                widget: string
+                hint: e.g. "14th August 2024"
+              - name: link
+                label: Link to the review
+                widget: string
+                pattern:
+                  ["^https?://", "Must be a web address starting with https://"]
+              - name: production
+                label: Production (not shown)
+                widget: string
+                required: false
+              - name: home
+                label: Also show on the home page
+                widget: boolean
+                default: false
+                required: false
+          - name: coaching_heading
+            label: Archery coaching heading
+            widget: string
+          - name: coaching
+            label: Archery coaching reviews
+            label_singular: Coaching review
+            widget: list
+            collapsed: true
+            hint: Shown in two columns (the first half of the list on the left).
+            field: { name: quote, label: Quote, widget: text }

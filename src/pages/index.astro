@@ -4,11 +4,15 @@ import Contact from "../components/Contact.astro";
 import PersonSchema from "../components/PersonSchema.astro";
 import ReviewCard from "../components/reviews/ReviewCard.astro";
 import { getEntry } from "astro:content";
+import { paragraphs, publicAsset } from "../lib/media";
 import { caption, reviewRows } from "../lib/reviews";
 
+// tagline, photo, about text and contact details: src/content/home.yaml
+const home = (await getEntry("home", "home"))!.data;
 // reviews marked `home: true` in src/content/reviews.yaml
 const { press } = (await getEntry("reviews", "reviews"))!.data;
 const homeReviews = reviewRows(press.filter((review) => review.home));
+const bio = paragraphs(home.bio);
 ---
 
 <BaseLayout
@@ -49,7 +53,7 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
     <h1>
       <b>Victoria Adler</b>
     </h1>
-    <h3 class="tagline">actor</h3>
+    <h3 class="tagline">{home.tagline}</h3>
     {homeReviews.map((row) => (
       <div class="row">
         {row.map((review) => (
@@ -68,8 +72,8 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
       <div class="col-sm">
         <img
           class="headshot"
-          alt="Victoria Adler headshot by David Yiu, 2024"
-          src="assets/img/headshot 2024/q1/victoria-adler-10.webp"
+          alt={home.photo.alt}
+          src={publicAsset(home.photo.file)}
         />
 
         <br />
@@ -98,52 +102,26 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
       <div class="col-sm text-main order-sm-first">
         <p>
           <br />
-          Victoria Adler, a Swedish actor from the small town of Enköping. From
-          her formative years, she immersed herself fully in narratives, whether
-          films or books. She often daydreamed about the lives of the various
-          characters. Little did she know this was the spark to her interest in
-          acting. Over time, films like "The Lord of the Rings," "Troy," "The
-          Last Samurai," and "Gladiator" not only captured her imagination but
-          also ignited her fascination with swordsmanship. Additionally, BBC's
-          rendition of "Robin Hood" came along and prompted her exploration of
-          archery and historical reenactment.
-          <br />
-          <br />
-          At 15, Victoria discovered that acting was the gateway to
-          participating in these captivating narratives. Her role as Juliet in
-          Shakespeare's "Romeo and Juliet" marked her stage debut and propelled
-          her forward without a moment's hesitation. Subsequently, this led her
-          to audition to the acting program at Stockholm Art School (2010-2013),
-          where she got accepted. Alongside her studies, Victoria entered the
-          world of film. From roles in short films to numerous appearances as an
-          extra. This opened up her eyes to the profession and she never looked
-          back. She was determined to become a part of it. The next move was
-          relocating to Boston, MA after graduating. Where she worked as an Au
-          Pair while pursuing acting studies at JRP New England.
-          <br />
-          <br />
-          After a few years of gaining life experience, she started to audition
-          for a number of drama schools. She secured a spot at The School of the
-          Science of Acting (Kogan Academy of Dramatic Arts) 2017. This brought
-          her to London and the city that has been her main base for the last 7
-          years. Graduating into a very different industry in 2020, Victoria has
-          since then embodied several roles on stage and in front of the camera.
-          <br />
-          <br />
-          At present, Victoria is coaching archery at Archery Fit as well as
-          improving her skills and knowledge. Coming from a physical background,
-          encompassing football, horse riding and dance, she thrives in
-          physically demanding roles.
-          <br />
-          She is also working as an acting coach alongside auditioning and
-          working on her craft.
-          <br />
-          <br />
-          Representation and professional collaboration offers are welcome.
+          {bio.map((lines, i) => (
+            <>
+              {i > 0 && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
+              {lines.map((line, j) => (
+                <>
+                  {j > 0 && <br />}
+                  {line}
+                </>
+              ))}
+            </>
+          ))}
         </p>
       </div>
     </div>
   </section>
 
-  <Contact />
+  <Contact phone={home.contact.phone} email={home.contact.email} />
 </BaseLayout>

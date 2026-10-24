@@ -134,6 +134,16 @@ describe("site", () => {
     ]);
   });
 
+  it("ships the editing screen at /admin, hidden from search engines", () => {
+    const admin = readFileSync(join(DIST, "admin", "index.html"), "utf8");
+    expect(admin).toContain('<meta name="robots" content="noindex"');
+    expect(admin).toMatch(/@sveltia\/cms@\d+\.\d+\.\d+\/dist\/sveltia-cms\.js/);
+    expect(existsSync(join(DIST, "admin", "config.yml"))).toBe(true);
+    expect(readFileSync(join(DIST, "robots.txt"), "utf8")).toContain(
+      "Disallow: /admin/",
+    );
+  });
+
   it("lists every page in sitemap.xml, and robots.txt points to it", () => {
     const sitemap = readFileSync(join(DIST, "sitemap.xml"), "utf8");
     const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);

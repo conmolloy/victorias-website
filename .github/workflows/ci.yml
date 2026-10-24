@@ -39,6 +39,14 @@ jobs:
         run: npm test
 
       # astro check (types) + astro build
+      # Videos added in the editing screen (/admin) have no preview image
+      # yet: download any that are missing (tools/video_facades.py)
+      - name: Video preview images
+        run: |
+          python3 -m venv /tmp/py
+          /tmp/py/bin/pip install --quiet pillow
+          /tmp/py/bin/python tools/video_facades.py --apply
+
       - name: Build
         run: npm run build
 
