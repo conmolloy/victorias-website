@@ -4,7 +4,9 @@
 // download; GitHub's Ubuntu runners have Chrome too.
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 4321;
+// not 4321 (npm run dev's port), so a dev server that's running can't be
+// mistaken for the build being tested
+const PORT = 4329;
 
 export default defineConfig({
   testDir: "tests/e2e",
@@ -33,6 +35,7 @@ export default defineConfig({
   webServer: {
     command: `npm run preview -- --port ${PORT}`,
     url: `http://localhost:${PORT}/`,
-    reuseExistingServer: !process.env.CI,
+    // always test a fresh `astro preview` of this build
+    reuseExistingServer: false,
   },
 });
