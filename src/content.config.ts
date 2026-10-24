@@ -23,12 +23,12 @@ const yamlFile = (name: string) =>
 
 const text = z.string().trim().min(1);
 
-/** A photo in public/, e.g. assets/img/macbeth/1.webp, with its alt text. */
+/** A photo in src/, e.g. assets/img/macbeth/1.webp, with its alt text. */
 const photo = z
   .object({
     file: text.regex(/^assets\/.+\.webp$/, {
       message:
-        'Photos must be .webp files under public/assets/, e.g. "assets/img/show/1.webp" ' +
+        'Photos must be .webp files under src/assets/, e.g. "assets/img/show/1.webp" ' +
         "(convert a .jpg/.png with: uv run --with pillow python tools/optimize_images.py --apply)",
     }),
     alt: text,

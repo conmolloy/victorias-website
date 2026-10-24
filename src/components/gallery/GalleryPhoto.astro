@@ -14,9 +14,9 @@ interface Props {
 }
 
 const { photo, kind, eager = false } = Astro.props;
-const { src, srcset, width, height } = photoAttrs(photo.file);
+const { src, srcset, width, height } = await photoAttrs(photo.file);
 
-// widths each photo is shown at (zoomed), as measured for make_thumbnails.py
+// widths each photo is shown at (zoomed), as measured on the page
 const sizes =
   kind === "certificate"
     ? "(min-width: 1200px) 864px, (min-width: 1001px) 720px, 126vw"

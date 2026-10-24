@@ -1,7 +1,8 @@
 """Convert JPG/PNG images referenced by the site's pages to WebP.
 
-Looks for references in the Astro source (src/**/*.astro) and the content
-files (src/content/*.yaml) to images in public/assets/. Resizes to at most 2000px, rewrites the references, and moves
+Looks for references in the Astro source (src/**/*.astro, images in
+public/assets/) and the content files (src/content/*.yaml, gallery and
+headshot photos in src/assets/). Resizes to at most 2000px, rewrites the references, and moves
 the originals to _originals/ in the repo root (gitignored, not deployed). Files where WebP isn't smaller are
 left alone, so it's safe to re-run whenever new photos are added.
 
@@ -19,6 +20,7 @@ from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLIC = os.path.join(ROOT, "public")  # image paths in the pages are relative to this
+SRC = os.path.join(ROOT, "src")  # ... and in the content files to this
 APPLY = "--apply" in sys.argv
 MAX_SIDE = 2000
 QUALITY = 80
@@ -29,9 +31,9 @@ PAGES = sorted(os.path.relpath(os.path.join(d, f), ROOT)
 REF = re.compile(r"assets[\\/][^\"'<>&\n]*?\.(?:jpe?g|png)", re.I)
 
 
-def exact_case(rel):
-    """Return the on-disk path (under public/) with real casing, or None if missing."""
-    cur = PUBLIC
+def exact_case(rel, base):
+    """Return the on-disk path (under base) with real casing, or None if missing."""
+    cur = base
     parts = []
     for part in rel.split("/"):
         try:
@@ -48,11 +50,15 @@ def exact_case(rel):
 
 
 refs = {}  # raw ref string -> real relative path
+base_of = {}  # real relative path -> folder it's in (public/ or src/)
 for page in PAGES:
     text = open(os.path.join(ROOT, page), encoding="utf-8").read()
+    base = SRC if page.endswith(".yaml") else PUBLIC
     for raw in set(REF.findall(text)):
         rel = unquote(raw).replace("\\", "/")
-        real = exact_case(rel)
+        real = exact_case(rel, base)
+        if real:
+            base_of[real] = base
         refs.setdefault(raw, (rel, real, set()))[2].add(page)
 
 missing = {r: v for r, v in refs.items() if v[1] is None}
@@ -75,7 +81,7 @@ for s, fs in stems.items():
 before = after = 0
 skip = set()
 for f in files:
-    src = os.path.join(PUBLIC, f)
+    src = os.path.join(base_of[f], f)
     dst = os.path.splitext(src)[0] + ".webp"
     with Image.open(src) as im:
         im = ImageOps.exif_transpose(im)
@@ -121,5 +127,5 @@ for f in files:
         continue
     dest = os.path.join(ROOT, "_originals", f)
     os.makedirs(os.path.dirname(dest), exist_ok=True)
-    shutil.move(os.path.join(PUBLIC, f), dest)
+    shutil.move(os.path.join(base_of[f], f), dest)
 print(f"applied; kept {len(skip)} originals: {sorted(skip)}")

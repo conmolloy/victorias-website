@@ -9,6 +9,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { webpSize } from "../../src/lib/media";
 
 const DIST = "dist";
 if (!existsSync(DIST)) throw new Error("No dist/ - run `npm run build` first.");
@@ -34,8 +35,11 @@ const decode = (s: string) =>
       .replace(/&#39;/g, "'"),
   );
 
+// relative paths, and Astro's /_astro/ files (bundled scripts, photos)
 const isLocal = (url: string) =>
-  url !== "" && !/^(?:[a-z]+:|\/\/|#)/i.test(url) && !url.startsWith("/");
+  url !== "" &&
+  !/^(?:[a-z]+:|\/\/|#)/i.test(url) &&
+  (!url.startsWith("/") || url.startsWith("/_astro/"));
 
 /** local files referenced by a page (comments ignored) */
 function references(html: string): string[] {
@@ -51,7 +55,7 @@ function references(html: string): string[] {
   return refs
     .map((r) => r.split("#")[0])
     .filter(isLocal)
-    .map((r) => decode(r.split("?")[0]));
+    .map((r) => decode(r.split("?")[0]).replace(/^\//, ""));
 }
 
 const NAV_PAGES = ["resume", "showreel", "headshot", "gallery", "reviews"];
@@ -92,6 +96,27 @@ describe.each(pages)("dist/%s", (page) => {
     expect(html).toMatch(/<title>[^<]+<\/title>/);
     expect(html.match(/GTM-NXB648G/g)?.length).toBe(2); // script + noscript
   });
+});
+
+describe("gallery and headshot photos (astro:assets)", () => {
+  const PHOTO_PAGES = ["gallery.html", "headshot.html"];
+  for (const page of PHOTO_PAGES) {
+    const html = readFileSync(join(DIST, page), "utf8");
+    const srcsets = [...html.matchAll(/\bsrcset="([^"]*)"/g)].map(
+      (m) => m[1],
+    );
+
+    it(`${page}: every srcset size is a real file of that width`, () => {
+      expect(srcsets.length).toBeGreaterThan(10);
+      for (const srcset of srcsets)
+        for (const candidate of srcset.split(", ")) {
+          const [url, descriptor] = candidate.split(" ");
+          expect(url).toMatch(/^\/_astro\//);
+          const file = join(DIST, decodeURIComponent(url.slice(1)));
+          expect(webpSize(file).width, candidate).toBe(parseInt(descriptor));
+        }
+    });
+  }
 });
 
 describe("site", () => {

@@ -73,17 +73,16 @@ live.
 
 ### Add a show to the gallery
 
-1. Put the photos in a new folder, e.g. `public/assets/img/hamlet/` (JPG or
+1. Put the photos in a new folder, e.g. `src/assets/img/hamlet/` (JPG or
    PNG is fine), then make them web-ready – this converts them to `.webp`
-   and makes the smaller versions phones use:
+   (after step 2, so it can update the paths in the data file too):
 
    ```bash
    uv run --with pillow python tools/optimize_images.py --apply
    ```
 
-   ```bash
-   uv run --with pillow python tools/make_thumbnails.py --apply
-   ```
+   The smaller versions phones use are made by the build (see
+   [Adding photos](#adding-photos)).
 
 2. Add the show at the top of `productions:` in `src/content/gallery.yaml`
    (newest first; 3 photos fill a row):
@@ -109,8 +108,8 @@ live.
 
 ### Add a headshot shoot
 
-Photos as above (in e.g. `public/assets/img/headshot 2025/`, then the two
-commands), then at the top of `shoots:` in `src/content/headshots.yaml`:
+Photos as above (in e.g. `src/assets/img/headshot 2025/`, then the
+command), then at the top of `shoots:` in `src/content/headshots.yaml`:
 
 ```yaml
 shoots:
@@ -192,13 +191,14 @@ songs:
 | `src/pages/*.astro`                                 | one file per page → `dist/<name>.html`                                                                                              |
 | `src/content/*.yaml`                                | the gallery, headshots and reviews content – see [How to update the site](#how-to-update-the-site)                                  |
 | `src/content.config.ts`                             | what those files may contain (checked when building)                                                                                |
+| `src/assets/img/`                                   | gallery and headshot photos (the build makes their smaller versions)                                                                |
 | `src/components/gallery/`, `headshots/`, `reviews/` | how a show, photo, recording, video, shoot or review card is laid out                                                               |
 | `src/layouts/BaseLayout.astro`                      | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, smooth-scrolling script               |
 | `src/components/Navbar.astro`                       | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                     |
 | `src/components/Contact.astro`                      | "Contact Me" section on the home page                                                                                               |
 | `src/components/GoogleTagManager.astro`             | the deferred Google Tag Manager snippet                                                                                             |
 | `src/lib/asset.ts`                                  | `v()` – adds the `?v=<hash>` to local CSS/JS links                                                                                  |
-| `src/lib/photos.ts`, `media.ts`                     | photo sizes and `srcset` (from the files), video players and preview images, with clear errors for missing files                    |
+| `src/lib/photos.ts`, `media.ts`                     | photo sizes and `srcset` (`astro:assets`), video players and preview images, with clear errors for missing files                    |
 | `public/`                                           | copied to the site as-is: `favicon.ico`, `assets/` (`css/`, `fonts/`, `bootstrap/`, `img/`, `audio/`, `video/`, `showreel/`, `cv/`) |
 | `tests/`                                            | `unit/` (Vitest), `dist/` (checks on the build), `e2e/` (Playwright) – see [Checks and tests](#checks-and-tests)                    |
 | `tools/`                                            | maintenance scripts (not deployed)                                                                                                  |
@@ -360,11 +360,15 @@ things the site itself says.
 
 Images are served as WebP. To add new ones:
 
-1. Put the JPG/PNG in the right `public/assets/img/...` folder and reference
-   it in the page as usual (`src="assets/img/..."`, use `/` not `\`).
+1. Put the JPG/PNG in the right folder and reference it, using `/` not `\`:
+   - **gallery and headshot photos**: in `src/assets/img/...`, listed in
+     `src/content/gallery.yaml` / `headshots.yaml` as `assets/img/...` (see
+     [How to update the site](#how-to-update-the-site))
+   - **any other image** (logos, the home page photo, backgrounds): in
+     `public/assets/img/...`, referenced in the page as `src="assets/img/..."`
 2. Convert it – this resizes to max 2000px, writes a `.webp`, updates the
-   page (any `.astro` file in `src/`) to point at it, and moves the original
-   to `_originals/` (local backup, not committed):
+   page or data file to point at it, and moves the original to
+   `_originals/` (local backup, not committed):
 
    ```bash
    uv run --with pillow python tools/optimize_images.py           # preview
@@ -373,22 +377,17 @@ Images are served as WebP. To add new ones:
 
    (Without `uv`: `pip install pillow`, then `python tools/optimize_images.py`.)
 
-3. **Gallery and headshot photos** (listed in `src/content/gallery.yaml` /
-   `headshots.yaml` – see [How to update the site](#how-to-update-the-site)):
-   make the smaller versions so phones/laptops don't download the 2000px file
-   for a smaller photo. This writes `-400w`, `-800w` and `-1200w` `.webp`
-   files next to each listed photo that doesn't have them yet; the build
-   adds `srcset`/`sizes`/`width`/`height` itself:
+3. Commit and push.
 
-   ```bash
-   uv run --with pillow python tools/make_thumbnails.py --apply
-   ```
-
-   Run it after step 2 (it uses the full-quality original in `_originals/`).
-   If you replace a photo with a new file of the same name, delete its
-   `-400w`/`-800w`/`-1200w` files first so they're remade.
-
-4. Commit and push.
+**Gallery and headshot photos** get smaller versions automatically: the
+build (`astro:assets`, in `src/lib/photos.ts`) makes 400, 800 and 1200px
+wide `.webp` versions of each listed photo, so phones and laptops don't
+download the 2000px file for a smaller space, and adds
+`srcset`/`sizes`/`width`/`height`. They're written to `dist/_astro/` with a
+content hash in the name (e.g. `/_astro/1.CSy1meUX_2jL6E.webp`), so a
+replaced photo always gets a new address. The full-size photo is served as
+it is. Making them adds a few seconds to a build (they're cached in
+`node_modules/.astro/` after that); `npm run dev` makes them on demand.
 
 Gallery and headshot photos lazy-load automatically, except the first show's
 and the first shoot's (they're on the first screen); the first headshot also

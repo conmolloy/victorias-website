@@ -1,45 +1,59 @@
 // Helpers that turn the YAML content files into page markup.
 import { describe, expect, it } from "vitest";
-import { audioFile, videoPreview } from "../../src/lib/media";
-import { encodePath, photo, webpSize } from "../../src/lib/photos";
+import {
+  audioFile,
+  encodePath,
+  videoPreview,
+  webpSize,
+} from "../../src/lib/media";
+import { photo } from "../../src/lib/photos";
 import { caption, reviewRows } from "../../src/lib/reviews";
 
 describe("photo()", () => {
-  it("reads the size and lists the smaller versions that exist", () => {
-    // 958px wide: only the 400w and 800w versions are smaller
-    expect(photo("assets/img/macbeth/2.webp")).toEqual({
-      src: "assets/img/macbeth/2.webp",
-      srcset:
-        "assets/img/macbeth/2-400w.webp 400w, assets/img/macbeth/2-800w.webp 800w, assets/img/macbeth/2.webp 958w",
-      width: 958,
-      height: 1436,
-    });
-  });
-
-  it("encodes spaces in addresses", () => {
-    const { src, srcset } = photo(
+  it("reads the size and makes the smaller versions with astro:assets", async () => {
+    // 1600px wide: 400, 800 and 1200px versions, then the photo itself
+    const { src, srcset, width, height } = await photo(
       "assets/img/headshot 2024/q3/victoria-7646-3.webp",
     );
-    expect(src).toBe("assets/img/headshot%202024/q3/victoria-7646-3.webp");
-    expect(srcset).toContain(
-      "assets/img/headshot%202024/q3/victoria-7646-3-1200w.webp 1200w",
-    );
-    expect(encodePath("a b/{c}(d)'e!.webp")).toBe("a%20b/%7Bc%7D(d)'e!.webp");
+    expect({ width, height }).toEqual({ width: 1600, height: 2000 });
+    const candidates = srcset.split(", ");
+    expect(candidates.map((c) => c.split(" ")[1])).toEqual([
+      "400w",
+      "800w",
+      "1200w",
+      "1600w",
+    ]);
+    expect(candidates.at(-1)).toBe(`${src} 1600w`);
+    // spaces in the folder name are encoded, so srcset stays valid
+    expect(src).toContain("headshot%202024/q3/victoria-7646-3.webp");
+    expect(srcset).not.toMatch(/headshot 2024/);
   });
 
-  it("stops the build for a missing photo, saying where to look", () => {
-    expect(() => photo("assets/img/macbeth/nope.webp")).toThrow(
-      /Photo not found: public\/assets\/img\/macbeth\/nope\.webp/,
+  it("only makes versions smaller than the photo", async () => {
+    // 1000px wide: only 400 and 800; 495px: only 400
+    const certificate = await photo(
+      "assets/img/certificates/d_and_r_merit.webp",
     );
+    expect(certificate.srcset.split(", ").map((c) => c.split(" ")[1])).toEqual([
+      "400w",
+      "800w",
+      "1000w",
+    ]);
+    const dance = await photo("assets/img/dance/1.webp");
+    expect(dance.srcset.split(", ").map((c) => c.split(" ")[1])).toEqual([
+      "400w",
+      "495w",
+    ]);
   });
 
-  it("stops the build for a missing smaller version, saying how to make it", () => {
-    // video thumbnails (960px) have no -400w/-800w versions
-    expect(() => photo("assets/img/video-thumbs/vimeo-573045854.webp")).toThrow(
-      /tools\/make_thumbnails\.py/,
+  it("stops the build for a missing photo, saying where to look", async () => {
+    await expect(photo("assets/img/macbeth/nope.webp")).rejects.toThrow(
+      /Photo not found: src\/assets\/img\/macbeth\/nope\.webp/,
     );
   });
+});
 
+describe("webpSize()", () => {
   it("reads WebP sizes", () => {
     expect(
       webpSize("public/assets/img/video-thumbs/vimeo-573035467.webp"),
@@ -47,6 +61,10 @@ describe("photo()", () => {
       width: 960,
       height: 552,
     });
+  });
+
+  it("encodes addresses", () => {
+    expect(encodePath("a b/{c}(d)'e!.webp")).toBe("a%20b/%7Bc%7D(d)'e!.webp");
   });
 });
 

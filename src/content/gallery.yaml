@@ -1,5 +1,5 @@
 # Gallery page (src/pages/gallery.astro) – see README "How to update the site".
-# Photos: paths inside public/, e.g. assets/img/macbeth/1.webp (spaces are fine).
+# Photos: paths inside src/, e.g. assets/img/macbeth/1.webp (spaces are fine).
 # Every photo needs alt text: a short description for people who can't see it.
 
 # Shows, newest first.

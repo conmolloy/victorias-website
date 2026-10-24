@@ -2,11 +2,41 @@
  * Build-time details for the gallery's audio clips and Vimeo/YouTube videos,
  * with clear errors when a file the page needs is missing.
  */
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { encodePath, webpSize } from "./photos";
 
 const publicFile = (path: string) => join(process.cwd(), "public", path);
+
+/** URL-encode each path segment (spaces → %20) */
+export function encodePath(path: string): string {
+  return path
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+}
+
+/** width and height of a .webp image (lossy, lossless or extended format) */
+export function webpSize(file: string): { width: number; height: number } {
+  const b = readFileSync(file);
+  if (
+    b.toString("ascii", 0, 4) !== "RIFF" ||
+    b.toString("ascii", 8, 12) !== "WEBP"
+  )
+    throw new Error(`${file} is not a WebP image`);
+  const chunk = b.toString("ascii", 12, 16);
+  if (chunk === "VP8 ")
+    return {
+      width: b.readUInt16LE(26) & 0x3fff,
+      height: b.readUInt16LE(28) & 0x3fff,
+    };
+  if (chunk === "VP8L") {
+    const bits = b.readUInt32LE(21);
+    return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+  }
+  if (chunk === "VP8X")
+    return { width: b.readUIntLE(24, 3) + 1, height: b.readUIntLE(27, 3) + 1 };
+  throw new Error(`${file}: unknown WebP format ${chunk}`);
+}
 
 /** An audio file in public/, checked to exist; returns src and MIME type. */
 export function audioFile(path: string): { src: string; type: string } {
