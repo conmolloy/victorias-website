@@ -214,7 +214,7 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       on publish-directly vs edits-as-PR, and consider making the repo
       private (drafts/uploads are public while it's public). Trial with
       Victoria before committing to one tool.
-- [ ] **Astro phase 2** (each needs its own visual check):
+- [x] **Astro phase 2** (each needs its own visual check):
   - [x] Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
         `video-facade.js` as TypeScript `<script>`s – CSS built from Bootstrap
         5.3's Sass by `tools/bootstrap` with Bootstrap 4's values, pixel-identical
@@ -228,12 +228,15 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
         file) changes, so it needs its own check – gallery/headshot photos moved
         to `src/assets/img/`, `getImage()` makes the 400/800/1200px versions in
         `/_astro/`, the full-size photo is served unchanged; layout identical
-  - tidy the layout quirks the data-driven pages still reproduce on purpose
-    (visual changes, so with Victoria's OK): the 2nd and 3rd shows and the
-    later headshot shoots are each indented a little more than the one
-    before (nested containers from the old HTML); the first review card's
-    border is thinner (.5rem) than the others (.6rem); the old Materialize
-    column classes (`col s4`, `col s12 m6 l6`) do nothing any more
+  - [x] tidy the layout quirks the data-driven pages still reproduce on purpose
+        (visual changes, so with Victoria's OK): the 2nd and 3rd shows and the
+        later headshot shoots are each indented a little more than the one
+        before (nested containers from the old HTML); the first review card's
+        border is thinner (.5rem) than the others (.6rem); the old Materialize
+        column classes (`col s4`, `col s12 m6 l6`) do nothing any more – every
+        show and gallery section is now 1080px wide (was 1110/1080/1050), every
+        headshot shoot 1140px, all press reviews have the .6rem border; the
+        column classes went in part 2 (no visible change)
   - [x] copy edits (PR for Victoria to confirm): "Israel Hands" and
         "Doctor Livesey", "Pepper & Salt", "Reggaeton", show titles in title
         case, "The School of the Science of Acting" without "By", "David Yiu".

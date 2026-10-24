@@ -10,7 +10,6 @@ import ShootPhotos from "../components/headshots/ShootPhotos.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const { shoots } = (await getEntry("headshots", "headshots"))!.data;
-const [first, ...rest] = shoots;
 ---
 
 <BaseLayout
@@ -29,40 +28,18 @@ const [first, ...rest] = shoots;
     </section>
   </div>
 
-  {/*
-    As on the original page: the first shoot at the top level, the others
-    inside one more container – the 2nd shoot's rows directly, later shoots
-    each in a container of their own (indented a little more).
-  */}
-  <div class="container">
-    <h1 class="text-center">{first!.year}</h1>
-    <ShootPhotos shoot={first!} eager />
-  </div>
-  <Credit photographer={first!.photographer} last={rest.length === 0} />
-
-  {rest.length > 0 && (
-    <div class="container">
-      {rest.map((shoot, i) => {
-        const newYear = shoot.year !== shoots[i]!.year;
-        const last = i === rest.length - 1;
-        return (
-          <>
-            {newYear && (
-              <div class="container">
-                <h1 class="text-center">{shoot.year}</h1>
-              </div>
-            )}
-            {i === 0 ? (
-              <ShootPhotos shoot={shoot} />
-            ) : (
-              <div class="container">
-                <ShootPhotos shoot={shoot} />
-              </div>
-            )}
-            <Credit photographer={shoot.photographer} last={last} />
-          </>
-        );
-      })}
-    </div>
-  )}
+  {shoots.map((shoot, i) => (
+    <>
+      <div class="container">
+        {(i === 0 || shoot.year !== shoots[i - 1]!.year) && (
+          <h1 class="text-center">{shoot.year}</h1>
+        )}
+        <ShootPhotos shoot={shoot} eager={i === 0} />
+      </div>
+      <Credit
+        photographer={shoot.photographer}
+        last={i === shoots.length - 1}
+      />
+    </>
+  ))}
 </BaseLayout>
