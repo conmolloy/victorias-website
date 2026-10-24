@@ -1,17 +1,8 @@
-# Home page (src/pages/index.astro) – see README "How to update the site".
-# The reviews on the home page are in reviews.yaml (`home: true`).
-
-# the line under her name
 tagline: actor
-
-# the photo next to the text (stored in public/assets/img/)
 photo:
   file: assets/img/headshot 2024/q1/victoria-adler-10.webp
   alt: Victoria Adler headshot by David Yiu, 2024
-
-# About text. A blank line starts a new paragraph; a single line break
-# stays a line break.
-bio: |
+bio: |-
   Victoria Adler, a Swedish actor from the small town of Enköping. From her formative years, she immersed herself fully in narratives, whether films or books. She often daydreamed about the lives of the various characters. Little did she know this was the spark to her interest in acting. Over time, films like "The Lord of the Rings," "Troy," "The Last Samurai," and "Gladiator" not only captured her imagination but also ignited her fascination with swordsmanship. Additionally, BBC's rendition of "Robin Hood" came along and prompted her exploration of archery and historical reenactment.
 
   At 15, Victoria discovered that acting was the gateway to participating in these captivating narratives. Her role as Juliet in Shakespeare's "Romeo and Juliet" marked her stage debut and propelled her forward without a moment's hesitation. Subsequently, this led her to audition to the acting program at Stockholm Art School (2010-2013), where she got accepted. Alongside her studies, Victoria entered the world of film. From roles in short films to numerous appearances as an extra. This opened up her eyes to the profession and she never looked back. She was determined to become a part of it. The next move was relocating to Boston, MA after graduating. Where she worked as an Au Pair while pursuing acting studies at JRP New England.
@@ -23,7 +14,7 @@ bio: |
 
   Representation and professional collaboration offers are welcome.
 
-# "Contact Me" at the bottom of the page
+  TEST
 contact:
-  phone: "07988448247"
+  phone: '07988448247'
   email: victoriaadlers@gmail.com
