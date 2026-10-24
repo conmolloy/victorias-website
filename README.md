@@ -36,10 +36,10 @@ Each page loads the same small stack:
   snippet is `src/components/GoogleTagManager.astro`; change `3000` to adjust
   (then update the hash in `tests/unit/layout.test.ts`, which guards against
   accidental edits).
-- `assets/css/Projects-Clean.css` – the site's own styles
-- `assets/css/site-base.css` – **home and reviews only**: the base typography,
-  buttons and header-video layout those two pages were designed with
-  (originally from Materialize, which has been removed)
+- `assets/css/Projects-Clean.css` – the site's own styles. Home and
+  reviews were designed with a smaller text size (14–15px instead of 16px):
+  their `<body class="compact">` sets `--page-rem` to it, and the navbar,
+  headings, review cards and contact section are sized in that unit there
 
 ## How to update the site
 
@@ -214,8 +214,8 @@ songs:
 
 Per-page settings are props on `BaseLayout`: `title`, `description` and
 `path` (see [Link previews and search](#link-previews-and-search)),
-`preloads` (font files), `outfit` / `siteBase` (extra stylesheets),
-`brandHref`, `bodyId`, `bodyStyle`; extra `<head>` content goes in
+`preloads` (font files), `outfit` (extra stylesheet), `compact` (home and
+reviews' smaller text size), `brandHref`, `bodyId`, `bodyClass`; extra `<head>` content goes in
 `slot="head"` / `slot="head-scripts"`, extra end-of-body scripts in
 `slot="scripts"` (see `resume.astro` and `gallery.astro`).
 

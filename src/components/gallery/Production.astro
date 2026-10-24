@@ -21,17 +21,17 @@ const { production, eager = false, last = false } = Astro.props;
 
 <div class="row projects">
   {production.photos.map((photo) => (
-    <div class="col s4">
+    <div class="col">
       <GalleryPhoto photo={photo} eager={eager} />
     </div>
   ))}
 </div>
-<div class="row">
-  <div class="col s6">
-    <h3 class="text text-center name" style="margin: 10px 0px 8px;">
+<div class="row production">
+  <div class="col">
+    <h3 class="text-center name">
       <strong>{production.title}</strong>
     </h3>
-    <h6 class="text text-center name" style="margin: 10px 0px 8px;">
+    <h6 class="text-center name">
       <strong>{production.company}</strong>
     </h6>
     <p class="descriptiontwo">{production.role}</p>

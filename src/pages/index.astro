@@ -22,7 +22,7 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
     "roboto-400-latin.woff2",
   ]}
   outfit
-  siteBase
+  compact
   brandHref="#"
   bodyId="page-top"
 >
@@ -50,7 +50,7 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
     <h1>
       <b>Victoria Adler</b>
     </h1>
-    <h3 style="font-family: Outfit, sans-serif; margin-bottom: 2.5%;">actor</h3>
+    <h3 class="tagline">actor</h3>
     {homeReviews.map((row) => (
       <div class="row">
         {row.map((review) => (
@@ -81,7 +81,7 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
                         <img loading="lazy" decoding="async" class="card-img-top" src="assets/img/ticket_pic/chrismas_charol.webp" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">A Christmas Carol</h5>
-                            <a href="https://www.ticketsource.co.uk/shadowroad" class="btn btn grey darken-2">Tickets</a>
+                            <a href="https://www.ticketsource.co.uk/shadowroad" class="btn btn-review">Tickets</a>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@ const homeReviews = reviewRows(press.filter((review) => review.home));
                         <img loading="lazy" decoding="async" class="card-img-top" src="assets/img/ticket_pic/2023MACBETJ_AYK.webp" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Macbeth</h5>
-                            <a href="https://tickets.edfringe.com/whats-on/macbeth-sleep-no-more" class="btn btn grey darken-2">Tickets</a>
+                            <a href="https://tickets.edfringe.com/whats-on/macbeth-sleep-no-more" class="btn btn-review">Tickets</a>
                         </div>
                     </div>
                 </div> -->

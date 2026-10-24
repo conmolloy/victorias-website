@@ -218,9 +218,11 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
   - [x] Bootstrap 5 (drops jQuery + Bootstrap 4 JS); `grayscale.js` and
         `video-facade.js` as TypeScript `<script>`s – CSS built from Bootstrap
         5.3's Sass by `tools/bootstrap` with Bootstrap 4's values, pixel-identical
-  - home/reviews on the same base styles as the other pages (drop
-    `site-base.css`), clean up inline `style=` and Materialize-era classes
-    (`col s4`, `grey darken-4`, `waves-effect`)
+  - [x] home/reviews on the same base styles as the other pages (drop
+        `site-base.css`), clean up inline `style=` and Materialize-era classes
+        (`col s4`, `grey darken-4`, `waves-effect`) – their smaller text size is
+        now `<body class="compact">` (`--page-rem`), pixel-identical; removing
+        `compact` from index/reviews would give them the other pages' size
   - `astro:assets` (`<Image>`) instead of `tools/make_thumbnails.py`: Astro
     would make the smaller versions itself – but every image address (and
     file) changes, so it needs its own check

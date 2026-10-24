@@ -36,7 +36,7 @@ describe("BaseLayout", () => {
   });
 
   it("versions every local stylesheet, in cascade order", async () => {
-    const html = await render({ outfit: true, siteBase: true });
+    const html = await render({ outfit: true });
     const sheets = [
       ...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g),
     ].map((m) => m[1]);
@@ -47,15 +47,13 @@ describe("BaseLayout", () => {
       "assets/css/font-roboto.css",
       "assets/fonts/font-awesome.min.css",
       "assets/css/Projects-Clean.css",
-      "assets/css/site-base.css",
     ]);
     for (const s of sheets) expect(s).toMatch(/\?v=[0-9a-f]{8}$/);
   });
 
-  it("only loads Outfit and site-base.css when asked", async () => {
+  it("only loads Outfit when asked", async () => {
     const html = await render({});
     expect(html).not.toContain("font-outfit.css");
-    expect(html).not.toContain("site-base.css");
   });
 
   it("preloads the given fonts, in order", async () => {
@@ -80,12 +78,13 @@ describe("BaseLayout", () => {
     expect(html).toMatch(/<body>/);
   });
 
-  it("sets body id and style when asked", async () => {
+  it("sets body id and classes when asked", async () => {
     const html = await render({
       bodyId: "page-top",
-      bodyStyle: "padding-top: 100px",
+      bodyClass: "reviews-page",
+      compact: true,
     });
-    expect(html).toContain('<body id="page-top" style="padding-top: 100px">');
+    expect(html).toContain('<body id="page-top" class="reviews-page compact">');
   });
 
   it("adds the description, canonical link and link-preview tags", async () => {

@@ -26,32 +26,25 @@ const coachingColumns = [coaching.slice(0, half), coaching.slice(half)];
     "lora-italic-latin.woff2",
     "roboto-400-latin.woff2",
   ]}
-  siteBase
+  compact
   brandHref="#"
-  bodyStyle="padding-top: 100px"
+  bodyClass="reviews-page"
 >
   <section class="text-center content-section">
-    <h1 style="margin-bottom: 4%;">
+    <h1 class="reviews-title">
       <b>Reviews</b>
     </h1>
     {rows.map((row) => (
       <div class="row">
-        {row.map((review, i) => (
-          <div
-            class="col-md"
-            style={
-              row.length === 2 && i === 0
-                ? "margin-left: 2.5%;"
-                : "margin-left: 2.5%; margin-right: 2.5%;"
-            }
-          >
+        {row.map((review) => (
+          <div class="col-md review-col">
             <ReviewCard
               quote={review.quote}
               blankLines={review.blank_lines}
               caption={caption(review)}
               link={review.link}
-              border={review === press[0] ? ".5rem" : ".6rem"}
-              buttonStyle="margin: 10px;"
+              thick={review !== press[0]}
+              spacedButton
             />
           </div>
         ))}
