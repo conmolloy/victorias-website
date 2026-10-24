@@ -204,7 +204,8 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
       states, behaviour checks).
 - [x] **Editing screen for Victoria – trial set up** (2026-10-24): Sveltia
       CMS at `/admin` (README "The editing screen") edits
-      `src/content/*.yaml` and uploads photos (converted to WebP in the
+      `src/content/*.yaml` – now also the home page's tagline, photo, about
+      text and contact details (`home.yaml`) – and uploads photos (converted to WebP in the
       browser) and recordings; each save commits to `main` and goes live
       through the usual checks + deploy. New videos' preview images are
       downloaded in CI. A test checks the editor covers every field in the

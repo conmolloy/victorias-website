@@ -44,10 +44,11 @@ function uncovered(data: unknown, fields: Field[], path: string): string[] {
 }
 
 describe("editing screen config (public/admin/config.yml)", () => {
-  it("edits the three content files, committing to main of this repo", () => {
+  it("edits the four content files, committing to main of this repo", () => {
     expect(files.map((f) => f.file).sort()).toEqual([
       "src/content/gallery.yaml",
       "src/content/headshots.yaml",
+      "src/content/home.yaml",
       "src/content/reviews.yaml",
     ]);
     expect(config.backend).toMatchObject({

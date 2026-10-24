@@ -68,6 +68,49 @@ _audio_fields: &audio_fields
       public_folder: assets/audio
 
 collections:
+  - name: home
+    label: Home page
+    files:
+      - name: home
+        label: Home page
+        file: src/content/home.yaml
+        fields:
+          - name: tagline
+            label: Line under her name
+            widget: string
+            hint: e.g. "actor"
+          - name: photo
+            label: Photo next to the text
+            widget: object
+            fields:
+              - name: file
+                label: Photo
+                widget: image
+                # served as it is from public/ (not resized by the build)
+                media_folder: public/assets/img
+                public_folder: assets/img
+              - name: alt
+                label: Description (alt text)
+                widget: string
+                hint: What the photo shows, e.g. "Victoria Adler headshot by David Yiu, 2024".
+          - name: bio
+            label: About text
+            widget: text
+            hint: Leave an empty line between paragraphs. The reviews above it are edited under Reviews ("Also show on the home page").
+          - name: contact
+            label: Contact Me
+            widget: object
+            fields:
+              - name: phone
+                label: Phone number
+                widget: string
+                hint: Digits (spaces are fine), e.g. 07988 448247
+              - name: email
+                label: Email address
+                widget: string
+                pattern:
+                  ["^[^@ ]+@[^@ ]+[.][^@ ]+$", "Must be an email address"]
+
   - name: gallery
     label: Gallery
     files:

@@ -43,21 +43,22 @@ Each page loads the same small stack:
 
 ## How to update the site
 
-The gallery, headshots and reviews live in three plain text files in
-`src/content/` – you never need to touch the HTML to add a show, photos, a
-review or a video. Victoria can edit them in the browser with the
+The home page text, gallery, headshots and reviews live in four plain text
+files in `src/content/` – you never need to touch the HTML to change the
+about text or add a show, photos, a review or a video. Victoria can edit them in the browser with the
 [editing screen](#the-editing-screen-admin); they can also be edited directly:
 
-| File                         | What's in it                                                                                     |
-| ---------------------------- | ------------------------------------------------------------------------------------------------ |
-| `src/content/gallery.yaml`   | shows (photos, company, role), "Misc" and dance photos, voice reels, songs, videos, certificates |
-| `src/content/headshots.yaml` | headshot shoots                                                                                  |
-| `src/content/reviews.yaml`   | press reviews (and which ones the home page shows), archery coaching reviews                     |
+| File                         | What's in it                                                                                        |
+| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+| `src/content/gallery.yaml`   | shows (photos, company, role), "Misc" and dance photos, voice reels, songs, videos, certificates    |
+| `src/content/headshots.yaml` | headshot shoots                                                                                     |
+| `src/content/reviews.yaml`   | press reviews (and which ones the home page shows), archery coaching reviews                        |
+| `src/content/home.yaml`      | home page: the line under her name, the photo next to the text, the about text, contact phone/email |
 
 ### The editing screen (`/admin`)
 
-**https://victoriaadler.co.uk/admin/** is a web page for editing the gallery,
-headshots and reviews without the command line (it's
+**https://victoriaadler.co.uk/admin/** is a web page for editing the home
+page text, gallery, headshots and reviews without the command line (it's
 [Sveltia CMS](https://sveltiacms.app), on trial). It edits the same three
 files: lists of shows, photos, shoots, reviews and videos you can add to,
 reorder (drag) and change, with photo uploads.
@@ -145,6 +146,26 @@ doesn't exist – the page shows an error saying which file and which entry
 (entries are counted from 0: `productions.5` is the 6th show). When it looks
 right, commit and push (or open a pull request) – pushing to `main` puts it
 live.
+
+### Change the home page
+
+Everything except the reviews is in `src/content/home.yaml` (the reviews on
+the home page are the ones marked `home: true` in `reviews.yaml`):
+
+```yaml
+tagline: actor # the line under her name
+photo: # the photo next to the text, in public/assets/img/
+  file: assets/img/headshot 2024/q1/victoria-adler-10.webp
+  alt: Victoria Adler headshot by David Yiu, 2024
+bio: |
+  First paragraph of the about text…
+
+  A blank line starts the next paragraph.
+  A single line break stays a line break.
+contact:
+  phone: "07988448247" # keep the quotes, or the leading 0 is lost
+  email: victoriaadlers@gmail.com
+```
 
 ### Add a show to the gallery
 

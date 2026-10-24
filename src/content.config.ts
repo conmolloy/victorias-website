@@ -4,6 +4,7 @@
  *   gallery.yaml    shows, misc/dance photos, audio, videos, certificates
  *   headshots.yaml  headshot shoots
  *   reviews.yaml    press reviews (some also on the home page), coaching reviews
+ *   home.yaml       home page: tagline, photo, about text, contact details
  *
  * Each file is checked against the schema below when the site is built, so
  * a typo (a misspelt field name, a missing alt text or credit, a wrong
@@ -136,4 +137,34 @@ const reviews = defineCollection({
     .strict(),
 });
 
-export const collections = { gallery, headshots, reviews };
+const home = defineCollection({
+  loader: yamlFile("home"),
+  schema: z
+    .object({
+      id: z.string(), // added by yamlFile()
+      tagline: text,
+      /** served as it is from public/ (not resized by the build) */
+      photo: z
+        .object({
+          file: text.regex(/^assets\/.+\.(webp|jpe?g|png)$/, {
+            message:
+              'The home photo must be an image under public/assets/, e.g. "assets/img/home.webp"',
+          }),
+          alt: text,
+        })
+        .strict(),
+      /** paragraphs separated by a blank line */
+      bio: text,
+      contact: z
+        .object({
+          phone: text.regex(/^[+\d][\d ]+$/, {
+            message: "A phone number: digits and spaces, e.g. 07988 448247",
+          }),
+          email: z.email(),
+        })
+        .strict(),
+    })
+    .strict(),
+});
+
+export const collections = { gallery, headshots, reviews, home };

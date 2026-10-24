@@ -7,6 +7,27 @@ import { join } from "node:path";
 
 const publicFile = (path: string) => join(process.cwd(), "public", path);
 
+/** A file served as it is from public/ (e.g. the home photo), checked to exist. */
+export function publicAsset(path: string): string {
+  if (!existsSync(publicFile(path)))
+    throw new Error(
+      `File not found: public/${path}\n` +
+        "Check the path in the content file (upper/lower case matters on the live server).",
+    );
+  return path;
+}
+
+/**
+ * About-text paragraphs (separated by a blank line), each a list of lines
+ * (a single line break inside a paragraph).
+ */
+export function paragraphs(text: string): string[][] {
+  return text
+    .trim()
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.split("\n").map((line) => line.trim()));
+}
+
 /** URL-encode each path segment (spaces → %20) */
 export function encodePath(path: string): string {
   return path
