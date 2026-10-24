@@ -58,10 +58,11 @@ jobs:
 
       - name: Remove (or report) the listed files
         run: |
-          scp list.txt "$USER@$HOST:cleanup-list.txt"
-          ssh "$USER@$HOST" "DELETE=$DELETE SITE=\"$REMOTE_PATH\" bash -s" <<'SCRIPT'
+          # the script and the list travel together over ssh (the server's
+          # home folder isn't writable, so nothing is uploaded first)
+          {
+            cat <<'SCRIPT'
           set -e
-          list="$HOME/cleanup-list.txt"
           cd "$SITE"
           found=0; missing=0
           while IFS= read -r f; do
@@ -72,9 +73,13 @@ jobs:
             else
               missing=$((missing + 1))
             fi
-          done < "$list"
-          rm -f "$list"
+          done <<'CLEANUP_LIST'
+          SCRIPT
+            cat list.txt
+            cat <<'SCRIPT'
+          CLEANUP_LIST
           echo "---"
           echo "$found of the listed files were on the server, $missing were already gone"
           [ "$DELETE" = "true" ] || echo "(dry run: nothing was deleted)"
           SCRIPT
+          } | ssh "$USER@$HOST" "DELETE=$DELETE SITE=\"$REMOTE_PATH\" bash -s"
