@@ -1,0 +1,80 @@
+name: Clean up old files on the server
+
+# The deploy never deletes (some media lives only on the server), so files the
+# site stopped using stay on Cloudways. This removes the ones listed in
+# tools/server-cleanup/ – nothing else. Run it from the Actions tab
+# ("Run workflow"): first as it is (a dry run that only reports), then again
+# with "Really delete" ticked.
+on:
+  workflow_dispatch:
+    inputs:
+      delete:
+        description: "Really delete (unticked: only report what would go)"
+        type: boolean
+        default: false
+      old_photos:
+        description: "Also delete the old-address gallery/headshot photos (old-photos.txt)"
+        type: boolean
+        default: false
+
+# never at the same time as a deploy
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.CLOUDWAYS_HOST }}
+      USER: ${{ secrets.CLOUDWAYS_USER }}
+      REMOTE_PATH: ${{ secrets.CLOUDWAYS_PATH }}
+      DELETE: ${{ inputs.delete }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up SSH key
+        env:
+          SSH_KEY: ${{ secrets.CLOUDWAYS_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+
+      - name: Collect the list
+        run: |
+          files=tools/server-cleanup/old-files.txt
+          if [ "${{ inputs.old_photos }}" = "true" ]; then
+            files="$files tools/server-cleanup/old-photos.txt"
+          fi
+          grep -hv '^#' $files | sed '/^$/d' > list.txt
+          # only plain paths inside assets/ – never anything else
+          if grep -Ev '^assets/[^/]' list.txt || grep -F '..' list.txt; then
+            echo "::error::list contains a path outside assets/"
+            exit 1
+          fi
+          echo "$(wc -l < list.txt) paths listed"
+
+      - name: Remove (or report) the listed files
+        run: |
+          scp list.txt "$USER@$HOST:cleanup-list.txt"
+          ssh "$USER@$HOST" "DELETE=$DELETE SITE=\"$REMOTE_PATH\" bash -s" <<'SCRIPT'
+          set -e
+          list="$HOME/cleanup-list.txt"
+          cd "$SITE"
+          found=0; missing=0
+          while IFS= read -r f; do
+            if [ -f "$f" ]; then
+              found=$((found + 1))
+              if [ "$DELETE" = "true" ]; then rm -- "$f"; echo "deleted  $f"
+              else echo "would delete  $f"; fi
+            else
+              missing=$((missing + 1))
+            fi
+          done < "$list"
+          rm -f "$list"
+          echo "---"
+          echo "$found of the listed files were on the server, $missing were already gone"
+          [ "$DELETE" = "true" ] || echo "(dry run: nothing was deleted)"
+          SCRIPT

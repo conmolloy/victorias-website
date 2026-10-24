@@ -1,0 +1,117 @@
+# Files the site used to deploy that no build uses any more (deleted from the
+# server by .github/workflows/cleanup-server.yml). One path per line, relative
+# to the site root; lines starting with # are ignored.
+# Gallery/headshot photos at their old addresses (now served from /_astro/).
+# Only deleted when the workflow's "old photos" box is ticked: search engines
+# may still link to these for a while.
+assets/img/Phoneix/20210409_215703044_iOS.webp
+assets/img/Phoneix/20210411_212917078_iOS.webp
+assets/img/Phoneix/20210411_212917113_iOS.webp
+assets/img/Tamerlano/1.webp
+assets/img/Tamerlano/2.webp
+assets/img/Tamerlano/3.webp
+assets/img/a streetcar/StagePool - Victoria Adler - Linje Lusta {Tennesse Williams} 2019 - -1-2.webp
+assets/img/a streetcar/Y3.webp
+assets/img/a streetcar/Y7a.webp
+assets/img/anatol/20190911_130306170_iOS.webp
+assets/img/anatol/20190911_130918460_iOS.webp
+assets/img/anatol/20190911_131030360_iOS.webp
+assets/img/beanstalk/1.webp
+assets/img/beanstalk/2.webp
+assets/img/beanstalk/3.webp
+assets/img/certificates/IMG_4670.webp
+assets/img/certificates/Lulea University of Technology-1.webp
+assets/img/certificates/Victoria Adler 12 Nov 2023.webp
+assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78.webp
+assets/img/certificates/broadsword.webp
+assets/img/certificates/d_and_r_merit.webp
+assets/img/certificates/school.webp
+assets/img/certificates/standard.webp
+assets/img/certificates/unartmed_merit.webp
+assets/img/christmas/20210111_180110574_iOS.webp
+assets/img/christmas/C126.webp
+assets/img/christmas/C130.webp
+assets/img/dance/1.webp
+assets/img/dance/2.webp
+assets/img/dance/3.webp
+assets/img/dance/4.webp
+assets/img/dance/5.webp
+assets/img/dance/6.webp
+assets/img/dance/7.webp
+assets/img/dance/8.webp
+assets/img/dance/9.webp
+assets/img/dunken sisters/V10.webp
+assets/img/dunken sisters/V18.webp
+assets/img/dunken sisters/V3.webp
+assets/img/god_of_carnage/20220212_173030060_iOS.webp
+assets/img/god_of_carnage/20220212_175104650_iOS.webp
+assets/img/god_of_carnage/20220212_182040830_iOS.webp
+assets/img/headshot 2024/q1/victoria-adler-01.webp
+assets/img/headshot 2024/q1/victoria-adler-03.webp
+assets/img/headshot 2024/q1/victoria-adler-04.webp
+assets/img/headshot 2024/q1/victoria-adler-05.webp
+assets/img/headshot 2024/q1/victoria-adler-06.webp
+assets/img/headshot 2024/q1/victoria-adler-07.webp
+assets/img/headshot 2024/q1/victoria-adler-08.webp
+assets/img/headshot 2024/q1/victoria-adler-09.webp
+assets/img/headshot 2024/q2/D80A1697.webp
+assets/img/headshot 2024/q2/D80A1721-Edit-2.webp
+assets/img/headshot 2024/q2/D80A1937-Edit.webp
+assets/img/headshot 2024/q2/Victoria Adler-038-Edit.webp
+assets/img/headshot 2024/q2/Victoria Adler-114-Edit.webp
+assets/img/headshot 2024/q2/Victoria Adler-142-Edit.webp
+assets/img/headshot 2024/q2/Victoria Adler-161-Edit.webp
+assets/img/headshot 2024/q2/Victoria Adler-169-Edit.webp
+assets/img/headshot 2024/q3/victoria-7646-3.webp
+assets/img/headshot 2024/q3/victoria-7753-3.webp
+assets/img/headshot 2024/q3/victoria-7939-3.webp
+assets/img/headshots-2023/100A9331.webp
+assets/img/headshots-2023/100A9506.webp
+assets/img/headshots-2023/100A9815.webp
+assets/img/headshots-2023/Color-13.webp
+assets/img/headshots-2023/Color-14.webp
+assets/img/headshots-2023/Color-15.webp
+assets/img/headshots-2023/Color-18.webp
+assets/img/headshots-2023/Color-20.webp
+assets/img/headshots-2023/Color-4.webp
+assets/img/headshots-2023/Color-5.webp
+assets/img/headshots-2023/Color-9.webp
+assets/img/headshots-2023/Color.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1314.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1356.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1405.webp
+assets/img/misc/20190422_120405000_iOS-2.webp
+assets/img/misc/20190911_114320850_iOS.webp
+assets/img/misc/20190911_162217570_iOS.webp
+assets/img/misc/20200408_064426000_iOS.webp
+assets/img/misc/20210111_195551585_iOS.webp
+assets/img/misc/Dancers on a bench (1)-2.webp
+assets/img/misc/S4-2.webp
+assets/img/misc/S7-2.webp
+assets/img/misc/StagePool - Victoria Adler - Angel (Kogan Acedemy of Dramatic Arts) 2019 - -1.webp
+assets/img/misc/Untitled.webp
+assets/img/misc/V123.webp
+assets/img/misc/V130.webp
+assets/img/misc/V131.webp
+assets/img/misc/V29.webp
+assets/img/misc/V75.webp
+assets/img/msnd/AMND 2023 (1).webp
+assets/img/msnd/AMND 2023 (2).webp
+assets/img/msnd/AMND 2023 (3).webp
+assets/img/old militant/IMG_2047.webp
+assets/img/old militant/IMG_2064.webp
+assets/img/old militant/IMG_2070.webp
+assets/img/priate_circus/PC 2023 (1).webp
+assets/img/priate_circus/PC 2023 (3).webp
+assets/img/priate_circus/_DSC0019.webp
+assets/img/robinhood/1.webp
+assets/img/robinhood/2.webp
+assets/img/robinhood/e42ea717-3d19-4f87-9280-22c3663d36ff.webp
+assets/img/time and the/_JJP9998.webp
+assets/img/time and the/hög.webp
+assets/img/treasure island/IMG_6579.webp
+assets/img/treasure island/IMG_6637.webp
+assets/img/treasure island/IMG_6679.webp
+assets/img/wanderer/_DSC1048-2.webp
+assets/img/wanderer/_DSC1054.webp
+assets/img/wanderer/_DSC1065.webp
