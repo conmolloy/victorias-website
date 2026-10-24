@@ -335,7 +335,8 @@ songs:
 | `src/content.config.ts`                             | what those files may contain (checked when building)                                                                                |
 | `src/assets/img/`                                   | gallery and headshot photos (the build makes their smaller versions)                                                                |
 | `src/components/gallery/`, `headshots/`, `reviews/` | how a show, photo, recording, video, shoot or review card is laid out                                                               |
-| `src/layouts/BaseLayout.astro`                      | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager), GTM noscript, navbar, smooth-scrolling script               |
+| `src/layouts/BaseLayout.astro`                      | shared `<head>` (meta, font preloads, stylesheets, Google Tag Manager, page-transition opt-in), GTM noscript, navbar, scripts       |
+| `src/components/Lightbox.astro`, `src/scripts/`     | the photo viewer on gallery/headshots (`lightbox.ts`), sections fading in on scroll (`reveal.ts`) – see [Motion](#motion)           |
 | `src/components/Navbar.astro`                       | the navbar (page links and Spotlight/IMDb/Instagram logos are lists at the top)                                                     |
 | `src/components/Contact.astro`                      | "Contact Me" section on the home page                                                                                               |
 | `src/components/GoogleTagManager.astro`             | the deferred Google Tag Manager snippet                                                                                             |
@@ -553,6 +554,32 @@ ffmpeg -i input.mov -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p -c:a aac 
 
 For a muted background video use `-crf 28 -an` instead (no audio track).
 Keep files well under 100 MB.
+
+## Motion
+
+Three small effects, all switched off when the visitor's device asks for
+reduced motion (and none of them needed for the site to work):
+
+- **Page transitions** – a 0.3 s cross-fade between pages, CSS only
+  ([cross-document view transitions](https://developer.chrome.com/docs/web-platform/view-transitions/cross-document)):
+  the opt-in is an inline `<style>` in `BaseLayout.astro`'s `<head>` (in the
+  stylesheet it can arrive too late for the next page, so the fade randomly
+  doesn't happen); timing and the steady navbar (`view-transition-name`)
+  are in `Projects-Clean.css`. Browsers without it change page as before.
+- **Lightbox** – gallery and headshot photos are links to the full-size
+  photo; `components/Lightbox.astro` + `src/scripts/lightbox.ts` open them
+  on the page instead (grows from the thumbnail; ← / →, swipe, Esc; caption
+  from the content files). Without JavaScript the link opens the photo.
+  Thumbnails are sized (`sizes`) for the width they're shown at – the
+  lightbox loads the full-size file only when it's opened.
+- **Reveal on scroll** – `src/scripts/reveal.ts` fades rows, shows, reviews
+  and sections in as they're scrolled to (`.reveal` / `.revealed` in
+  `Projects-Clean.css`). Only things below the first screen, only opacity
+  and transform – nothing waits, nothing moves the layout. To include or
+  leave out a part of a page, change `TARGETS` in that file.
+
+`tests/e2e/motion.spec.ts` checks all three (keyboard, swipe, focus, no
+layout shift, reduced motion, no JavaScript).
 
 ## Trimmed CSS (Bootstrap and icons)
 

@@ -24,7 +24,8 @@ git; the deploy never deletes files on the server.
       vs 180 KB). Verified pixel-identical (full-page screenshots, desktop +
       phone, all 6 pages) and same behaviour (menu, scrolling, CV viewer).
 - [x] **Gallery thumbnails** – 400/800/1200px versions of every gallery photo + `srcset`/`sizes` (sized for the hover zoom, so zoomed photos are as
-      sharp as before) + `width`/`height`. Whole-gallery image download:
+      sharp as before – since the lightbox replaced the zoom, `sizes` is the
+      width shown, see "Motion" below) + `width`/`height`. Whole-gallery image download:
       12.6 MB → 3.2 MB (desktop, mobile) / 5.8 MB (Retina laptop, 3x phone).
       Gallery LCP 25.7 → 9.8 s, weight 10.9 → 4.3 MB (median of 5 runs).
       Tool: `tools/make_thumbnails.py`.
@@ -260,6 +261,21 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
         Left as written: "Royale Dickens Company" (needs Victoria to confirm),
         "climatic" in the All Edinburgh Theatre quote and lower-case "victoria"
         in a coaching review (quotes are kept word for word)
+
+## Motion (2026-10-24)
+
+- [x] Page transitions: CSS cross-fade between pages (cross-document view
+      transitions; opt-in inline in `<head>` – in the stylesheet it raced the
+      next page's first paint and the fade randomly didn't happen), navbar
+      kept steady
+- [x] Lightbox for gallery and headshot photos instead of the hover zoom
+      (awkward on phones): grows from the thumbnail, caption from the data,
+      ← / → / swipe / Esc, focus kept inside and returned, page scroll
+      locked; full-size file loaded only when opened. `sizes` re-measured
+      for the width photos are shown at (no zoom) – phones download much
+      smaller thumbnails
+- [x] Reveal on scroll below the first screen (opacity/transform only, no
+      layout shift); all of it off for "reduce motion"; README "Motion"
 
 ## Housekeeping
 

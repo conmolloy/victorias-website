@@ -2,8 +2,9 @@
 /**
  * Page shell shared by every page: <head> (meta, search/link-preview tags,
  * font preloads, stylesheets, deferred Google Tag Manager), the GTM noscript
- * iframe, the navbar, and the script at the end of <body> (smooth scrolling
- * for in-page links; the navbar has its own script).
+ * iframe, the navbar, and the scripts at the end of <body> (smooth scrolling
+ * for in-page links, sections fading in as they're scrolled to; the navbar
+ * has its own script). Page-to-page cross-fade: CSS only (Projects-Clean.css).
  *
  * Local CSS/JS links go through v() so they carry a content-hash ?v=
  * (browsers cache CSS/JS for 30 days).
@@ -54,6 +55,16 @@ const {
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
+    <!-- page-to-page cross-fade (its timing is in Projects-Clean.css). Opted
+         in here, not in the stylesheet: Chrome decides as the next page first
+         paints, and the stylesheet may not have arrived by then. -->
+    <style is:inline>
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+      }
+    </style>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <title>{title}</title>
     <SeoTags
@@ -134,6 +145,11 @@ const {
           );
         });
       }
+    </script>
+    <script>
+      import { initReveal } from "../scripts/reveal";
+
+      initReveal();
     </script>
   </body>
 </html>

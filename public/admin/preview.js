@@ -97,7 +97,7 @@ const Missing = ({ what }) => html`<div className="cms-missing">${what}</div>`;
 const Photo = ({ photo = {}, kind, keyPath, getAsset }) =>
   photo.file
     ? html`<img
-        className=${[kind, "img-fluid zoom"].filter(Boolean).join(" ")}
+        className=${[kind, "img-fluid"].filter(Boolean).join(" ")}
         src=${src(getAsset, photo.file)}
         alt=${photo.alt || ""}
         data-key-path=${keyPath}
@@ -492,7 +492,7 @@ const HeadshotsPreview = ({ entry, getAsset }) => {
                           photo && photo.file
                             ? html`<img
                                 key=${n}
-                                className="w-100 rounded mb-4 zoom-hs"
+                                className="w-100 rounded mb-4 headshot-photo"
                                 src=${src(getAsset, photo.file)}
                                 alt=${photo.alt || ""}
                                 data-key-path=${`shoots.${i}.photos.${n}`}
