@@ -3,7 +3,7 @@
   The editing screen at /admin (Sveltia CMS): edits src/content/*.yaml and
   uploads photos/recordings by committing to GitHub; the push to main then
   runs the checks and deploys as usual. Settings: config.yml next to this
-  file. See README "Editing screen".
+  file; live previews: preview.js. See README "The editing screen".
 -->
 <html lang="en">
   <head>
@@ -13,6 +13,8 @@
     <title>Edit site – Victoria Adler</title>
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms@0.233.0/dist/sveltia-cms.js"></script>
+    <script src="https://unpkg.com/@sveltia/cms@0.251.0/dist/sveltia-cms.js"></script>
+    <!-- previews that look like the real pages (see preview.js) -->
+    <script src="preview.js"></script>
   </body>
 </html>

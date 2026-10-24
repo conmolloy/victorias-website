@@ -76,9 +76,10 @@ describe("editing screen config (public/admin/config.yml)", () => {
   });
 
   it("stores photos where the build looks for them, and leaves empty fields out", () => {
-    // values are written as "assets/img/…", which photos.ts reads from src/
+    // values are written as "/assets/img/…" (the slash lets the editor find
+    // the file); the content schema reads them as "assets/img/…" for photos.ts
     expect(config.media_folder).toBe("src/assets/img");
-    expect(config.public_folder).toBe("assets/img");
+    expect(config.public_folder).toBe("/assets/img");
     expect(config.output.omit_empty_optional_fields).toBe(true);
   });
 });
