@@ -327,7 +327,12 @@ It uses four repository secrets (Settings → Secrets and variables → Actions)
 Notes:
 
 - The deploy **never deletes** files on the server. Removing a file from the
-  repo leaves the old copy on Cloudways; delete it over SFTP if needed.
+  repo leaves the old copy on Cloudways. To remove such files, add their
+  paths to `tools/server-cleanup/old-files.txt` and run **Clean up old files
+  on the server** from the Actions tab
+  ([`cleanup-server.yml`](.github/workflows/cleanup-server.yml)): first as it
+  is (it only lists what it would delete), then with "Really delete" ticked.
+  It only ever touches the listed paths under `assets/`.
 - Only `dist/` is uploaded (`src/`, `tools/`, `*.md` etc. never reach the server).
 - GitHub rejects files over 100 MB, so keep videos compressed (see below).
   Unused media listed in [`.gitignore`](.gitignore) isn't in the repo.

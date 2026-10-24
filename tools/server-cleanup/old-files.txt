@@ -1,0 +1,311 @@
+# Files the site used to deploy that no build uses any more (deleted from the
+# server by .github/workflows/cleanup-server.yml). One path per line, relative
+# to the site root; lines starting with # are ignored.
+# Old scripts/styles (Astro phase 2) and the -400w/-800w/-1200w photo
+# versions tools/make_thumbnails.py used to make.
+assets/bootstrap/js/bootstrap.min.js
+assets/css/site-base.css
+assets/img/Phoneix/20210409_215703044_iOS-1200w.webp
+assets/img/Phoneix/20210409_215703044_iOS-400w.webp
+assets/img/Phoneix/20210409_215703044_iOS-800w.webp
+assets/img/Phoneix/20210411_212917078_iOS-1200w.webp
+assets/img/Phoneix/20210411_212917078_iOS-400w.webp
+assets/img/Phoneix/20210411_212917078_iOS-800w.webp
+assets/img/Phoneix/20210411_212917113_iOS-1200w.webp
+assets/img/Phoneix/20210411_212917113_iOS-400w.webp
+assets/img/Phoneix/20210411_212917113_iOS-800w.webp
+assets/img/Tamerlano/1-400w.webp
+assets/img/Tamerlano/1-800w.webp
+assets/img/Tamerlano/2-400w.webp
+assets/img/Tamerlano/2-800w.webp
+assets/img/Tamerlano/3-1200w.webp
+assets/img/Tamerlano/3-400w.webp
+assets/img/Tamerlano/3-800w.webp
+assets/img/a streetcar/StagePool - Victoria Adler - Linje Lusta {Tennesse Williams} 2019 - -1-2-400w.webp
+assets/img/a streetcar/StagePool - Victoria Adler - Linje Lusta {Tennesse Williams} 2019 - -1-2-800w.webp
+assets/img/a streetcar/Y3-1200w.webp
+assets/img/a streetcar/Y3-400w.webp
+assets/img/a streetcar/Y3-800w.webp
+assets/img/a streetcar/Y7a-1200w.webp
+assets/img/a streetcar/Y7a-400w.webp
+assets/img/a streetcar/Y7a-800w.webp
+assets/img/anatol/20190911_130306170_iOS-1200w.webp
+assets/img/anatol/20190911_130306170_iOS-400w.webp
+assets/img/anatol/20190911_130306170_iOS-800w.webp
+assets/img/anatol/20190911_130918460_iOS-1200w.webp
+assets/img/anatol/20190911_130918460_iOS-400w.webp
+assets/img/anatol/20190911_130918460_iOS-800w.webp
+assets/img/anatol/20190911_131030360_iOS-1200w.webp
+assets/img/anatol/20190911_131030360_iOS-400w.webp
+assets/img/anatol/20190911_131030360_iOS-800w.webp
+assets/img/beanstalk/1-1200w.webp
+assets/img/beanstalk/1-400w.webp
+assets/img/beanstalk/1-800w.webp
+assets/img/beanstalk/2-1200w.webp
+assets/img/beanstalk/2-400w.webp
+assets/img/beanstalk/2-800w.webp
+assets/img/beanstalk/3-1200w.webp
+assets/img/beanstalk/3-400w.webp
+assets/img/beanstalk/3-800w.webp
+assets/img/certificates/IMG_4670-400w.webp
+assets/img/certificates/IMG_4670-800w.webp
+assets/img/certificates/Lulea University of Technology-1-1200w.webp
+assets/img/certificates/Lulea University of Technology-1-400w.webp
+assets/img/certificates/Lulea University of Technology-1-800w.webp
+assets/img/certificates/Victoria Adler 12 Nov 2023-1200w.webp
+assets/img/certificates/Victoria Adler 12 Nov 2023-400w.webp
+assets/img/certificates/Victoria Adler 12 Nov 2023-800w.webp
+assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78-1200w.webp
+assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78-400w.webp
+assets/img/certificates/b1cdcdd4-9f09-4b5e-8369-773b2a3a4d78-800w.webp
+assets/img/certificates/broadsword-1200w.webp
+assets/img/certificates/broadsword-400w.webp
+assets/img/certificates/broadsword-800w.webp
+assets/img/certificates/d_and_r_merit-400w.webp
+assets/img/certificates/d_and_r_merit-800w.webp
+assets/img/certificates/school-1200w.webp
+assets/img/certificates/school-400w.webp
+assets/img/certificates/school-800w.webp
+assets/img/certificates/standard-400w.webp
+assets/img/certificates/unartmed_merit-400w.webp
+assets/img/certificates/unartmed_merit-800w.webp
+assets/img/christmas/20210111_180110574_iOS-1200w.webp
+assets/img/christmas/20210111_180110574_iOS-400w.webp
+assets/img/christmas/20210111_180110574_iOS-800w.webp
+assets/img/christmas/C126-1200w.webp
+assets/img/christmas/C126-400w.webp
+assets/img/christmas/C126-800w.webp
+assets/img/christmas/C130-1200w.webp
+assets/img/christmas/C130-400w.webp
+assets/img/christmas/C130-800w.webp
+assets/img/dance/1-400w.webp
+assets/img/dance/8-1200w.webp
+assets/img/dance/8-400w.webp
+assets/img/dance/8-800w.webp
+assets/img/dance/9-400w.webp
+assets/img/dunken sisters/V10-1200w.webp
+assets/img/dunken sisters/V10-400w.webp
+assets/img/dunken sisters/V10-800w.webp
+assets/img/dunken sisters/V18-1200w.webp
+assets/img/dunken sisters/V18-400w.webp
+assets/img/dunken sisters/V18-800w.webp
+assets/img/dunken sisters/V3-1200w.webp
+assets/img/dunken sisters/V3-400w.webp
+assets/img/dunken sisters/V3-800w.webp
+assets/img/god_of_carnage/20220212_173030060_iOS-1200w.webp
+assets/img/god_of_carnage/20220212_173030060_iOS-400w.webp
+assets/img/god_of_carnage/20220212_173030060_iOS-800w.webp
+assets/img/god_of_carnage/20220212_175104650_iOS-1200w.webp
+assets/img/god_of_carnage/20220212_175104650_iOS-400w.webp
+assets/img/god_of_carnage/20220212_175104650_iOS-800w.webp
+assets/img/god_of_carnage/20220212_182040830_iOS-1200w.webp
+assets/img/god_of_carnage/20220212_182040830_iOS-400w.webp
+assets/img/god_of_carnage/20220212_182040830_iOS-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-01-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-01-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-01-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-03-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-03-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-03-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-04-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-04-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-04-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-05-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-05-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-05-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-06-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-06-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-06-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-07-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-07-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-07-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-08-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-08-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-08-800w.webp
+assets/img/headshot 2024/q1/victoria-adler-09-1200w.webp
+assets/img/headshot 2024/q1/victoria-adler-09-400w.webp
+assets/img/headshot 2024/q1/victoria-adler-09-800w.webp
+assets/img/headshot 2024/q2/D80A1697-1200w.webp
+assets/img/headshot 2024/q2/D80A1697-400w.webp
+assets/img/headshot 2024/q2/D80A1697-800w.webp
+assets/img/headshot 2024/q2/D80A1721-Edit-2-1200w.webp
+assets/img/headshot 2024/q2/D80A1721-Edit-2-400w.webp
+assets/img/headshot 2024/q2/D80A1721-Edit-2-800w.webp
+assets/img/headshot 2024/q2/D80A1937-Edit-1200w.webp
+assets/img/headshot 2024/q2/D80A1937-Edit-400w.webp
+assets/img/headshot 2024/q2/D80A1937-Edit-800w.webp
+assets/img/headshot 2024/q2/Victoria Adler-038-Edit-1200w.webp
+assets/img/headshot 2024/q2/Victoria Adler-038-Edit-400w.webp
+assets/img/headshot 2024/q2/Victoria Adler-038-Edit-800w.webp
+assets/img/headshot 2024/q2/Victoria Adler-114-Edit-1200w.webp
+assets/img/headshot 2024/q2/Victoria Adler-114-Edit-400w.webp
+assets/img/headshot 2024/q2/Victoria Adler-114-Edit-800w.webp
+assets/img/headshot 2024/q2/Victoria Adler-142-Edit-1200w.webp
+assets/img/headshot 2024/q2/Victoria Adler-142-Edit-400w.webp
+assets/img/headshot 2024/q2/Victoria Adler-142-Edit-800w.webp
+assets/img/headshot 2024/q2/Victoria Adler-161-Edit-1200w.webp
+assets/img/headshot 2024/q2/Victoria Adler-161-Edit-400w.webp
+assets/img/headshot 2024/q2/Victoria Adler-161-Edit-800w.webp
+assets/img/headshot 2024/q2/Victoria Adler-169-Edit-1200w.webp
+assets/img/headshot 2024/q2/Victoria Adler-169-Edit-400w.webp
+assets/img/headshot 2024/q2/Victoria Adler-169-Edit-800w.webp
+assets/img/headshot 2024/q3/victoria-7646-3-1200w.webp
+assets/img/headshot 2024/q3/victoria-7646-3-400w.webp
+assets/img/headshot 2024/q3/victoria-7646-3-800w.webp
+assets/img/headshot 2024/q3/victoria-7753-3-1200w.webp
+assets/img/headshot 2024/q3/victoria-7753-3-400w.webp
+assets/img/headshot 2024/q3/victoria-7753-3-800w.webp
+assets/img/headshot 2024/q3/victoria-7939-3-1200w.webp
+assets/img/headshot 2024/q3/victoria-7939-3-400w.webp
+assets/img/headshot 2024/q3/victoria-7939-3-800w.webp
+assets/img/headshots-2023/100A9331-1200w.webp
+assets/img/headshots-2023/100A9331-400w.webp
+assets/img/headshots-2023/100A9331-800w.webp
+assets/img/headshots-2023/100A9506-1200w.webp
+assets/img/headshots-2023/100A9506-400w.webp
+assets/img/headshots-2023/100A9506-800w.webp
+assets/img/headshots-2023/100A9815-1200w.webp
+assets/img/headshots-2023/100A9815-400w.webp
+assets/img/headshots-2023/100A9815-800w.webp
+assets/img/headshots-2023/Color-1200w.webp
+assets/img/headshots-2023/Color-13-1200w.webp
+assets/img/headshots-2023/Color-13-400w.webp
+assets/img/headshots-2023/Color-13-800w.webp
+assets/img/headshots-2023/Color-14-1200w.webp
+assets/img/headshots-2023/Color-14-400w.webp
+assets/img/headshots-2023/Color-14-800w.webp
+assets/img/headshots-2023/Color-15-1200w.webp
+assets/img/headshots-2023/Color-15-400w.webp
+assets/img/headshots-2023/Color-15-800w.webp
+assets/img/headshots-2023/Color-18-1200w.webp
+assets/img/headshots-2023/Color-18-400w.webp
+assets/img/headshots-2023/Color-18-800w.webp
+assets/img/headshots-2023/Color-20-1200w.webp
+assets/img/headshots-2023/Color-20-400w.webp
+assets/img/headshots-2023/Color-20-800w.webp
+assets/img/headshots-2023/Color-4-1200w.webp
+assets/img/headshots-2023/Color-4-400w.webp
+assets/img/headshots-2023/Color-4-800w.webp
+assets/img/headshots-2023/Color-400w.webp
+assets/img/headshots-2023/Color-5-1200w.webp
+assets/img/headshots-2023/Color-5-400w.webp
+assets/img/headshots-2023/Color-5-800w.webp
+assets/img/headshots-2023/Color-800w.webp
+assets/img/headshots-2023/Color-9-1200w.webp
+assets/img/headshots-2023/Color-9-400w.webp
+assets/img/headshots-2023/Color-9-800w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1314-1200w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1314-400w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1314-800w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1356-1200w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1356-400w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1356-800w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1405-1200w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1405-400w.webp
+assets/img/macbeth/2023-01  Shadow Road Productions - Macbeth-1405-800w.webp
+assets/img/misc/20190422_120405000_iOS-2-400w.webp
+assets/img/misc/20190911_114320850_iOS-1200w.webp
+assets/img/misc/20190911_114320850_iOS-400w.webp
+assets/img/misc/20190911_114320850_iOS-800w.webp
+assets/img/misc/20190911_162217570_iOS-1200w.webp
+assets/img/misc/20190911_162217570_iOS-400w.webp
+assets/img/misc/20190911_162217570_iOS-800w.webp
+assets/img/misc/20200408_064426000_iOS-1200w.webp
+assets/img/misc/20200408_064426000_iOS-400w.webp
+assets/img/misc/20200408_064426000_iOS-800w.webp
+assets/img/misc/20210111_195551585_iOS-1200w.webp
+assets/img/misc/20210111_195551585_iOS-400w.webp
+assets/img/misc/20210111_195551585_iOS-800w.webp
+assets/img/misc/Dancers on a bench (1)-2-1200w.webp
+assets/img/misc/Dancers on a bench (1)-2-400w.webp
+assets/img/misc/Dancers on a bench (1)-2-800w.webp
+assets/img/misc/S4-2-1200w.webp
+assets/img/misc/S4-2-400w.webp
+assets/img/misc/S4-2-800w.webp
+assets/img/misc/S7-2-1200w.webp
+assets/img/misc/S7-2-400w.webp
+assets/img/misc/S7-2-800w.webp
+assets/img/misc/StagePool - Victoria Adler - Angel (Kogan Acedemy of Dramatic Arts) 2019 - -1-1200w.webp
+assets/img/misc/StagePool - Victoria Adler - Angel (Kogan Acedemy of Dramatic Arts) 2019 - -1-400w.webp
+assets/img/misc/StagePool - Victoria Adler - Angel (Kogan Acedemy of Dramatic Arts) 2019 - -1-800w.webp
+assets/img/misc/Untitled-400w.webp
+assets/img/misc/V123-1200w.webp
+assets/img/misc/V123-400w.webp
+assets/img/misc/V123-800w.webp
+assets/img/misc/V130-1200w.webp
+assets/img/misc/V130-400w.webp
+assets/img/misc/V130-800w.webp
+assets/img/misc/V131-1200w.webp
+assets/img/misc/V131-400w.webp
+assets/img/misc/V131-800w.webp
+assets/img/misc/V29-1200w.webp
+assets/img/misc/V29-400w.webp
+assets/img/misc/V29-800w.webp
+assets/img/misc/V75-1200w.webp
+assets/img/misc/V75-400w.webp
+assets/img/misc/V75-800w.webp
+assets/img/msnd/AMND 2023 (1)-1200w.webp
+assets/img/msnd/AMND 2023 (1)-400w.webp
+assets/img/msnd/AMND 2023 (1)-800w.webp
+assets/img/msnd/AMND 2023 (2)-1200w.webp
+assets/img/msnd/AMND 2023 (2)-400w.webp
+assets/img/msnd/AMND 2023 (2)-800w.webp
+assets/img/msnd/AMND 2023 (3)-1200w.webp
+assets/img/msnd/AMND 2023 (3)-400w.webp
+assets/img/msnd/AMND 2023 (3)-800w.webp
+assets/img/old militant/IMG_2047-1200w.webp
+assets/img/old militant/IMG_2047-400w.webp
+assets/img/old militant/IMG_2047-800w.webp
+assets/img/old militant/IMG_2064-1200w.webp
+assets/img/old militant/IMG_2064-400w.webp
+assets/img/old militant/IMG_2064-800w.webp
+assets/img/old militant/IMG_2070-1200w.webp
+assets/img/old militant/IMG_2070-400w.webp
+assets/img/old militant/IMG_2070-800w.webp
+assets/img/priate_circus/PC 2023 (1)-1200w.webp
+assets/img/priate_circus/PC 2023 (1)-400w.webp
+assets/img/priate_circus/PC 2023 (1)-800w.webp
+assets/img/priate_circus/PC 2023 (3)-1200w.webp
+assets/img/priate_circus/PC 2023 (3)-400w.webp
+assets/img/priate_circus/PC 2023 (3)-800w.webp
+assets/img/priate_circus/_DSC0019-1200w.webp
+assets/img/priate_circus/_DSC0019-400w.webp
+assets/img/priate_circus/_DSC0019-800w.webp
+assets/img/robinhood/1-1200w.webp
+assets/img/robinhood/1-400w.webp
+assets/img/robinhood/1-800w.webp
+assets/img/robinhood/2-1200w.webp
+assets/img/robinhood/2-400w.webp
+assets/img/robinhood/2-800w.webp
+assets/img/robinhood/e42ea717-3d19-4f87-9280-22c3663d36ff-1200w.webp
+assets/img/robinhood/e42ea717-3d19-4f87-9280-22c3663d36ff-400w.webp
+assets/img/robinhood/e42ea717-3d19-4f87-9280-22c3663d36ff-800w.webp
+assets/img/time and the/20210327_204237187_iOS-1200w.webp
+assets/img/time and the/20210327_204237187_iOS-400w.webp
+assets/img/time and the/20210327_204237187_iOS-800w.webp
+assets/img/time and the/_JJP9998-1200w.webp
+assets/img/time and the/_JJP9998-400w.webp
+assets/img/time and the/_JJP9998-800w.webp
+assets/img/time and the/hög-400w.webp
+assets/img/time and the/hög-800w.webp
+assets/img/treasure island/IMG_6579-1200w.webp
+assets/img/treasure island/IMG_6579-400w.webp
+assets/img/treasure island/IMG_6579-800w.webp
+assets/img/treasure island/IMG_6637-1200w.webp
+assets/img/treasure island/IMG_6637-400w.webp
+assets/img/treasure island/IMG_6637-800w.webp
+assets/img/treasure island/IMG_6679-1200w.webp
+assets/img/treasure island/IMG_6679-400w.webp
+assets/img/treasure island/IMG_6679-800w.webp
+assets/img/wanderer/_DSC1048-2-1200w.webp
+assets/img/wanderer/_DSC1048-2-400w.webp
+assets/img/wanderer/_DSC1048-2-800w.webp
+assets/img/wanderer/_DSC1054-1200w.webp
+assets/img/wanderer/_DSC1054-400w.webp
+assets/img/wanderer/_DSC1054-800w.webp
+assets/img/wanderer/_DSC1065-1200w.webp
+assets/img/wanderer/_DSC1065-400w.webp
+assets/img/wanderer/_DSC1065-800w.webp
+assets/js/grayscale.js
+assets/js/jquery.min.js
+assets/js/video-facade.js
