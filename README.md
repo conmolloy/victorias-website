@@ -114,8 +114,7 @@ Cloudflare Workers account:
 
 #### Trying it without touching the live site
 
-Run `npm run dev`, open http://localhost:4321/admin/index.html (the dev server needs the
-`index.html`) in Chrome or Edge and
+Run `npm run dev`, open http://localhost:4321/admin/ in Chrome or Edge and
 choose **Work with Local Repository** (pick this repo's folder): edits are
 written to your local files, nothing is committed or published, and the dev
 server shows the result straight away.
