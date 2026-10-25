@@ -13,7 +13,7 @@ const pdf = cvFile(cv.data.file);
   title="CV – Victoria Adler"
   description="Victoria Adler's acting CV – view it online or download it as a PDF."
   path="/resume"
-  preloads={["roboto-400-latin.woff2", "lora-latin.woff2"]}
+  preloads={["roboto-400-latin.woff2", "source-sans-3-latin.woff2"]}
 >
   <script
     is:inline
@@ -23,8 +23,8 @@ const pdf = cvFile(cv.data.file);
   <style is:inline slot="head">
     #pdf-container {
       position: relative;
-      background: rgb(0, 0, 0);
-      color: #fff;
+      background: var(--panel);
+      color: var(--text);
       padding: 20px;
     }
     #download-link {

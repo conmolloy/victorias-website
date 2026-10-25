@@ -277,6 +277,16 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
 - [x] Reveal on scroll below the first screen (opacity/transform only, no
       layout shift); all of it off for "reduce motion"; README "Motion"
 
+## Light theme (2026-10-25)
+
+- [x] Brighter design for Victoria: white page and navbar, dark text, warm
+      light-grey review panels with a dark left rule, black buttons; every
+      colour a named custom property in `Projects-Clean.css`; dividers and
+      borders 2px warm grey (the 1px white lines vanished on white); white
+      text kept over photos/video; the white menu logos shown dark
+- [x] Source Sans 3 (self-hosted variable font) instead of Lora for body
+      text; Cabin kept for headings; Lora files removed
+
 ## Housekeeping
 
 - [x] Removed unused images, CSS/JS, `favicon - Copy.ico` and `david-site/`

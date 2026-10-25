@@ -33,21 +33,20 @@ CMS.registerPreviewStyle(
     max-width: 40rem;
     border: 1px dashed #888;
     border-radius: 4px;
-    color: #bbb;
+    color: var(--muted, #6b6b6b);
     font: italic 13px/1.4 Roboto, sans-serif;
     text-align: center;
   }
-  .light .cms-note, .cms-note.on-light { color: #555; }
   .cms-missing {
     display: flex; align-items: center; justify-content: center;
-    min-height: 8rem; border: 1px dashed #888; color: #bbb;
+    min-height: 8rem; border: 1px dashed #888; color: var(--muted, #6b6b6b);
     font: italic 13px Roboto, sans-serif; text-align: center; padding: 1rem;
   }
   /* the real pages leave room for the fixed navbar; the preview has none */
   .header-container { margin-top: 0 !important; }
   .reviews-page { padding-top: 1rem; }
   /* the CV page's own styles (src/pages/resume.astro) */
-  #pdf-container { position: relative; background: #000; color: #fff; padding: 20px; }
+  #pdf-container { position: relative; background: var(--panel); color: var(--text); padding: 20px; }
   #download-link { position: absolute; top: 10%; right: 5%; }
   #pdf-canvas { width: 100%; height: auto; }
 `,
