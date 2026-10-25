@@ -87,4 +87,19 @@ const pages = [
     nav.classList.toggle("navbar-shrink", window.scrollY > 50);
   shrink();
   window.addEventListener("scroll", shrink, { passive: true });
+
+  // Feedback mode (src/scripts/feedback.ts): on after opening a page with
+  // ?feedback, until its Exit button. Checked here because every page loads
+  // this script anyway; the feedback code itself is a separate file loaded
+  // only then, so visitors never download it. ("site-feedback-mode" is FLAG
+  // in that file.)
+  let feedback = false;
+  try {
+    if (new URLSearchParams(location.search).has("feedback"))
+      sessionStorage.setItem("site-feedback-mode", "1");
+    feedback = sessionStorage.getItem("site-feedback-mode") === "1";
+  } catch {
+    // storage blocked (private browsing): no feedback mode
+  }
+  if (feedback) import("../scripts/feedback").then((m) => m.initFeedback());
 </script>
