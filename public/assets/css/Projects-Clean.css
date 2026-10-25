@@ -406,6 +406,12 @@ img.headshot-photo {
   margin: 0 auto 20px;
 }
 
+/* Home: breathing room between the header video and the name (more on
+   wide screens, less on phones) */
+#about {
+  padding-top: clamp(1.75rem, 4vw, 3.5rem);
+}
+
 /* Home: "actor" under the name */
 .tagline {
   font-family: Outfit, sans-serif;
