@@ -11,7 +11,7 @@
  *     preview jumps to that field in the editor
  *   - notes that are only in the preview have the class "cms-note"
  */
-/* global CMS, html */
+/* global CMS, html, document, window, console */
 
 // The site's stylesheets (absolute, so they load from the site itself).
 // The time stamp stops a 30-day cached copy hiding a CSS change.
@@ -46,6 +46,10 @@ CMS.registerPreviewStyle(
   /* the real pages leave room for the fixed navbar; the preview has none */
   .header-container { margin-top: 0 !important; }
   .reviews-page { padding-top: 1rem; }
+  /* the CV page's own styles (src/pages/resume.astro) */
+  #pdf-container { position: relative; background: #000; color: #fff; padding: 20px; }
+  #download-link { position: absolute; top: 10%; right: 5%; }
+  #pdf-canvas { width: 100%; height: auto; }
 `,
   { raw: true },
 );
@@ -629,8 +633,96 @@ const ReviewsPreview = ({ entry }) => {
   `;
 };
 
+/* ---------- CV page (src/pages/resume.astro) ---------- */
+
+// PDF.js, the same version and viewer as the real page, loaded on first use
+const PDFJS = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/";
+let pdfjs;
+const loadPdfjs = () =>
+  (pdfjs ??= new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = `${PDFJS}pdf.min.js`;
+    script.onload = () => {
+      const lib = window["pdfjs-dist/build/pdf"];
+      lib.GlobalWorkerOptions.workerSrc = `${PDFJS}pdf.worker.min.js`;
+      resolve(lib);
+    };
+    script.onerror = reject;
+    document.head.append(script);
+  }));
+
+/** draw the PDF's first page on the canvas, as the real page does */
+const drawPdf = (canvas, url) => {
+  if (!canvas || canvas.dataset.url === url) return;
+  canvas.dataset.url = url;
+  loadPdfjs()
+    // the CV's fonts go into the preview pane's document (an iframe), where
+    // the canvas is – not the editor's
+    .then(
+      (lib) =>
+        lib.getDocument({ url, ownerDocument: canvas.ownerDocument }).promise,
+    )
+    .then((pdf) => pdf.getPage(1))
+    .then((page) => {
+      if (canvas.dataset.url !== url) return; // a newer file was chosen
+      const viewport = page.getViewport({ scale: 1.5 });
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      return page.render({ canvasContext: canvas.getContext("2d"), viewport })
+        .promise;
+    })
+    .catch((error) => console.warn("CV preview:", error));
+};
+
+const CvPreview = ({ entry, getAsset }) => {
+  const d = dataOf(entry);
+  // a new upload has a blob: address until it's saved; a CV already on the
+  // site is shown from there
+  const pdf = src(getAsset, d.file, true);
+  const file = d.file ? String(d.file) : "";
+  const name = file.startsWith("blob:") ? "" : file.split("/").pop();
+  return html`
+    <div className="header-container">
+      <section className="projects-clean dark">
+        <div className="container" id="pdf-container">
+          <p className="cms-note" data-key-path="file">
+            ${
+              !file
+                ? "No CV chosen yet"
+                : name
+                  ? `File: ${name}`
+                  : "New CV (not saved yet)"
+            }${d.updated ? ` · last updated ${d.updated}` : ""}
+          </p>
+          ${
+            pdf
+              ? html`
+                  <a
+                    id="download-link"
+                    className="btn btn-dark"
+                    href=${pdf}
+                    download=${name}
+                    data-key-path="file"
+                  >
+                    Download CV (PDF)
+                  </a>
+                  <canvas
+                    id="pdf-canvas"
+                    ref=${(canvas) => drawPdf(canvas, pdf)}
+                    data-key-path="file"
+                  ></canvas>
+                `
+              : html`<${Missing} what="(no CV yet)" />`
+          }
+        </div>
+      </section>
+    </div>
+  `;
+};
+
 /* names are the files' `name` in config.yml */
 CMS.registerPreviewTemplate("home", HomePreview);
 CMS.registerPreviewTemplate("gallery", GalleryPreview);
 CMS.registerPreviewTemplate("headshots", HeadshotsPreview);
 CMS.registerPreviewTemplate("reviews", ReviewsPreview);
+CMS.registerPreviewTemplate("cv", CvPreview);

@@ -1,5 +1,8 @@
 // Behaviour of the built site in a real browser, at desktop and phone width.
 import { expect, test, type Page } from "@playwright/test";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { parse } from "yaml";
 
 const PAGES = ["index", "gallery", "headshot", "resume", "reviews", "showreel"];
 
@@ -169,9 +172,18 @@ test("CV page renders the PDF", async ({ page }) => {
     return dark;
   });
   expect(ink).toBeGreaterThan(100);
+  // the file in src/content/cv.yaml, versioned with its content hash so a
+  // new CV beats the browser cache
+  const file = (
+    parse(readFileSync("src/content/cv.yaml", "utf8")) as { file: string }
+  ).file.replace(/^\//, "");
+  const hash = createHash("md5")
+    .update(readFileSync(`public/${file}`))
+    .digest("hex")
+    .slice(0, 8);
   await expect(
-    page.getByRole("link", { name: "Download PDF" }),
-  ).toHaveAttribute("href", "assets/cv/VICTORIA ADLER CV 2025.pdf");
+    page.getByRole("link", { name: "Download CV (PDF)" }),
+  ).toHaveAttribute("href", `${file}?v=${hash}`);
 });
 
 test("Google Tag Manager waits for the visitor", async ({ page }) => {

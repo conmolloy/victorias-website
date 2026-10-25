@@ -268,5 +268,9 @@ Gallery LCP is now limited by its full-size photos – see _Gallery thumbnails_.
 - [x] README + `tools/optimize_images.py` for converting new photos
 - [ ] `public/assets/cv/VICTORIA ADLER CV 2024.pdf` is the old CV (the CV page shows
       the 2025 one) – remove once no one has the old link
+- [x] CV uploads from the editing screen (`src/content/cv.yaml`, PDF only,
+      `?v=<hash>` on the PDF address so a new CV is never hidden by the
+      browser cache; the build stops for a missing or non-PDF file). Older
+      CVs stay in `public/assets/cv/` – delete them there when no longer needed
 - [x] Use `/` instead of `\` in remaining asset paths
 - [ ] Nav links use `href="resume"` etc. (no `.html`) – relies on server config

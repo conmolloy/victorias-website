@@ -1,7 +1,10 @@
 // Helpers that turn the YAML content files into page markup.
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { parse } from "yaml";
 import {
   audioFile,
+  cvFile,
   encodePath,
   videoPreview,
   webpSize,
@@ -113,6 +116,30 @@ describe("videoPreview()", () => {
     expect(() =>
       videoPreview({ title: "New", url: "https://vimeo.com/1" }),
     ).toThrow(/tools\/video_facades\.py/);
+  });
+});
+
+describe("cvFile()", () => {
+  it("returns the PDF's address with a content-hash version", () => {
+    // whichever CV src/content/cv.yaml names at the moment
+    const file = (
+      parse(readFileSync("src/content/cv.yaml", "utf8")) as { file: string }
+    ).file.replace(/^\//, "");
+    expect(cvFile(file)).toMatch(/\.pdf\?v=[0-9a-f]{8}$/);
+    expect(cvFile(file).startsWith(`${file}?v=`)).toBe(true);
+  });
+
+  it("stops the build for a missing CV", () => {
+    expect(() => cvFile("assets/cv/no-such-cv.pdf")).toThrow(
+      /CV not found: public\/assets\/cv\/no-such-cv\.pdf/,
+    );
+  });
+
+  it("stops the build for a file that isn't really a PDF", () => {
+    // a Word file renamed to .pdf, say: here, any file that isn't a PDF
+    expect(() => cvFile("assets/css/Projects-Clean.css")).toThrow(
+      /is not a PDF file/,
+    );
   });
 });
 

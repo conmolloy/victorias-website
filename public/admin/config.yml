@@ -1,4 +1,4 @@
-# Sveltia CMS – the editing screen at /admin. It edits the three content
+# Sveltia CMS – the editing screen at /admin. It edits the content
 # files in src/content/ (the same ones described in README "How to update
 # the site") and commits each save straight to `main`, which runs the checks
 # and deploys: a mistake that would break the site stops the deploy, and the
@@ -65,7 +65,7 @@ _audio_fields: &audio_fields
       name: file
       label: Audio file
       widget: file
-      media_folder: public/assets/audio
+      media_folder: /public/assets/audio
       public_folder: /assets/audio
 
 collections:
@@ -89,7 +89,7 @@ collections:
                 label: Photo
                 widget: image
                 # served as it is from public/ (not resized by the build)
-                media_folder: public/assets/img
+                media_folder: /public/assets/img
                 public_folder: /assets/img
               - name: alt
                 label: Description (alt text)
@@ -112,6 +112,35 @@ collections:
                 widget: string
                 pattern:
                   ["^[^@ ]+@[^@ ]+[.][^@ ]+$", "Must be an email address"]
+
+  - name: cv
+    label: CV
+    files:
+      - name: cv
+        label: CV page
+        file: src/content/cv.yaml
+        preview_path: "/resume" # "View on Live Site"
+        fields:
+          - name: file
+            label: CV (PDF)
+            widget: file
+            accept: application/pdf,.pdf
+            choose_url: false
+            # served as it is; the page adds ?v=<hash> so returning visitors
+            # never see a cached old CV, even under the same file name.
+            # The leading "/" matters: without it uploads go next to the
+            # content file (src/content/public/...)
+            media_folder: /public/assets/cv
+            public_folder: /assets/cv
+            pattern: ["[.][pP][dD][fF]$", "The CV must be a PDF file"]
+            hint: Upload the new CV as a PDF. The old one stays in the media library (it isn't shown anywhere).
+          - name: updated
+            label: Last updated
+            widget: datetime
+            time_format: false
+            format: YYYY-MM-DD
+            required: false
+            hint: Only shown here, to keep track of which CV is up.
 
   - name: gallery
     label: Gallery

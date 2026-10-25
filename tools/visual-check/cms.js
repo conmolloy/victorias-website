@@ -10,12 +10,13 @@ const fs = require("fs");
 const path = require("path");
 
 const [site, repo, out] = process.argv.slice(2);
-const ENTRIES = ["home", "gallery", "headshots", "reviews"];
+const ENTRIES = ["home", "gallery", "headshots", "reviews", "cv"];
 // what the editor needs to read: config, content files, photos
 const SEED = [
   "src/content",
   "src/assets/img",
   "public/assets/img",
+  "public/assets/cv",
   "public/admin",
 ];
 
