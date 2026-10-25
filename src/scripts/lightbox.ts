@@ -99,11 +99,27 @@ export function initLightbox(): void {
     ];
   }
 
-  function open(link: HTMLAnchorElement) {
-    links = [
-      ...document.querySelectorAll<HTMLAnchorElement>("a.lightbox-link"),
-    ];
-    closing = false;
+  /** the photo grows out of / shrinks into its thumbnail as one element
+   * (a view transition), where the browser can; otherwise the animation below */
+  const canMorph = () =>
+    "startViewTransition" in document && !reducedMotion.matches;
+  const MORPH = "lightbox-photo";
+  /** run a morph; meanwhile the navbar fades with the page (html.lightbox-morph) */
+  function morph(update: () => void, done: () => void) {
+    const root = document.documentElement;
+    root.classList.add("lightbox-morph");
+    const transition = document.startViewTransition(update);
+    transition.finished.finally(() => {
+      root.classList.remove("lightbox-morph");
+      done();
+    });
+  }
+
+  /** a link on the page for `link`: itself, or its card's cover if hidden */
+  const onPage = (link: HTMLAnchorElement) =>
+    link.hidden ? (links.find((l) => !l.hidden) ?? link) : link;
+
+  function openDialog(link: HTMLAnchorElement) {
     // the page keeps its width when its scrollbar is hidden
     document.documentElement.style.setProperty(
       "--scrollbar-width",
@@ -113,8 +129,32 @@ export function initLightbox(): void {
     dialog!.showModal();
     show(links.indexOf(link));
     closeButton.focus();
+  }
 
-    const from = thumbOf(link).getBoundingClientRect();
+  function open(link: HTMLAnchorElement) {
+    // the photos browsed together: the card's (data-group), or else every
+    // photo on the page that isn't in a card
+    const group = link.dataset.group;
+    links = [
+      ...document.querySelectorAll<HTMLAnchorElement>("a.lightbox-link"),
+    ].filter((l) => l.dataset.group === group);
+    closing = false;
+
+    const thumb = thumbOf(link);
+    if (canMorph() && visible(thumb.getBoundingClientRect())) {
+      thumb.style.viewTransitionName = MORPH;
+      morph(
+        () => {
+          thumb.style.viewTransitionName = "";
+          openDialog(link);
+          image.style.viewTransitionName = MORPH;
+        },
+        () => (image.style.viewTransitionName = ""),
+      );
+      return;
+    }
+    openDialog(link);
+    const from = thumb.getBoundingClientRect();
     const duration = ms(OPEN_MS);
     if (visible(from))
       image.animate([{ transform: over(from) }, { transform: "none" }], {
@@ -128,14 +168,25 @@ export function initLightbox(): void {
   function close() {
     if (closing || !dialog!.open) return;
     closing = true;
-    const link = links[index]!;
-    const thumb = thumbOf(link);
+    const thumb = thumbOf(onPage(links[index]!));
     // browsed to another photo: bring it into view behind the lightbox first
     if (!visible(thumb.getBoundingClientRect())) {
       thumb.closest(".reveal")?.classList.add("revealed");
       thumb.scrollIntoView({ block: "center", behavior: "instant" });
     }
     const to = thumb.getBoundingClientRect();
+    if (canMorph() && visible(to)) {
+      image.style.viewTransitionName = MORPH;
+      morph(
+        () => {
+          image.style.viewTransitionName = "";
+          dialog!.close();
+          thumb.style.viewTransitionName = MORPH;
+        },
+        () => (thumb.style.viewTransitionName = ""),
+      );
+      return;
+    }
     const duration = ms(OPEN_MS);
     const animations = fade("out", duration);
     animations.push(
@@ -217,8 +268,9 @@ export function initLightbox(): void {
     // (also the backdrop's)
     for (const a of dialog.getAnimations({ subtree: true })) a.cancel();
     image.removeAttribute("src");
-    // back to the photo that was showing (also for keyboard/screen readers)
-    links[index]?.focus({ preventScroll: true });
+    // back to the photo that was showing (also for keyboard/screen readers;
+    // a card's hidden photo: its cover)
+    if (links[index]) onPage(links[index]).focus({ preventScroll: true });
   });
 
   // swipe left/right for next/previous

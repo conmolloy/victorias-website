@@ -6,21 +6,25 @@
  */
 import { getEntry } from "astro:content";
 import AudioClip from "../components/gallery/AudioClip.astro";
-import GalleryPhoto from "../components/gallery/GalleryPhoto.astro";
 import Lightbox from "../components/Lightbox.astro";
-import Production from "../components/gallery/Production.astro";
+import ShowCard from "../components/gallery/ShowCard.astro";
 import VideoPreview from "../components/gallery/VideoPreview.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { CATEGORIES, categorySlug, galleryCards } from "../lib/gallery";
 
 const { data } = (await getEntry("gallery", "gallery"))!;
-const { productions } = data;
+// one cover card per show, plus misc, dance and certificates (lib/gallery.ts)
+const cards = galleryCards(data);
+// filter buttons only for the categories that have cards
+const categories = CATEGORIES.filter((c) =>
+  cards.some((card) => card.category === c),
+);
 
 /** split a list into rows of `size` */
 const rows = <T,>(items: T[], size: number): T[][] =>
   Array.from({ length: Math.ceil(items.length / size) }, (_, i) =>
     items.slice(i * size, (i + 1) * size),
   );
-const miscRows = rows(data.misc, 3);
 ---
 
 <BaseLayout
@@ -39,11 +43,8 @@ const miscRows = rows(data.misc, 3);
         <div class="container">
           <div class="col">
             <nav class="gallery-nav" aria-label="Gallery sections">
-              <a class="js-scroll-trigger galbtn" href="#acting">
-                Acting
-              </a>
-              <a class="js-scroll-trigger galbtn" href="#Dance-section">
-                Dance
+              <a class="js-scroll-trigger galbtn" href="#photos">
+                Photos
               </a>
               <a class="js-scroll-trigger galbtn" href="#singing-section">
                 Singing
@@ -54,63 +55,46 @@ const miscRows = rows(data.misc, 3);
               <a class="js-scroll-trigger galbtn" href="#audio-section">
                 Audio
               </a>
-              <a class="js-scroll-trigger galbtn" href="#certificate-section">
-                Certificates
-              </a>
             </nav>
-            <h2 id="acting" class="text-center">
-              Acting
+            <h2 id="photos" class="text-center">
+              Photos
             </h2>
           </div>
 
           {/* every show and section the same width */}
           <div class="container">
             <div class="container">
-              {productions.map((production, i) => (
-                <Production
-                  production={production}
-                  eager={i === 0}
-                  last={i === productions.length - 1}
-                />
-              ))}
-
-              <div class="row header-new">
-                <div class="intro">
-                  <h1 id="acting-misc" class="text-center">
-                    MISC
-                  </h1>
-                </div>
-              </div>
-              {miscRows.map((row, i) => (
-                <div
-                  class:list={["row", { projects: i === miscRows.length - 1 }]}
+              {/* filters: #theatre etc. in the address, so a filtered
+                  gallery can be shared (script below) */}
+              <div
+                class="show-filters"
+                role="group"
+                aria-label="Show photos of"
+              >
+                <button
+                  type="button"
+                  class="show-filter"
+                  data-filter="all"
+                  aria-pressed="true"
                 >
-                  {row.map((photo) => (
-                    <div class="col">
-                      <GalleryPhoto photo={photo} kind="dance" />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-
-            <div class="container">
-              <div class="row header-new">
-                <div class="intro">
-                  <h1 id="Dance-section" class="text-center">
-                    Dance
-                  </h1>
-                </div>
+                  All
+                </button>
+                {categories.map((category) => (
+                  <button
+                    type="button"
+                    class="show-filter"
+                    data-filter={categorySlug(category)}
+                    aria-pressed="false"
+                  >
+                    {category}
+                  </button>
+                ))}
               </div>
-              {rows(data.dance, 3).map((row) => (
-                <div class="row">
-                  {row.map((photo) => (
-                    <div class="col">
-                      <GalleryPhoto photo={photo} kind="dance" />
-                    </div>
-                  ))}
-                </div>
-              ))}
+              <div class="show-grid">
+                {cards.map((card, i) => (
+                  <ShowCard card={card} index={i} eager={i < 3} />
+                ))}
+              </div>
             </div>
             <br />
 
@@ -160,25 +144,6 @@ const miscRows = rows(data.misc, 3);
                 </div>
               ))}
             </div>
-
-            <div class="container">
-              <div class="row intro">
-                <div class="col">
-                  <h1 id="certificate-section" class="text-center">
-                    Certificates
-                  </h1>
-                </div>
-              </div>
-              <div class="row">
-                {data.certificates.map((column) => (
-                  <div class="col">
-                    {column.photos.map((photo) => (
-                      <GalleryPhoto photo={photo} kind="certificate" />
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -186,3 +151,33 @@ const miscRows = rows(data.misc, 3);
   </div>
   <Lightbox />
 </BaseLayout>
+
+<script>
+  // Filter buttons: show only the cards of one category (data-category);
+  // the choice is kept in the address (#theatre, #dance, #stage-combat) so
+  // it can be shared, and read from it when the page opens.
+  const buttons = [
+    ...document.querySelectorAll<HTMLButtonElement>("button.show-filter"),
+  ];
+  const cards = [...document.querySelectorAll<HTMLElement>(".show-card")];
+
+  function apply(filter: string) {
+    if (!buttons.some((b) => b.dataset.filter === filter)) filter = "all";
+    for (const b of buttons)
+      b.setAttribute("aria-pressed", String(b.dataset.filter === filter));
+    for (const card of cards)
+      card.hidden = filter !== "all" && card.dataset.category !== filter;
+  }
+
+  for (const button of buttons)
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter!;
+      apply(filter);
+      const url = new URL(location.href);
+      url.hash = filter === "all" ? "" : filter;
+      history.replaceState(history.state, "", url);
+    });
+  apply(location.hash.slice(1));
+  // a link to another filter, or Back/Forward
+  addEventListener("hashchange", () => apply(location.hash.slice(1)));
+</script>

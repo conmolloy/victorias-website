@@ -94,17 +94,6 @@ const paragraphs = (text = "") =>
 
 const Missing = ({ what }) => html`<div className="cms-missing">${what}</div>`;
 
-/** a gallery photo, as GalleryPhoto.astro */
-const Photo = ({ photo = {}, kind, keyPath, getAsset }) =>
-  photo.file
-    ? html`<img
-        className=${[kind, "img-fluid"].filter(Boolean).join(" ")}
-        src=${src(getAsset, photo.file)}
-        alt=${photo.alt || ""}
-        data-key-path=${keyPath}
-      />`
-    : html`<${Missing} what="(no photo yet)" />`;
-
 /* ---------- home page (src/pages/index.astro + Contact.astro) ---------- */
 
 const HomePreview = ({ entry, getAsset }) => {
@@ -248,115 +237,114 @@ const SectionTitle = ({ id, children }) => html`
   </div>
 `;
 
+/** the cover cards, as src/lib/gallery.ts makes them (sizes: cardSize()) */
+const galleryCards = (d) =>
+  [
+    ...(d.productions || []).map((p, i) => ({
+      keyPath: `productions.${i}`,
+      title: p.title,
+      meta: [p.company, p.role].filter(Boolean).join(" · "),
+      category: p.category || "Theatre",
+      photos: p.photos || [],
+    })),
+    {
+      keyPath: "misc",
+      title: "More productions",
+      category: "Theatre",
+      photos: d.misc || [],
+    },
+    {
+      keyPath: "dance",
+      title: "Dance",
+      category: "Dance",
+      photos: d.dance || [],
+    },
+    {
+      keyPath: "certificates",
+      title: "Stage combat certificates",
+      category: "Stage combat",
+      photos: (d.certificates || []).flatMap((c) => c.photos || []),
+    },
+  ].filter((card) => card.photos.length);
+const cardSize = (i) => (i % 7 === 0 ? "big" : i % 7 === 4 ? "wide" : "normal");
+
+const ShowCard = ({ card, index, getAsset }) => {
+  const cover = card.photos[0] || {};
+  const n = card.photos.length;
+  return html`
+    <article
+      className=${`show-card show-card-${cardSize(index)}`}
+      data-key-path=${card.keyPath}
+    >
+      <span className="show-cover" style=${{ display: "block" }}>
+        ${
+          cover.file
+            ? html`<img
+                src=${src(getAsset, cover.file)}
+                alt=${cover.alt || ""}
+              />`
+            : html`<${Missing} what="(no photo yet)" />`
+        }
+        <span className="show-card-text">
+          <span className="show-title">${card.title}</span>
+          ${card.meta ? html`<span className="show-meta">${card.meta}</span>` : ""}
+          <span className="show-count">${n} photo${n === 1 ? "" : "s"}</span>
+        </span>
+      </span>
+    </article>
+  `;
+};
+
 const GalleryPreview = ({ entry, getAsset }) => {
   const d = dataOf(entry);
-  const productions = d.productions || [];
-  const miscRows = rows(d.misc, 3);
+  const cards = galleryCards(d);
+  const categories = ["Theatre", "Dance", "Stage combat"].filter((c) =>
+    cards.some((card) => card.category === c),
+  );
   return html`
     <div className="header-container">
       <section>
         <section className="projects-clean dark">
           <div className="container">
             <div className="col">
-              <h2 id="acting" className="text-center">Acting</h2>
+              <h2 id="photos" className="text-center">Photos</h2>
             </div>
             <div className="container">
               <div className="container">
-                ${productions.map(
-                  (p, i) => html`
-                    <div key=${i} data-key-path=${`productions.${i}`}>
-                      <div className="row projects">
-                        ${(p.photos || []).map(
-                          (photo, j) => html`
-                            <div className="col" key=${j}>
-                              <${Photo}
-                                photo=${photo}
-                                getAsset=${getAsset}
-                                keyPath=${`productions.${i}.photos.${j}`}
-                              />
-                            </div>
-                          `,
-                        )}
-                      </div>
-                      <div className="row production">
-                        <div className="col">
-                          <h3
-                            className="text-center name"
-                            data-key-path=${`productions.${i}.title`}
-                          >
-                            <strong>${p.title}</strong>
-                          </h3>
-                          <h6
-                            className="text-center name"
-                            data-key-path=${`productions.${i}.company`}
-                          >
-                            <strong>${p.company}</strong>
-                          </h6>
-                          <p
-                            className="descriptiontwo"
-                            data-key-path=${`productions.${i}.role`}
-                          >
-                            ${p.role}
-                          </p>
-                          ${
-                            p.photos_by
-                              ? html`<p
-                                  className="descriptiontwo"
-                                  data-key-path=${`productions.${i}.photos_by`}
-                                >
-                                  Photos by ${p.photos_by}
-                                </p>`
-                              : ""
-                          }
-                        </div>
-                      </div>
-                      ${i < productions.length - 1 ? html`<hr />` : ""}
-                    </div>
-                  `,
-                )}
-                <${SectionTitle} id="acting-misc">MISC<//>
-                ${miscRows.map(
-                  (row, r) => html`
-                    <div
-                      key=${r}
-                      className=${r === miscRows.length - 1 ? "row projects" : "row"}
-                    >
-                      ${row.map(
-                        (photo, j) => html`
-                          <div className="col" key=${j}>
-                            <${Photo}
-                              photo=${photo}
-                              kind="dance"
-                              getAsset=${getAsset}
-                              keyPath=${`misc.${r * 3 + j}`}
-                            />
-                          </div>
-                        `,
-                      )}
-                    </div>
-                  `,
-                )}
-              </div>
-              <div className="container">
-                <${SectionTitle} id="Dance-section">Dance<//>
-                ${rows(d.dance, 3).map(
-                  (row, r) => html`
-                    <div className="row" key=${r}>
-                      ${row.map(
-                        (photo, j) => html`
-                          <div className="col" key=${j}>
-                            <${Photo}
-                              photo=${photo}
-                              kind="dance"
-                              getAsset=${getAsset}
-                              keyPath=${`dance.${r * 3 + j}`}
-                            />
-                          </div>
-                        `,
-                      )}
-                    </div>
-                  `,
-                )}
+                <div className="show-filters">
+                  <button
+                    type="button"
+                    className="show-filter"
+                    aria-pressed="true"
+                  >
+                    All
+                  </button>
+                  ${categories.map(
+                    (c) =>
+                      html`<button
+                        type="button"
+                        className="show-filter"
+                        key=${c}
+                      >
+                        ${c}
+                      </button>`,
+                  )}
+                </div>
+                <p className="cms-note">
+                  Each show is a card (its first photo is the cover); on the
+                  site a card opens all its photos.
+                </p>
+                <div className="show-grid">
+                  ${cards.map(
+                    (card, i) =>
+                      html`<${ShowCard}
+                        key=${card.keyPath}
+                        card=${card}
+                        index=${i}
+                        getAsset=${getAsset}
+                      />`,
+                  )}
+                </div>
               </div>
               <br />
               <div className="container">
@@ -411,33 +399,6 @@ const GalleryPreview = ({ entry, getAsset }) => {
                     </div>
                   `,
                 )}
-              </div>
-              <div className="container">
-                <div className="row intro">
-                  <div className="col">
-                    <h1 id="certificate-section" className="text-center">
-                      Certificates
-                    </h1>
-                  </div>
-                </div>
-                <div className="row">
-                  ${(d.certificates || []).map(
-                    (column, c) => html`
-                      <div className="col" key=${c}>
-                        ${(column.photos || []).map(
-                          (photo, j) =>
-                            html`<${Photo}
-                              key=${j}
-                              photo=${photo}
-                              kind="certificate"
-                              getAsset=${getAsset}
-                              keyPath=${`certificates.${c}.photos.${j}`}
-                            />`,
-                        )}
-                      </div>
-                    `,
-                  )}
-                </div>
               </div>
             </div>
           </div>

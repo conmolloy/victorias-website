@@ -16,6 +16,7 @@ import { defineCollection } from "astro:content";
 import { file } from "astro/loaders";
 import { z } from "astro/zod";
 import { parse } from "yaml";
+import { CATEGORIES } from "./lib/gallery";
 
 /** A whole YAML file as a single entry (Astro doesn't keep entry order). */
 const yamlFile = (name: string) =>
@@ -86,6 +87,8 @@ const gallery = defineCollection({
               title: text,
               company: text,
               role: text,
+              /** which gallery filter shows it (Theatre if not given) */
+              category: z.enum(CATEGORIES).default("Theatre"),
               photos_by: text.optional(),
               photos: z.array(photo).min(1),
             })

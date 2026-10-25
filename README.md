@@ -271,6 +271,8 @@ updated: 2026-10-24 # optional, YYYY-MM-DD – only shown in the editor
      - title: Hamlet
        company: Shadow Road Productions
        role: Ophelia
+       category: Theatre # optional: Theatre (default), Dance or Stage combat –
+       # which filter button above the gallery shows it
        photos_by: Jane Smith # optional – shows "Photos by Jane Smith"
        photos:
          - file: /assets/img/hamlet/1.webp
@@ -281,6 +283,8 @@ updated: 2026-10-24 # optional, YYYY-MM-DD – only shown in the editor
            alt: Victoria Adler and the company of Hamlet
    ```
 
+   Each show is a card in the gallery grid: its **first photo is the cover**
+   (put the best one first), and tapping the card opens all its photos.
    `alt` describes the photo for people who can't see it (and for Google).
    Misc and dance photos are the same `- file: … alt: …` pairs, under
    `misc:` / `dance:`.
