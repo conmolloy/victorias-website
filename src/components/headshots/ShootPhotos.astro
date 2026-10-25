@@ -8,6 +8,8 @@ import { photo as photoAttrs } from "../../lib/photos";
 
 interface Props {
   shoot: {
+    year: number;
+    photographer: string;
     columns: 2 | 3;
     stack: number;
     photos: { file: string; alt: string }[];
@@ -28,14 +30,16 @@ const columnClass =
   shoot.columns === 3
     ? "col-lg-4 col-md-12 mb-4 mb-lg-0"
     : "col-lg-6 col-md-12 mb-lg-0";
-// widths the photos are shown at: zoomed (1.6x on hover) on desktop, full
-// column width on phones and tablets (as measured on the page)
+// widths the photos are shown at: their column on desktop, the full width
+// on phones and tablets (as measured on the page)
 const SMALL_SCREENS =
   "(min-width: 768px) 690px, (min-width: 576px) 510px, calc(100vw - 30px)";
 const sizes =
   shoot.columns === 3
-    ? `(min-width: 1200px) 560px, (min-width: 992px) 464px, ${SMALL_SCREENS}`
-    : `(min-width: 1200px) 864px, (min-width: 992px) 720px, ${SMALL_SCREENS}`;
+    ? `(min-width: 1200px) 350px, (min-width: 992px) 290px, ${SMALL_SCREENS}`
+    : `(min-width: 1200px) 540px, (min-width: 992px) 450px, ${SMALL_SCREENS}`;
+// shown in the lightbox above the photo's description
+const caption = `Photography by ${shoot.photographer}, ${shoot.year}`;
 const isFirst = (photo: object) => eager && photo === shoot.photos[0];
 const attrs = new Map(
   await Promise.all(
@@ -53,18 +57,20 @@ const attrs = new Map(
         {column.map((photo) => {
           const { src, srcset, width, height } = attrs.get(photo)!;
           return (
-            <img
-              alt={photo.alt}
-              fetchpriority={isFirst(photo) ? "high" : undefined}
-              loading={eager ? undefined : "lazy"}
-              decoding={isFirst(photo) ? undefined : "async"}
-              src={src}
-              srcset={srcset}
-              sizes={sizes}
-              class="w-100 rounded mb-4 zoom-hs"
-              width={width}
-              height={height}
-            />
+            <a class="lightbox-link" href={src} data-caption={caption}>
+              <img
+                alt={photo.alt}
+                fetchpriority={isFirst(photo) ? "high" : undefined}
+                loading={eager ? undefined : "lazy"}
+                decoding={isFirst(photo) ? undefined : "async"}
+                src={src}
+                srcset={srcset}
+                sizes={sizes}
+                class="w-100 rounded mb-4 headshot-photo"
+                width={width}
+                height={height}
+              />
+            </a>
           );
         })}
       </div>

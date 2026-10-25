@@ -1,0 +1,178 @@
+---
+/**
+ * Full-screen photo viewer for the gallery and headshots. Every
+ * `a.lightbox-link` on the page (a photo linking to its full-size file, see
+ * GalleryPhoto.astro / ShootPhotos.astro) opens here instead of on its own:
+ *   - the photo grows from its thumbnail (the thumbnail is shown straight
+ *     away; the full-size file is loaded only now)
+ *   - caption: the link's data-caption (show and role, or photographer) and
+ *     the photo's description (alt text)
+ *   - previous/next: buttons, ← / →, or a swipe; Esc, ✕ or a click beside
+ *     the photo closes it and puts the focus back on the photo
+ * A native modal <dialog>: the rest of the page can't be reached with Tab or
+ * a screen reader while it's open, and the page doesn't scroll behind it
+ * (html.lightbox-open in Projects-Clean.css).
+ * Without JavaScript the links simply open the photo.
+ */
+---
+
+<dialog class="lightbox" aria-modal="true" aria-label="Photo viewer">
+  <figure class="lightbox-figure">
+    <img class="lightbox-img" alt="" decoding="async" />
+    <figcaption class="lightbox-caption">
+      <span class="lightbox-title"></span>
+      <span class="lightbox-alt"></span>
+      <span class="lightbox-count"></span>
+    </figcaption>
+  </figure>
+  <button type="button" class="lightbox-btn lightbox-close" aria-label="Close">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18"></path>
+    </svg>
+  </button>
+  <button
+    type="button"
+    class="lightbox-btn lightbox-prev"
+    aria-label="Previous photo"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15 5l-7 7 7 7"></path>
+    </svg>
+  </button>
+  <button
+    type="button"
+    class="lightbox-btn lightbox-next"
+    aria-label="Next photo"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 5l7 7-7 7"></path>
+    </svg>
+  </button>
+</dialog>
+
+<style>
+  .lightbox {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    overflow: hidden;
+  }
+  .lightbox [hidden] {
+    display: none;
+  }
+  .lightbox::backdrop {
+    background: rgb(0 0 0 / 92%);
+  }
+  .lightbox-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    height: 100%;
+    margin: 0;
+    padding: 3.5rem 1rem 1rem;
+    /* horizontal swipes are handled by the script; pinch-zoom still works */
+    touch-action: pan-y pinch-zoom;
+  }
+  .lightbox-img {
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 2px;
+    transform-origin: 0 0;
+    user-select: none;
+  }
+  .lightbox-caption {
+    max-width: 40rem;
+    min-height: 3em;
+    font:
+      0.95rem/1.4 Roboto,
+      Arial,
+      sans-serif;
+    text-align: center;
+  }
+  .lightbox-caption span {
+    display: block;
+  }
+  .lightbox-title {
+    font-weight: 700;
+  }
+  .lightbox-alt {
+    color: #ccc;
+  }
+  .lightbox-count {
+    margin-top: 0.25rem;
+    color: #999;
+    font-size: 0.8rem;
+  }
+  .lightbox-btn {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 12%);
+    color: #fff;
+    transition: background-color 0.2s ease-out;
+  }
+  .lightbox-btn:hover {
+    background: rgb(255 255 255 / 25%);
+  }
+  .lightbox-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .lightbox-btn svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lightbox-close {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  .lightbox-prev,
+  .lightbox-next {
+    top: 50%;
+    translate: 0 -50%;
+  }
+  .lightbox-prev {
+    left: 0.5rem;
+  }
+  .lightbox-next {
+    right: 0.5rem;
+  }
+  /* phones: the arrows go below the photo, out of its way (swiping works too) */
+  @media (max-width: 575px) {
+    .lightbox-prev,
+    .lightbox-next {
+      top: auto;
+      bottom: 0.5rem;
+      translate: none;
+    }
+    .lightbox-figure {
+      padding-bottom: 3.75rem;
+    }
+  }
+</style>
+
+<script>
+  import { initLightbox } from "../scripts/lightbox";
+
+  initLightbox();
+</script>
