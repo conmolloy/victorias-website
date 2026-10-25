@@ -21,13 +21,20 @@ Each page loads the same small stack:
 - **Font Awesome 4.7** icons, also trimmed: `assets/fonts/font-awesome.min.css`
   - `fontawesome-subset.woff2` contain only the icons in use (menu, phone,
     envelope, arrow-down)
-- **Fonts, self-hosted** (no Google Fonts requests): Lora + Cabin via
-  `assets/css/fonts.css` and Roboto (`font-roboto.css`) on every page, Outfit
-  (`font-outfit.css`) on home. Files are in `public/assets/fonts/` (latin +
-  latin-ext subsets, `font-display: swap`). Each page `<link rel="preload">`s
-  the fonts its first screen uses (the `preloads` prop, see below). To add a
-  font, download it from Google Fonts (or google-webfonts-helper) as woff2
-  rather than linking `fonts.googleapis.com`.
+- **Light theme:** every colour is a named custom property (`--bg`, `--text`,
+  `--heading`, `--muted`, `--panel`, `--line`, `--btn-bg`, …) at the top of
+  `assets/css/Projects-Clean.css`, which overrides the trimmed theme's black
+  page and navbar. Change a colour there and it changes everywhere. Text over
+  photos/video (the contact section, the lightbox) uses `--on-image` (white).
+- **Fonts, self-hosted** (no Google Fonts requests): Source Sans 3 (body
+  text, captions, quotes, buttons; variable font, every weight in one file)
+  - Cabin (headings, show titles) via
+    `assets/css/fonts.css` and Roboto (`font-roboto.css`) on every page, Outfit
+    (`font-outfit.css`) on home. Files are in `public/assets/fonts/` (latin +
+    latin-ext subsets, `font-display: swap`). Each page `<link rel="preload">`s
+    the fonts its first screen uses (the `preloads` prop, see below). To add a
+    font, download it from Google Fonts (or google-webfonts-helper) as woff2
+    rather than linking `fonts.googleapis.com`.
 - **Google Tag Manager** (`GTM-NXB648G` – Google Analytics `G-WXKX3EMGL2` +
   Google Ads tags) is loaded _after_ the page: on the first
   scroll/tap/click/key, 3 s after load, or when the tab is switched away.

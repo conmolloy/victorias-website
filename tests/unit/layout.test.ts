@@ -58,13 +58,13 @@ describe("BaseLayout", () => {
 
   it("preloads the given fonts, in order", async () => {
     const html = await render({
-      preloads: ["lora-latin.woff2", "roboto-400-latin.woff2"],
+      preloads: ["source-sans-3-latin.woff2", "roboto-400-latin.woff2"],
     });
     const preloads = [
       ...html.matchAll(/<link rel="preload" href="([^"]+)" as="font"/g),
     ].map((m) => m[1]);
     expect(preloads).toEqual([
-      "assets/fonts/lora-latin.woff2",
+      "assets/fonts/source-sans-3-latin.woff2",
       "assets/fonts/roboto-400-latin.woff2",
     ]);
   });
