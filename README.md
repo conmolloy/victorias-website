@@ -83,6 +83,13 @@ reorder (drag) and change, with photo uploads.
 - **Photos:** drag a photo onto a photo box (a JPG straight from the
   photographer is fine – it's resized and converted for you) and give it a
   short description.
+- **Showreel chapters:** open **Showreel** and add a chapter per scene –
+  its name and where it starts as minutes:seconds (e.g. "Comedy", `0:12`).
+  They appear as buttons under the showreel that play from that scene (none
+  listed: no buttons).
+- **Home page buttons:** the three buttons over the header video (showreel,
+  headshots, CV) take their wording from **Home page → Buttons over the
+  header video**; the CV button downloads the PDF chosen under **CV**.
 - **A new CV:** open **CV**, click **Replace** under the current one,
   then **Upload** and pick the PDF (in Word: _File → Save As → PDF_ first –
   only PDFs are accepted), **Insert**, click **Today** under _Last updated_,
@@ -238,6 +245,19 @@ bio: |
 contact:
   phone: "07988448247" # keep the quotes, or the leading 0 is lost
   email: victoriaadlers@gmail.com
+```
+
+### Showreel chapters
+
+In `src/content/showreel.yaml`, one entry per scene, in order (times as
+minutes:seconds, quoted):
+
+```yaml
+chapters:
+  - label: Comedy
+    time: "0:12"
+  - label: Period drama
+    time: "1:05"
 ```
 
 ### Change the CV

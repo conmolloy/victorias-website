@@ -6,6 +6,7 @@
  *   reviews.yaml    press reviews (some also on the home page), coaching reviews
  *   home.yaml       home page: tagline, photo, about text, contact details
  *   cv.yaml         the CV page's PDF
+ *   showreel.yaml   the showreel's chapters (buttons that jump to a scene)
  *
  * Each file is checked against the schema below when the site is built, so
  * a typo (a misspelt field name, a missing alt text or credit, a wrong
@@ -161,6 +162,15 @@ const home = defineCollection({
     .object({
       id: z.string(), // added by yamlFile()
       tagline: text,
+      /** the three buttons over the header video */
+      buttons: z
+        .object({ showreel: text, headshots: text, cv: text })
+        .strict()
+        .default({
+          showreel: "Watch showreel",
+          headshots: "Headshots",
+          cv: "Download CV",
+        }),
       /** served as it is from public/ (not resized by the build) */
       photo: z
         .object({
@@ -201,4 +211,29 @@ const cv = defineCollection({
     .strict(),
 });
 
-export const collections = { gallery, headshots, reviews, home, cv };
+/** a time in the showreel, m:ss (e.g. 0:12, 1:05) */
+const chapterTime = text.regex(/^\d{1,2}:[0-5]\d$/, {
+  message: 'A time in the showreel as minutes:seconds, e.g. "0:12" or "1:05"',
+});
+
+const showreel = defineCollection({
+  loader: yamlFile("showreel"),
+  schema: z
+    .object({
+      id: z.string(), // added by yamlFile()
+      /** buttons under the video that jump to a scene (none: no buttons) */
+      chapters: z
+        .array(z.object({ label: text, time: chapterTime }).strict())
+        .default([]),
+    })
+    .strict(),
+});
+
+export const collections = {
+  gallery,
+  headshots,
+  reviews,
+  home,
+  cv,
+  showreel,
+};

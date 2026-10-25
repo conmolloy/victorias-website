@@ -183,13 +183,61 @@ body:not(#page-top) {
   opacity: 0.8;
   width: 100%;
   max-width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+}
+/* phones: taller than 16:9, so the name and the three buttons fit over the
+   video (it's cropped at the sides instead) */
+@media (max-width: 767.98px) {
+  .video-container {
+    height: min(80svh, 34rem);
+    padding-bottom: 0;
+  }
 }
 
 .showreel {
   display: block;
   width: 100%;
   height: auto;
+}
+/* Showreel chapters: buttons under the video that jump to a scene */
+.chapters ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.chapter {
+  padding: 0.45rem 0.9rem;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--heading);
+  transition:
+    border-color 0.2s ease-out,
+    background-color 0.2s ease-out,
+    color 0.2s ease-out;
+}
+.chapter:hover {
+  border-color: var(--heading);
+}
+.chapter:focus-visible {
+  outline: 3px solid var(--heading);
+  outline-offset: 2px;
+}
+.chapter[aria-current="true"] {
+  border-color: var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+}
+.chapter-time {
+  margin-right: 0.4rem;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
 }
 
 #audio-section {
@@ -373,7 +421,11 @@ hr {
   font-size: 80px;
   color: rgba(255, 255, 255, 0.7);
   z-index: 1000;
-  animation: bounce 2s infinite; /* Add bounce animation */
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-down-arrow {
+    animation: bounce 2s infinite;
+  }
 }
 
 /* .scroll-down-arrow:hover {
@@ -480,10 +532,85 @@ img.headshot-photo {
   padding-top: clamp(1.75rem, 4vw, 3.5rem);
 }
 
-/* Home: "actor" under the name */
-.tagline {
+/* Home: the first screen for casting – name, "actor" and three buttons
+   over the header video, on a soft dark gradient so they read over any
+   frame */
+.hero {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.5rem 1rem clamp(2rem, 9vh, 5rem);
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 65%) 0%,
+    rgb(0 0 0 / 35%) 45%,
+    rgb(0 0 0 / 0%) 75%
+  );
+  color: var(--on-image);
+  text-align: center;
+}
+.hero-name {
+  margin: 0;
+  color: var(--on-image);
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 35%);
+}
+.hero-tagline {
+  margin: 0.25rem 0 1.5rem;
   font-family: Outfit, sans-serif;
-  margin-bottom: 2.5%;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+.hero-btn {
+  min-width: 11rem;
+  padding: 0.7rem 1.4rem;
+  border: 2px solid var(--on-image);
+  border-radius: 2px;
+  color: var(--on-image);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease-out,
+    color 0.2s ease-out;
+}
+.hero-btn:hover,
+.hero-btn:focus-visible,
+.hero-btn-primary {
+  background: var(--on-image);
+  color: var(--heading);
+  text-decoration: none;
+}
+.hero-btn-primary:hover,
+.hero-btn-primary:focus-visible {
+  background: rgb(255 255 255 / 85%);
+}
+.hero-btn:focus-visible {
+  outline: 3px solid var(--on-image);
+  outline-offset: 3px;
+}
+/* phones: the buttons stacked, full width */
+@media (max-width: 575.98px) {
+  .hero-actions {
+    flex-direction: column;
+    align-self: stretch;
+    max-width: 20rem;
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 
 /* Reviews page */
@@ -642,20 +769,22 @@ html.lightbox-open {
   padding-right: var(--scrollbar-width, 0);
 }
 
-/* Home entrance: the name, then "actor", rise into place when they come
-   into view (src/scripts/reveal.ts adds .in-view – at once on phones, where
-   they're on the first screen; on a laptop they're below the video), and the
-   header video zooms out very slowly from a little closer. Transform-led,
-   never fully transparent (an invisible heading wouldn't count as painted,
-   and the page's first-paint measure would get later); without JavaScript
-   they're simply there. */
+/* Home entrance: the name, "actor" and the buttons over the header video
+   rise into place one after another, and the video zooms out very slowly
+   from a little closer. Transform-led, never fully transparent (an
+   invisible heading wouldn't count as painted, and the page's first-paint
+   measure would get later); without the animation they're simply there. */
 @media (prefers-reduced-motion: no-preference) {
-  #about.in-view > h1,
-  #about.in-view > .tagline {
+  .hero-name,
+  .hero-tagline,
+  .hero-actions {
     animation: rise-in 0.6s ease-out both;
   }
-  #about.in-view > .tagline {
+  .hero-tagline {
     animation-delay: 0.12s;
+  }
+  .hero-actions {
+    animation-delay: 0.24s;
   }
   .responsive-video {
     animation: slow-zoom 9s ease-out both;

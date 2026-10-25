@@ -80,7 +80,23 @@ collections:
           - name: tagline
             label: Line under her name
             widget: string
-            hint: e.g. "actor"
+            hint: e.g. "actor" – shown over the header video
+          - name: buttons
+            label: Buttons over the header video
+            widget: object
+            fields:
+              - name: showreel
+                label: Showreel button
+                widget: string
+                hint: Opens the showreel page
+              - name: headshots
+                label: Headshots button
+                widget: string
+                hint: Opens the headshots page
+              - name: cv
+                label: CV button
+                widget: string
+                hint: Downloads the CV (the PDF chosen under CV)
           - name: photo
             label: Photo next to the text
             widget: object
@@ -141,6 +157,36 @@ collections:
             format: YYYY-MM-DD
             required: false
             hint: Only shown here, to keep track of which CV is up.
+
+  - name: showreel
+    label: Showreel
+    files:
+      - name: showreel
+        label: Showreel chapters
+        file: src/content/showreel.yaml
+        preview_path: "/showreel" # "View on Live Site"
+        fields:
+          - name: chapters
+            label: Chapters
+            label_singular: Chapter
+            widget: list
+            required: false
+            summary: "{{fields.time}} – {{fields.label}}"
+            hint: Buttons under the showreel that jump to a scene, in the order they happen. Leave empty for no buttons.
+            fields:
+              - name: label
+                label: Scene
+                widget: string
+                hint: e.g. "Comedy", "Period drama", "Stage combat"
+              - name: time
+                label: Starts at (minutes:seconds)
+                widget: string
+                hint: e.g. 0:12 or 1:05 – where the scene starts in the video
+                pattern:
+                  [
+                    "^[0-9]{1,2}:[0-5][0-9]$",
+                    "minutes:seconds, e.g. 0:12 or 1:05",
+                  ]
 
   - name: gallery
     label: Gallery
