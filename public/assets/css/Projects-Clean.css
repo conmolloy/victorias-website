@@ -113,55 +113,10 @@
   height: auto;
 }
 
-.zoom-big {
-  transition: transform 0.2s; /* Animation */
-  position: relative;
-  transform: scale(
-    1.9
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  z-index: 1;
-  margin: 1px;
-}
-
-.zoom {
-  transition: transform 0.2s; /* Animation */
-}
 #audio-section {
   margin-left: 40%;
 }
-.zoom:hover {
-  position: relative;
-  transform: scale(
-    1.6
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  z-index: 1;
-  border: 2px solid white;
-  margin: 1px;
-  transform-origin: center;
-}
-@media (max-width: 1000px) {
-  .zoom:hover {
-    position: relative;
-    transform: scale(
-      2.8
-    ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-    z-index: 1;
-    border: 1px solid white;
-    margin: 1px;
-    transform-origin: center;
-  }
-}
 
-.zoom-hs:hover {
-  position: relative;
-  transform: scale(
-    1.6
-  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-  z-index: 1;
-  border: 2px solid white;
-  margin: 1px;
-  transform-origin: center;
-}
 /* Remove this if doesnt work */
 
 .flex-container {
@@ -421,7 +376,7 @@ hr {
 
 /* Headshots have width/height attributes so their space is reserved while
    loading; keep the aspect ratio when CSS sets the width (.w-100). */
-img.zoom-hs {
+img.headshot-photo {
   height: auto;
 }
 
@@ -552,4 +507,59 @@ img.zoom-hs {
 }
 .banner-social-icon .list-inline-item:not(:last-child) {
   margin-right: 0.5rem;
+}
+
+/* ---------- Motion (kept subtle; all of it off for "reduce motion") ---------- */
+
+/* Page transitions: a short cross-fade between pages in browsers that
+   support cross-document view transitions (others change page as before;
+   the opt-in is in BaseLayout's <head>). The navbar is its own layer, so it
+   stays put instead of fading. */
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+}
+#mainNav {
+  view-transition-name: site-navbar;
+}
+
+/* Reveal on scroll: src/scripts/reveal.ts marks sections that
+   start below the first screen with .reveal and adds .revealed when they
+   scroll into view. Only opacity/transform change, so nothing moves the
+   layout; without JavaScript nothing is hidden. */
+@media (prefers-reduced-motion: no-preference) {
+  /* hidden at once (it's below the first screen)… */
+  .reveal:not(.revealed) {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  /* …and eased in when scrolled to */
+  .reveal.revealed {
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+}
+
+/* Gallery/headshot photos open in the lightbox: show they're clickable.
+   A block, so the link adds no line of its own around the photo. */
+.lightbox-link {
+  display: block;
+  cursor: zoom-in;
+}
+.lightbox-link:focus-visible {
+  outline: none;
+}
+.lightbox-link:focus-visible img {
+  outline: 3px solid #808080;
+  outline-offset: 2px;
+}
+
+/* Lightbox open (components/Lightbox.astro): the page behind doesn't scroll,
+   and doesn't shift sideways when its scrollbar goes */
+html.lightbox-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0);
 }

@@ -22,7 +22,11 @@ const { production, eager = false, last = false } = Astro.props;
 <div class="row projects">
   {production.photos.map((photo) => (
     <div class="col">
-      <GalleryPhoto photo={photo} eager={eager} />
+      <GalleryPhoto
+        photo={photo}
+        eager={eager}
+        caption={`${production.title} – ${production.role}`}
+      />
     </div>
   ))}
 </div>

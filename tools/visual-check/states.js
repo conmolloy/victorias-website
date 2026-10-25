@@ -56,12 +56,10 @@ const pause = (ms) => new Promise((r) => setTimeout(r, ms));
     await p.hover("#navbarResponsive .nav-item:nth-child(2) .nav-link");
     await pause(500);
     await p.screenshot({ path: path.join(out, `${n}-desktop-navhover.png`) });
-    // desktop: hover the first button / video preview / zoom photo the page has
+    // desktop: hover the first button / video preview the page has
     for (const [label, sel] of [
       ["btn", ".btn"],
       ["video", "a.video-facade"],
-      ["zoomhs", "img.zoom-hs"],
-      ["zoom", "img.zoom"],
     ]) {
       const target = await p.$(sel);
       if (!target) continue;
@@ -73,6 +71,16 @@ const pause = (ms) => new Promise((r) => setTimeout(r, ms));
       await p.screenshot({
         path: path.join(out, `${n}-desktop-hover-${label}.png`),
       });
+    }
+    // gallery/headshots: the first photo open in the lightbox
+    const photo = await p.$("a.lightbox-link");
+    if (photo) {
+      await photo.evaluate((e) => e.scrollIntoView({ block: "center" }));
+      await pause(400);
+      await photo.click();
+      await pause(900);
+      await p.screenshot({ path: path.join(out, `${n}-desktop-lightbox.png`) });
+      await p.keyboard.press("Escape");
     }
     await p.close();
     process.stdout.write(n + " ");
