@@ -564,16 +564,19 @@ html.lightbox-open {
   padding-right: var(--scrollbar-width, 0);
 }
 
-/* Home entrance: the name, then "actor", rise into place, and the header
-   video zooms out very slowly from a little closer. Transform-led, never
-   fully transparent (an invisible heading wouldn't count as painted, and the
-   page's first-paint measure would get later). */
+/* Home entrance: the name, then "actor", rise into place when they come
+   into view (src/scripts/reveal.ts adds .in-view – at once on phones, where
+   they're on the first screen; on a laptop they're below the video), and the
+   header video zooms out very slowly from a little closer. Transform-led,
+   never fully transparent (an invisible heading wouldn't count as painted,
+   and the page's first-paint measure would get later); without JavaScript
+   they're simply there. */
 @media (prefers-reduced-motion: no-preference) {
-  #about > h1,
-  #about > .tagline {
+  #about.in-view > h1,
+  #about.in-view > .tagline {
     animation: rise-in 0.6s ease-out both;
   }
-  #about > .tagline {
+  #about.in-view > .tagline {
     animation-delay: 0.12s;
   }
   .responsive-video {
