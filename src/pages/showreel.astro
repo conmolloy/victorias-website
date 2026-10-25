@@ -10,20 +10,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <div class="container">
     <section class="projects-clean light">
-      <div class="row header-new">
-        <div class="intro">
-          {/* No captions yet: needs a WebVTT file transcribed from the reel (assets/showreel/) */}
-          {/* eslint-disable-next-line astro/jsx-a11y/media-has-caption -- no caption file exists yet */}
-          <video
-            class="showreel"
-            controls
-            preload="metadata"
-            poster="assets/showreel/poster.webp"
-          >
-            <source src="assets/showreel/Showreel.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
+      {/* No captions yet: needs a WebVTT file transcribed from the reel (assets/showreel/) */}
+      {/* eslint-disable-next-line astro/jsx-a11y/media-has-caption -- no caption file exists yet */}
+      <video
+        class="showreel"
+        controls
+        preload="metadata"
+        poster="assets/showreel/poster.webp"
+      >
+        <source src="assets/showreel/Showreel.mp4" type="video/mp4" />
+      </video>
     </section>
   </div>
 </BaseLayout>

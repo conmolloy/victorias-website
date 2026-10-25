@@ -107,8 +107,10 @@ heading, "make this photo bigger" – point at it on the site itself:
    at the bottom. (Or add `?feedback` to any page address.)
 2. Move the mouse over the page: whatever is under it gets an orange
    outline. Click it (on a phone: tap once to outline, tap again to pick).
-   Links, photos and videos don't open while feedback mode is on, and it
-   stays on as you move between pages with the menu.
+   Links, photos and videos don't open while feedback mode is on – except
+   the menu at the top, which still works so you can move between pages
+   (feedback mode stays on). To comment on the menu itself, use **Comment on
+   the menu** on the black bar.
 3. Type what you'd like changed and press **Send**. You get a link like
    **Sent – #12**: that's the request on GitHub (Issues, labelled
    `site-feedback`), with the page, the exact spot and your screen size

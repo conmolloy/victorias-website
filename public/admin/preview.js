@@ -45,6 +45,8 @@ CMS.registerPreviewStyle(
   /* the real pages leave room for the fixed navbar; the preview has none */
   .header-container { margin-top: 0 !important; }
   .reviews-page { padding-top: 1rem; }
+  /* the page's room for the fixed navbar: the preview has no navbar */
+  body { padding-top: 0 !important; }
   /* the CV page's own styles (src/pages/resume.astro) */
   #pdf-container { position: relative; background: var(--panel); color: var(--text); padding: 20px; }
   #download-link { position: absolute; top: 10%; right: 5%; }

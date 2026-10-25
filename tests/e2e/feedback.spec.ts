@@ -94,17 +94,22 @@ test("feedback mode: pick a photo, send, the issue says what and where", async (
   expect(body).toMatch(/\*\*Image:\*\* `[^`]+\.webp` – “.+”/);
   expect(body).toMatch(/\*\*Screen:\*\* \d+×\d+ \(desktop\)/);
 
-  // still on after moving to another page; Exit switches it off
+  // the menu still works (and feedback mode stays on); Exit switches it off
   await page.getByRole("button", { name: "Close" }).click();
-  await page.goto("/reviews.html");
+  await page.locator('#mainNav a.nav-link[href="reviews"]').click();
+  await expect(page).toHaveURL(/\/reviews$/);
   await expect(
     page.getByRole("region", { name: "Feedback mode" }),
   ).toBeVisible();
   // a link doesn't navigate in feedback mode
   await page.getByRole("link", { name: "Read Review" }).first().click();
-  await expect(page).toHaveURL(/reviews\.html$/);
+  await expect(page).toHaveURL(/\/reviews$/);
   await page.keyboard.press("Escape");
   await expect(page.locator(".fb-panel")).toHaveCount(0);
+  // the menu itself can be commented on from the bar
+  await page.getByRole("button", { name: "Comment on the menu" }).click();
+  await expect(page.locator(".fb-panel")).toBeVisible();
+  await page.keyboard.press("Escape");
   await page.getByRole("button", { name: "Exit" }).click();
   await expect(page.locator("[data-feedback-ui]")).toHaveCount(0);
   await page.locator('#mainNav a.nav-link[href="gallery"]').click();

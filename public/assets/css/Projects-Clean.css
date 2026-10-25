@@ -13,6 +13,9 @@
   --btn-text: #fff;
   --on-image: #fff; /* text over photos/video (contact section, lightbox) */
   --body-font: "Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* the fixed navbar's height (wide screens: below) and the gap under it */
+  --nav-height: 64px;
+  --nav-gap: 3rem;
 }
 
 body {
@@ -31,7 +34,8 @@ h6 {
 }
 
 /* Navbar: white, dark links, a firm line underneath (also before scrolling,
-   when the theme would make it see-through on wide screens) */
+   when the theme would make it see-through on wide screens – except over
+   the home page's video, below) */
 #mainNav,
 #mainNav.navbar-shrink {
   border-bottom: 2px solid var(--line);
@@ -48,6 +52,20 @@ h6 {
 /* the Spotlight/IMDb/Instagram logos are white images: show them dark */
 #mainNav img.logo {
   filter: invert(1);
+}
+/* Home on wide screens: see-through over the showreel video until the page
+   is scrolled (then white, as on the other pages), with white links */
+@media (min-width: 992px) {
+  #page-top #mainNav:not(.navbar-shrink) {
+    border-bottom-color: transparent;
+    background: transparent;
+  }
+  #page-top #mainNav:not(.navbar-shrink) a {
+    color: var(--on-image);
+  }
+  #page-top #mainNav:not(.navbar-shrink) img.logo {
+    filter: none;
+  }
 }
 
 .projects-clean {
@@ -129,18 +147,30 @@ h6 {
   border-left: none;
   border-right: none;
   position: relative;
-  margin-top: 20px;
-  margin-top: 0; /* Set the default margin-top value */
 }
 
-@media (max-width: 1000px) {
-  .header-container {
-    margin-top: 100px; /* Apply a larger margin-top on screens smaller than 1000px */
+/* Every page's content starts the same gap below the fixed navbar (it's
+   104px tall on wide screens before it shrinks, 64px on smaller ones).
+   Home is different: there the header video sits right under the navbar
+   (see-through on wide screens, so the video shows behind it). */
+@media (min-width: 992px) {
+  :root {
+    --nav-height: 104px;
+  }
+}
+body:not(#page-top) {
+  padding-top: calc(var(--nav-height) + var(--nav-gap));
+}
+@media (max-width: 991.98px) {
+  #page-top .header-container {
+    margin-top: var(--nav-height);
   }
 }
 
-/* Home header video: a 16:9 box the absolutely-positioned video sits in */
+/* Home header video: a 16:9 box the absolutely-positioned video sits in
+   (black behind it: the video is slightly see-through, which darkens it) */
 .video-container {
+  background: #000;
   position: relative;
   width: 100%;
   height: 0;
@@ -157,11 +187,8 @@ h6 {
 }
 
 .showreel {
-  position: absolute;
-  top: 5%;
-  left: 10%;
-  opacity: 0.8;
-  width: 80%;
+  display: block;
+  width: 100%;
   height: auto;
 }
 
@@ -460,9 +487,6 @@ img.headshot-photo {
 }
 
 /* Reviews page */
-.reviews-page {
-  padding-top: 100px;
-}
 .reviews-title {
   margin-bottom: 4%;
 }
