@@ -11,10 +11,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>Edit site – Victoria Adler</title>
+    <style>
+      .site-feedback-link {
+        position: fixed;
+        z-index: 1000;
+        right: 1rem;
+        bottom: 1rem;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        background: #e8590c;
+        color: #fff;
+        font:
+          600 14px/1.2 system-ui,
+          sans-serif;
+        text-decoration: none;
+        box-shadow: 0 4px 14px rgb(0 0 0 / 30%);
+      }
+      .site-feedback-link:hover,
+      .site-feedback-link:focus-visible {
+        background: #c2410c;
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+      }
+    </style>
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms@0.251.0/dist/sveltia-cms.js"></script>
     <!-- previews that look like the real pages (see preview.js) -->
     <script src="preview.js"></script>
+    <!-- feedback mode: the live site in a new tab, where she points at
+         anything and asks for a change (README "Leaving feedback") -->
+    <a
+      class="site-feedback-link"
+      href="/?feedback"
+      target="_blank"
+      rel="noopener"
+    >
+      Leave feedback on the site ↗
+    </a>
   </body>
 </html>

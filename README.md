@@ -97,6 +97,30 @@ reorder (drag) and change, with photo uploads.
   photo without a description – the site simply stays as it was until it's
   fixed.
 
+#### Leaving feedback (asking for a change anywhere on the site)
+
+For things the editing screen can't change – layout, colours, a typo in a
+heading, "make this photo bigger" – point at it on the site itself:
+
+1. In the editing screen, click **Leave feedback on the site ↗** (bottom
+   right). The site opens in a new tab with a black **Feedback mode** bar
+   at the bottom. (Or add `?feedback` to any page address.)
+2. Move the mouse over the page: whatever is under it gets an orange
+   outline. Click it (on a phone: tap once to outline, tap again to pick).
+   Links, photos and videos don't open while feedback mode is on, and it
+   stays on as you move between pages with the menu.
+3. Type what you'd like changed and press **Send**. You get a link like
+   **Sent – #12**: that's the request on GitHub (Issues, labelled
+   `site-feedback`), with the page, the exact spot and your screen size
+   attached. A screenshot can be added there afterwards if it helps.
+4. **Exit** (on the bar) switches it off.
+
+It uses the editing screen's sign-in, so sign in at `/admin` in the same
+browser first. If it says the token can't create issues, the token needs
+one more permission – see step 3 of [Giving Victoria access](#giving-victoria-access).
+Nothing is sent anywhere until **Send**, and visitors never download any of
+this (the code loads only in feedback mode).
+
 - **Saving publishes.** Each save is a commit to `main`, which runs the
   checks and deploys as usual – the change is live about 2–3 minutes later
   (progress: the repo's **Actions** tab). If a save would break the site –
@@ -128,9 +152,14 @@ reorder (drag) and change, with photo uploads.
    (role: Write). She accepts the email invitation.
 3. She signs in at `/admin`:
    - **Sign In Using Access Token** (works now): the dialog's link opens
-     GitHub with the right permissions ticked; choose _Only select
-     repositories → victorias-website_, an expiry (up to a year), generate,
-     copy, paste. The browser remembers it until it expires.
+     GitHub with the editing permissions ticked; choose _Only select
+     repositories → victorias-website_, an expiry (up to a year). For
+     [feedback mode](#leaving-feedback-asking-for-a-change-anywhere-on-the-site)
+     also set **Repository permissions → Issues: Read and write** (next to
+     Contents: Read and write). Generate, copy, paste. The browser remembers
+     it until it expires. An existing token can be given Issues later:
+     GitHub → Settings → Developer settings → Personal access tokens →
+     Fine-grained tokens → the token → Edit.
    - **Sign In with GitHub** (one click, nicer): needs a small free sign-in
      helper set up once – see below. Until then that button won't work.
 
