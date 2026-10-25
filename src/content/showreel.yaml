@@ -1,0 +1,6 @@
+# Showreel chapters: buttons under the video that jump to a scene, e.g.
+#   chapters:
+#     - label: Comedy
+#       time: "0:12"
+# (none listed: no buttons). Editable at /admin → Showreel.
+chapters: []

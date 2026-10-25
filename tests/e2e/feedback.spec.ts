@@ -125,7 +125,7 @@ test("feedback mode on a phone: first tap outlines, second tap picks", async ({
   test.skip(!isMobile, "touch screen");
   await signIn(page);
   await page.goto("/index.html?feedback");
-  const name = page.locator("#about > h1");
+  const name = page.locator(".hero-name");
   await name.tap();
   await expect(page.locator(".fb-outline")).toBeVisible();
   await expect(page.locator(".fb-panel")).toHaveCount(0);

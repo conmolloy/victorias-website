@@ -145,3 +145,9 @@ export function cvFile(path: string): string {
     );
   return v(path);
 }
+
+/** a showreel chapter's start, "m:ss" (as in showreel.yaml), in seconds */
+export function chapterSeconds(time: string): number {
+  const [minutes, seconds] = time.split(":").map(Number);
+  return minutes! * 60 + seconds!;
+}

@@ -1,4 +1,8 @@
 tagline: actor
+buttons:
+  showreel: Watch showreel
+  headshots: Headshots
+  cv: Download CV
 photo:
   file: /assets/img/headshot 2024/q1/victoria-adler-10.webp
   alt: Victoria Adler headshot by David Yiu, 2024

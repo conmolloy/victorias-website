@@ -1,5 +1,11 @@
 ---
+import { getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { chapterSeconds } from "../lib/media";
+
+// buttons under the video that jump to a scene: src/content/showreel.yaml
+// (editable at /admin → Showreel); none listed, no buttons
+const { chapters } = (await getEntry("showreel", "showreel"))!.data;
 ---
 
 <BaseLayout
@@ -20,6 +26,51 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       >
         <source src="assets/showreel/Showreel.mp4" type="video/mp4" />
       </video>
+      {chapters.length > 0 && (
+        <nav class="chapters" aria-label="Scenes in the showreel">
+          <ol>
+            {chapters.map((chapter) => (
+              <li>
+                <button
+                  type="button"
+                  class="chapter"
+                  data-time={chapterSeconds(chapter.time)}
+                >
+                  <span class="chapter-time">{chapter.time}</span>
+                  {chapter.label}
+                </button>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  // a chapter button plays the showreel from its scene; the scene that's
+  // playing is highlighted (aria-current)
+  const video = document.querySelector<HTMLVideoElement>("video.showreel");
+  const buttons = [
+    ...document.querySelectorAll<HTMLButtonElement>("button.chapter"),
+  ];
+  if (video && buttons.length) {
+    const start = (b: HTMLButtonElement) => Number(b.dataset.time);
+    for (const button of buttons)
+      button.addEventListener("click", () => {
+        video.currentTime = start(button);
+        void video.play();
+      });
+    const mark = () => {
+      const current = buttons
+        .filter((b) => start(b) <= video.currentTime)
+        .pop();
+      for (const b of buttons)
+        if (b === current) b.setAttribute("aria-current", "true");
+        else b.removeAttribute("aria-current");
+    };
+    video.addEventListener("timeupdate", mark);
+    video.addEventListener("seeked", mark);
+  }
+</script>

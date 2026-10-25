@@ -175,3 +175,41 @@ test("Google Tag Manager waits for the visitor", async ({ page }) => {
   await expect.poll(() => gtm.length).toBe(1);
   expect(gtm[0]).toContain("id=GTM-NXB648G");
 });
+
+test("home: name, tagline and the three casting buttons over the video", async ({
+  page,
+}) => {
+  await page.goto("/index.html", { waitUntil: "domcontentloaded" });
+  const hero = page.locator(".hero");
+  await expect(hero.locator("h1")).toHaveText("Victoria Adler");
+  await expect(
+    hero.getByRole("link", { name: "Watch showreel" }),
+  ).toHaveAttribute("href", "showreel");
+  await expect(hero.getByRole("link", { name: "Headshots" })).toHaveAttribute(
+    "href",
+    "headshot",
+  );
+  // the same cache-safe CV address as the CV page's download link
+  const cv = await hero
+    .getByRole("link", { name: "Download CV" })
+    .getAttribute("href");
+  await page.goto("/resume.html", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#download-link")).toHaveAttribute("href", cv!);
+  await page.goto("/index.html", { waitUntil: "domcontentloaded" });
+  // nothing cut off: the buttons are inside the video box, on the first screen
+  const box = (await page.locator(".video-container").boundingBox())!;
+  const buttons = (await hero.locator(".hero-actions").boundingBox())!;
+  expect(buttons.y).toBeGreaterThan(box.y);
+  expect(buttons.y + buttons.height).toBeLessThanOrEqual(box.y + box.height);
+  expect(buttons.y + buttons.height).toBeLessThanOrEqual(
+    page.viewportSize()!.height,
+  );
+  // one main heading on the page
+  await expect(page.locator("h1")).toHaveCount(1);
+});
+
+test("showreel: no chapter buttons while none are listed", async ({ page }) => {
+  await page.goto("/showreel.html");
+  await expect(page.locator("video.showreel")).toBeVisible();
+  await expect(page.locator(".chapters")).toHaveCount(0);
+});

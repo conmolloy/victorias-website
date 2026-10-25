@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { parse } from "yaml";
 import {
   audioFile,
+  chapterSeconds,
   cvFile,
   encodePath,
   videoPreview,
@@ -116,6 +117,14 @@ describe("videoPreview()", () => {
     expect(() =>
       videoPreview({ title: "New", url: "https://vimeo.com/1" }),
     ).toThrow(/tools\/video_facades\.py/);
+  });
+});
+
+describe("chapterSeconds()", () => {
+  it("turns a showreel time (m:ss) into seconds", () => {
+    expect(chapterSeconds("0:12")).toBe(12);
+    expect(chapterSeconds("1:05")).toBe(65);
+    expect(chapterSeconds("12:00")).toBe(720);
   });
 });
 

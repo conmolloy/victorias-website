@@ -4,7 +4,7 @@ import Contact from "../components/Contact.astro";
 import PersonSchema from "../components/PersonSchema.astro";
 import ReviewCard from "../components/reviews/ReviewCard.astro";
 import { getEntry } from "astro:content";
-import { paragraphs, publicAsset } from "../lib/media";
+import { cvFile, paragraphs, publicAsset } from "../lib/media";
 import { caption, reviewRows } from "../lib/reviews";
 
 // tagline, photo, about text and contact details: src/content/home.yaml
@@ -13,6 +13,9 @@ const home = (await getEntry("home", "home"))!.data;
 const { press } = (await getEntry("reviews", "reviews"))!.data;
 const homeReviews = reviewRows(press.filter((review) => review.home));
 const bio = paragraphs(home.bio);
+// the hero's "Download CV": the same (cache-safe) address as the CV page's
+const cv = (await getEntry("cv", "cv"))!.data;
+const cvHref = cvFile(cv.file);
 ---
 
 <BaseLayout
@@ -43,6 +46,22 @@ const bio = paragraphs(home.bio);
       >
         <source src="assets/video/12-2024-header-1920.mp4" type="video/mp4" />
       </video>
+      {/* the first screen for casting: who, and the three things they want */}
+      <div class="hero">
+        <h1 class="hero-name">Victoria Adler</h1>
+        <p class="hero-tagline">{home.tagline}</p>
+        <div class="hero-actions">
+          <a class="hero-btn hero-btn-primary" href="showreel">
+            {home.buttons.showreel}
+          </a>
+          <a class="hero-btn" href="headshot">
+            {home.buttons.headshots}
+          </a>
+          <a class="hero-btn" href={cvHref} download>
+            {home.buttons.cv}
+          </a>
+        </div>
+      </div>
       <div class="scroll-down-arrow">
         <i class="fa fa-arrow-down"></i>
       </div>
@@ -50,10 +69,6 @@ const bio = paragraphs(home.bio);
   </div>
 
   <section class="text-center content-section" id="about">
-    <h1>
-      <b>Victoria Adler</b>
-    </h1>
-    <h3 class="tagline">{home.tagline}</h3>
     {homeReviews.map((row) => (
       <div class="row">
         {row.map((review) => (

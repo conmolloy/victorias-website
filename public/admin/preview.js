@@ -111,13 +111,38 @@ const HomePreview = ({ entry, getAsset }) => {
   const d = dataOf(entry);
   const photo = d.photo || {};
   const contact = d.contact || {};
+  const buttons = d.buttons || {};
   return html`
+    <div className="header-container">
+      <div
+        className="video-container"
+        style=${{
+          background: "#000 url('/assets/video/vid%201.webp') center / cover",
+        }}
+      >
+        <div className="hero">
+          <h1 className="hero-name">Victoria Adler</h1>
+          <p className="hero-tagline" data-key-path="tagline">${d.tagline}</p>
+          <div className="hero-actions">
+            <span
+              className="hero-btn hero-btn-primary"
+              data-key-path="buttons.showreel"
+              >${buttons.showreel}</span
+            >
+            <span className="hero-btn" data-key-path="buttons.headshots"
+              >${buttons.headshots}</span
+            >
+            <span className="hero-btn" data-key-path="buttons.cv"
+              >${buttons.cv}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
     <section className="text-center content-section" id="about">
-      <h1><b>Victoria Adler</b></h1>
-      <h3 className="tagline" data-key-path="tagline">${d.tagline}</h3>
       <p className="cms-note">
-        The header video and the reviews (Reviews → “Also show on the home
-        page”) appear here on the real page.
+        On the real page the header plays the video, and the reviews (Reviews →
+        “Also show on the home page”) appear here.
       </p>
       <div className="row">
         <div className="col-sm">
@@ -721,9 +746,46 @@ const CvPreview = ({ entry, getAsset }) => {
   `;
 };
 
+/* ---------- showreel page (src/pages/showreel.astro) ---------- */
+
+const ShowreelPreview = ({ entry }) => {
+  const chapters = dataOf(entry).chapters || [];
+  return html`
+    <div className="container">
+      <section className="projects-clean light">
+        <div className="cms-missing">The showreel video plays here.</div>
+        ${
+          chapters.length
+            ? html`<nav className="chapters">
+                <ol>
+                  ${chapters.map(
+                    (chapter, i) =>
+                      html`<li key=${i}>
+                        <button
+                          type="button"
+                          className="chapter"
+                          data-key-path=${`chapters.${i}`}
+                        >
+                          <span className="chapter-time">${chapter.time}</span>
+                          ${chapter.label}
+                        </button>
+                      </li>`,
+                  )}
+                </ol>
+              </nav>`
+            : html`<p className="cms-note">
+                No chapters: no buttons under the video.
+              </p>`
+        }
+      </section>
+    </div>
+  `;
+};
+
 /* names are the files' `name` in config.yml */
 CMS.registerPreviewTemplate("home", HomePreview);
 CMS.registerPreviewTemplate("gallery", GalleryPreview);
 CMS.registerPreviewTemplate("headshots", HeadshotsPreview);
 CMS.registerPreviewTemplate("reviews", ReviewsPreview);
 CMS.registerPreviewTemplate("cv", CvPreview);
+CMS.registerPreviewTemplate("showreel", ShowreelPreview);
