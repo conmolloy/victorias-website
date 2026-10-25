@@ -97,11 +97,10 @@ export function whereOnPage(el: Element): string[] {
   const section = headings
     .filter((h) => h.matches("h1, h2") && before(h))
     .pop();
-  // gallery: a show's photos come before its title
-  const showRow = el.closest(".row.projects");
-  const showTitle = showRow?.nextElementSibling?.matches(".production")
-    ? showRow.nextElementSibling.querySelector("h3")
-    : headings.filter((h) => h.matches("h3") && before(h)).pop();
+  // gallery: the show card it's in (its title isn't a heading)
+  const showTitle =
+    el.closest(".show-card")?.querySelector(".show-title") ??
+    headings.filter((h) => h.matches("h3") && before(h)).pop();
   const parts = [page, text(section), text(showTitle ?? undefined)];
   return parts.filter((p, i) => p && parts.indexOf(p) === i);
 }

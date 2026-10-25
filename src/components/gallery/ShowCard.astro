@@ -1,0 +1,82 @@
+---
+/**
+ * A cover card in the gallery grid (see src/lib/gallery.ts): the first photo
+ * with the show's title, company and role over it. It links to the photo,
+ * which the lightbox opens together with the card's other photos (hidden
+ * links with the same data-group; their thumbnails aren't downloaded).
+ */
+import { photo as photoAttrs } from "../../lib/photos";
+import { cardSize, categorySlug, type Card } from "../../lib/gallery";
+
+interface Props {
+  card: Card;
+  index: number;
+  /** first screen: load straight away instead of when scrolled near */
+  eager?: boolean;
+}
+
+const { card, index, eager = false } = Astro.props;
+const size = cardSize(index);
+// each photo's address/srcset/size, with its description
+const photos = await Promise.all(
+  card.photos.map(async (p) => ({ ...(await photoAttrs(p.file)), alt: p.alt })),
+);
+// widths the cover is shown at (4 columns from 992px, 3 from 768px, 2 on
+// phones; big and wide cards are two columns)
+const sizes =
+  size === "normal"
+    ? "(min-width: 1200px) 270px, (min-width: 992px) 230px, (min-width: 768px) 230px, 50vw"
+    : "(min-width: 1200px) 550px, (min-width: 992px) 470px, (min-width: 768px) 470px, 100vw";
+const cover = photos[0]!;
+const rest = photos.slice(1);
+const meta = [card.company, card.role].filter(Boolean).join(" · ");
+---
+
+<article
+  class:list={["show-card", `show-card-${size}`]}
+  data-category={categorySlug(card.category)}
+>
+  <a
+    class="lightbox-link show-cover"
+    href={cover.src}
+    data-group={card.key}
+    data-caption={card.caption}
+  >
+    <img
+      alt={cover.alt}
+      loading={eager ? undefined : "lazy"}
+      fetchpriority={eager && index === 0 ? "high" : undefined}
+      decoding="async"
+      src={cover.src}
+      srcset={cover.srcset}
+      sizes={sizes}
+      width={cover.width}
+      height={cover.height}
+    />
+    <span class="show-card-text">
+      <span class="show-title">{card.title}</span>
+      {meta && <span class="show-meta">{meta}</span>}
+      <span class="show-count">
+        {card.photos.length} photo{card.photos.length === 1 ? "" : "s"}
+      </span>
+    </span>
+  </a>
+  {rest.map((p) => (
+    <a
+      class="lightbox-link"
+      hidden
+      href={p.src}
+      data-group={card.key}
+      data-caption={card.caption}
+    >
+      <img
+        alt={p.alt}
+        loading="lazy"
+        decoding="async"
+        src={p.src}
+        width={p.width}
+        height={p.height}
+      />
+    </a>
+  ))}
+</article>

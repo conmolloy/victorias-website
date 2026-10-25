@@ -165,6 +165,13 @@ collections:
                 label: Role(s)
                 widget: string
                 hint: e.g. "Macduff & First Witch"
+              - name: category
+                label: Filter
+                widget: select
+                options: ["Theatre", "Dance", "Stage combat"]
+                default: Theatre
+                required: false
+                hint: Which filter button above the gallery shows it.
               - name: photos_by
                 label: Photos by
                 widget: string

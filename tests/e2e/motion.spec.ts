@@ -8,7 +8,8 @@ test.beforeEach(({ page }) => offline3rdParty(page));
 const dialog = (page: Page) => page.locator("dialog.lightbox");
 const count = (page: Page) => page.locator(".lightbox-count");
 
-for (const name of ["gallery", "headshot"]) {
+// (gallery cards open their own photos: tests/e2e/gallery.spec.ts)
+for (const name of ["headshot"]) {
   test(`${name}: a photo opens in the lightbox, browses, closes`, async ({
     page,
   }) => {
@@ -116,7 +117,7 @@ test("lightbox: swipe left/right for next/previous", async ({
   isMobile,
 }) => {
   test.skip(!isMobile, "touch screen");
-  await page.goto("/gallery.html");
+  await page.goto("/headshot.html");
   await page.locator("a.lightbox-link").first().click();
   await expect(dialog(page)).toBeVisible();
   const total = await page.locator("a.lightbox-link").count();

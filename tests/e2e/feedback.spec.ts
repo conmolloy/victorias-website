@@ -87,9 +87,9 @@ test("feedback mode: pick a photo, send, the issue says what and where", async (
   expect(body).toMatch(
     /\*\*Page:\*\* \[Gallery – Victoria Adler\]\(http:\/\/localhost:\d+\/gallery\.html\)/,
   );
-  expect(body).toContain("**Where:** Gallery › Acting › Treasure Island");
+  expect(body).toContain("**Where:** Gallery › Photos › Treasure Island");
   expect(body).toMatch(
-    /\*\*Element:\*\* `img` – `.*a\.lightbox-link > img\.img-fluid`/,
+    /\*\*Element:\*\* `img` – `.*a\.lightbox-link\.show-cover > img`/,
   );
   expect(body).toMatch(/\*\*Image:\*\* `[^`]+\.webp` – “.+”/);
   expect(body).toMatch(/\*\*Screen:\*\* \d+×\d+ \(desktop\)/);
@@ -140,6 +140,9 @@ test("feedback mode explains what to do without a sign-in or permission", async 
   test.skip(isMobile, "checked at desktop width");
   const requests = await mockGitHub(page, 403);
   await page.goto("/reviews.html?feedback");
+  await expect(
+    page.getByRole("region", { name: "Feedback mode" }),
+  ).toBeVisible();
   await page.locator(".reviews-title").click();
   await page.getByRole("textbox").fill("Bigger title please");
   await page.getByRole("button", { name: "Send" }).click();
