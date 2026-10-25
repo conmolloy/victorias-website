@@ -19,16 +19,6 @@ const { shoots } = (await getEntry("headshots", "headshots"))!.data;
   path="/headshot"
   preloads={["cabin-700-latin.woff2", "roboto-400-latin.woff2"]}
 >
-  <div class="header-container">
-    <section class="projects-clean light">
-      <div class="container">
-        <div class="row header-new">
-          <div class="intro"></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
   {shoots.map((shoot, i) => (
     <>
       <div class="container">

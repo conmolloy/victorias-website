@@ -7,7 +7,9 @@
  *     visitors never download it
  *   - hover (or a first tap on a phone) outlines the thing under the pointer;
  *     a click (second tap, or Enter on something focused) picks it and opens
- *     a small form; links, the lightbox and videos don't react meanwhile
+ *     a small form; links, the lightbox and videos don't react meanwhile –
+ *     except the navbar, which keeps working to move between pages ("Comment
+ *     on the menu" on the bar picks the navbar itself)
  *   - the issue is created with the GitHub sign-in the editing screen keeps
  *     in this browser (Sveltia CMS's "sveltia-cms.user" in localStorage) –
  *     the token is only read here, never shown or logged
@@ -176,7 +178,7 @@ export function initFeedback(): void {
   bar.setAttribute(UI, "");
   bar.setAttribute("role", "region");
   bar.setAttribute("aria-label", "Feedback mode");
-  bar.innerHTML = `<strong>Feedback mode</strong><span>Click or tap anything you'd like changed.</span><button type="button" class="fb-btn">Exit</button>`;
+  bar.innerHTML = `<strong>Feedback mode</strong><span>Click or tap anything you'd like changed – the menu still works, to move between pages.</span><button type="button" class="fb-btn fb-menu">Comment on the menu</button><button type="button" class="fb-btn fb-exit">Exit</button>`;
   const outline = document.createElement("div");
   outline.className = "fb-outline";
   outline.setAttribute(UI, "");
@@ -190,6 +192,10 @@ export function initFeedback(): void {
   let panel: HTMLElement | null = null;
   let picked: Element | null = null;
 
+  // the navbar keeps working (to move between pages); "Comment on the
+  // menu" on the bar picks it instead
+  const inMenu = (t: EventTarget | null) =>
+    t instanceof Element && !!t.closest("#mainNav");
   const ours = (t: EventTarget | null) =>
     t instanceof Element && !!t.closest(`[${UI}]`);
 
@@ -326,10 +332,11 @@ export function initFeedback(): void {
   };
   const onOver = (e: PointerEvent) => {
     if (panel || e.pointerType === "touch" || ours(e.target)) return;
+    if (inMenu(e.target)) return highlight(null);
     if (e.target instanceof Element) highlight(e.target);
   };
   const onClick = (e: MouseEvent) => {
-    if (ours(e.target)) return;
+    if (ours(e.target) || inMenu(e.target)) return;
     // nothing on the page reacts (links, lightbox, videos)
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -341,7 +348,7 @@ export function initFeedback(): void {
   };
   // keyboard: Enter on something focused picks it
   const onKey = (e: KeyboardEvent) => {
-    if (ours(e.target) || panel) return;
+    if (ours(e.target) || inMenu(e.target) || panel) return;
     if (
       e.key === "Enter" &&
       e.target instanceof Element &&
@@ -359,7 +366,11 @@ export function initFeedback(): void {
   addEventListener("keydown", onKey, true);
   addEventListener("scroll", onScroll, { passive: true });
 
-  bar.querySelector("button")!.addEventListener("click", () => {
+  bar.querySelector(".fb-menu")!.addEventListener("click", () => {
+    const menu = document.getElementById("mainNav");
+    if (menu) openPanel(menu);
+  });
+  bar.querySelector(".fb-exit")!.addEventListener("click", () => {
     try {
       sessionStorage.removeItem(FLAG);
     } catch {
