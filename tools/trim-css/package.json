@@ -6,7 +6,7 @@
     "trim": "node trim-css.js"
   },
   "dependencies": {
-    "postcss": "8.5.31",
-    "puppeteer-core": "25.15.0"
+    "postcss": "8.5.32",
+    "puppeteer-core": "25.16.0"
   }
 }
